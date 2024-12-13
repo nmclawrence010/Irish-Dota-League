@@ -1,7 +1,7 @@
-import { useEffect, useState, useCallback } from 'react';
-import { supabase } from '../lib/supabase';
-import { Team } from '../types/tournament';
-import { useAuth } from './useAuth';
+import { useEffect, useState, useCallback } from "react";
+import { supabase } from "../lib/supabase";
+import { Team } from "../types/tournament";
+import { useAuth } from "./useAuth";
 
 export const useMyTeam = () => {
   const [team, setTeam] = useState<Team | null>(null);
@@ -13,27 +13,23 @@ export const useMyTeam = () => {
     if (!user?.sub) return;
 
     try {
-      const { data, error } = await supabase
-        .from('teams')
-        .select('*');
+      const { data, error } = await supabase.from("teams").select("*");
 
       if (error) throw error;
 
       if (data) {
-        const parsedTeams = data.map(team => ({
+        const parsedTeams = data.map((team) => ({
           ...team,
-          players: team.players.map((player: string) => JSON.parse(player))
+          players: team.players.map((player: string) => JSON.parse(player)),
         }));
 
-        const myTeam = parsedTeams.find(team => 
-          team.players.some((player: { auth_id: string }) => player.auth_id === user.sub)
-        );
+        const myTeam = parsedTeams.find((team) => team.players.some((player: { auth_id: string }) => player.auth_id === user.sub));
 
         setTeam(myTeam || null);
       }
     } catch (err) {
-      console.error('Error fetching team:', err);
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      console.error("Error fetching team:", err);
+      setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
       setLoading(false);
     }
@@ -43,10 +39,10 @@ export const useMyTeam = () => {
     fetchTeam();
   }, [fetchTeam]);
 
-  return { 
-    team, 
-    loading, 
+  return {
+    team,
+    loading,
     error,
-    mutate: fetchTeam
+    mutate: fetchTeam,
   };
-}; 
+};

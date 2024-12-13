@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Match, Division } from '../types/tournament';
-import { useTournamentStore } from '../store/tournamentStore';
-import { ChevronDown, ChevronUp } from 'lucide-react';
-import { clsx } from 'clsx';
+import React, { useState } from "react";
+import { Match, Division } from "../types/tournament";
+import { useTournamentStore } from "../store/tournamentStore";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import { clsx } from "clsx";
 
 interface MatchListProps {
   division: Division;
@@ -14,7 +14,7 @@ export const MatchList: React.FC<MatchListProps> = ({ division }) => {
 
   const getTeamName = (teamId: string): string => {
     const team = division.teams.find((t) => t.id === teamId);
-    return team?.name || 'Unknown Team';
+    return team?.name || "Unknown Team";
   };
 
   const handleGameUpdate = (match: Match, gameNumber: 1 | 2, winner: string) => {
@@ -22,15 +22,14 @@ export const MatchList: React.FC<MatchListProps> = ({ division }) => {
       ...match,
       games: {
         ...match.games,
-        [gameNumber === 1 ? 'game1Winner' : 'game2Winner']: winner,
+        [gameNumber === 1 ? "game1Winner" : "game2Winner"]: winner,
       },
     };
 
     // If both games are completed, calculate the final score
     if (updatedMatch.games.game1Winner && updatedMatch.games.game2Winner) {
-      const team1Wins = 
-        (updatedMatch.games.game1Winner === match.team1Id ? 1 : 0) +
-        (updatedMatch.games.game2Winner === match.team1Id ? 1 : 0);
+      const team1Wins =
+        (updatedMatch.games.game1Winner === match.team1Id ? 1 : 0) + (updatedMatch.games.game2Winner === match.team1Id ? 1 : 0);
       const team2Wins = 2 - team1Wins;
 
       updatedMatch.completed = true;
@@ -41,11 +40,7 @@ export const MatchList: React.FC<MatchListProps> = ({ division }) => {
   };
 
   const toggleWeek = (week: number) => {
-    setExpandedWeeks(prev => 
-      prev.includes(week) 
-        ? prev.filter(w => w !== week)
-        : [...prev, week]
-    );
+    setExpandedWeeks((prev) => (prev.includes(week) ? prev.filter((w) => w !== week) : [...prev, week]));
   };
 
   const matchesByWeek = division.matches.reduce((acc, match) => {
@@ -59,7 +54,7 @@ export const MatchList: React.FC<MatchListProps> = ({ division }) => {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mt-6 transition-colors">
       <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Fixture List</h3>
-      
+
       <div className="space-y-4">
         {Object.entries(matchesByWeek).map(([week, matches]) => (
           <div key={week} className="border dark:border-gray-700 rounded-lg overflow-hidden">
@@ -74,15 +69,14 @@ export const MatchList: React.FC<MatchListProps> = ({ division }) => {
                 <ChevronDown size={20} className="text-gray-500 dark:text-gray-400" />
               )}
             </button>
-            
-            <div className={clsx('transition-all duration-300', {
-              'hidden': !expandedWeeks.includes(parseInt(week)),
-            })}>
+
+            <div
+              className={clsx("transition-all duration-300", {
+                hidden: !expandedWeeks.includes(parseInt(week)),
+              })}
+            >
               {matches.map((match) => (
-                <div
-                  key={match.id}
-                  className="border-t dark:border-gray-700 p-4 bg-white dark:bg-gray-800"
-                >
+                <div key={match.id} className="border-t dark:border-gray-700 p-4 bg-white dark:bg-gray-800">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center space-x-4 text-gray-900 dark:text-white">
                       <span className="font-medium">{getTeamName(match.team1Id)}</span>
@@ -116,9 +110,7 @@ export const MatchList: React.FC<MatchListProps> = ({ division }) => {
                             </button>
                           </div>
                         ) : (
-                          <span className="text-sm text-gray-900 dark:text-white">
-                            Winner: {getTeamName(match.games.game1Winner)}
-                          </span>
+                          <span className="text-sm text-gray-900 dark:text-white">Winner: {getTeamName(match.games.game1Winner)}</span>
                         )}
                       </div>
 
@@ -140,9 +132,7 @@ export const MatchList: React.FC<MatchListProps> = ({ division }) => {
                             </button>
                           </div>
                         ) : (
-                          <span className="text-sm text-gray-900 dark:text-white">
-                            Winner: {getTeamName(match.games.game2Winner)}
-                          </span>
+                          <span className="text-sm text-gray-900 dark:text-white">Winner: {getTeamName(match.games.game2Winner)}</span>
                         )}
                       </div>
                     </div>

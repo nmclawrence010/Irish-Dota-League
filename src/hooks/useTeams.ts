@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
-import { Team } from '../types/tournament';
+import { useEffect, useState } from "react";
+import { supabase } from "../lib/supabase";
+import { Team } from "../types/tournament";
 
 export const useTeams = (divisionId: number) => {
   const [teams, setTeams] = useState<Team[]>([]);
@@ -11,17 +11,17 @@ export const useTeams = (divisionId: number) => {
     const fetchTeams = async () => {
       try {
         const { data, error } = await supabase
-          .from('teams')
-          .select('*')
-          .eq('division_id', divisionId)
-          .order('points', { ascending: false });
+          .from("teams")
+          .select("*")
+          .eq("division_id", divisionId)
+          .order("points", { ascending: false });
 
         if (error) throw error;
-        
+
         setTeams(data || []);
       } catch (err) {
-        console.error('Error fetching teams:', err);
-        setError(err instanceof Error ? err.message : 'An error occurred');
+        console.error("Error fetching teams:", err);
+        setError(err instanceof Error ? err.message : "An error occurred");
       } finally {
         setLoading(false);
       }
@@ -31,4 +31,4 @@ export const useTeams = (divisionId: number) => {
   }, [divisionId]);
 
   return { teams, loading, error };
-}; 
+};

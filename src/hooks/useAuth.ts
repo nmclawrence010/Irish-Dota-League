@@ -1,6 +1,6 @@
-import { useAuth0 } from '@auth0/auth0-react';
-import { useAuthStore } from '@/store/useAuthStore';
-import { useEffect } from 'react';
+import { useAuth0 } from "@auth0/auth0-react";
+import { useAuthStore } from "@/store/useAuthStore";
+import { useEffect } from "react";
 
 export const useAuth = () => {
   const { isAuthenticated, user, setAuth, clearAuth } = useAuthStore();
@@ -9,16 +9,16 @@ export const useAuth = () => {
   useEffect(() => {
     if (auth0.isAuthenticated && auth0.user) {
       setAuth(true, auth0.user);
-    } else {
+    } else if (!auth0.isLoading) {
       clearAuth();
     }
-  }, [auth0.isAuthenticated, auth0.user]);
+  }, [auth0.isAuthenticated, auth0.user, auth0.isLoading]);
 
   return {
     isAuthenticated,
     user,
+    isLoading: auth0.isLoading,
     login: auth0.loginWithRedirect,
     logout: auth0.logout,
-    // Add any other auth-related functions you need
   };
 };

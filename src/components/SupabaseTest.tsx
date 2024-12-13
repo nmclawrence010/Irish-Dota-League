@@ -1,27 +1,24 @@
-import { useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
+import { useEffect, useState } from "react";
+import { supabase } from "../lib/supabase";
 
 export const SupabaseTest = () => {
-  const [status, setStatus] = useState<string>('Testing...');
+  const [status, setStatus] = useState<string>("Testing...");
 
   useEffect(() => {
     const testConnection = async () => {
       try {
-        const { data, error } = await supabase
-          .from('teams')
-          .select('*')
-          .limit(1);
+        const { data, error } = await supabase.from("teams").select("*").limit(1);
 
         if (error) {
-          console.error('Test query error:', error);
+          console.error("Test query error:", error);
           setStatus(`Error: ${error.message}`);
           return;
         }
 
-        console.log('Test query result:', data);
-        setStatus('Connection successful!');
+        console.log("Test query result:", data);
+        setStatus("Connection successful!");
       } catch (err) {
-        console.error('Test error:', err);
+        console.error("Test error:", err);
         setStatus(`Catch error: ${err instanceof Error ? err.message : String(err)}`);
       }
     };
@@ -35,4 +32,4 @@ export const SupabaseTest = () => {
       <p>{status}</p>
     </div>
   );
-}; 
+};
