@@ -23,7 +23,7 @@ export const LFTPage: React.FC = () => {
       <div className="flex flex-col gap-4">
         <button
           onClick={() => setShowForm(!showForm)}
-          className="flex items-center justify-center space-x-2 bg-[#169B62] hover:bg-[#0b472d] dark:bg-[#0A2F51] dark:hover:bg-[#0E4D64] text-white py-3 px-6 rounded-lg transition-colors text-lg font-medium"
+          className="flex items-center justify-center space-x-2 bg-[#169B62] hover:bg-[#128152]/80 dark:bg-[#0A2F51] dark:hover:bg-[#0E4D64] text-white py-3 px-6 rounded-lg transition-colors text-lg font-medium"
         >
           <span>{showForm ? "Hide Registration Form" : "Register as LFT"}</span>
           {showForm ? <ChevronUp size={20} /> : <ChevronDown size={20} />}

@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { supabase } from "../lib/supabase";
 import { useAuth } from "../hooks/useAuth";
 import { Player } from "../types/tournament";
+import { Link } from "react-router-dom";
+import { CheckCircle2 } from "lucide-react";
 
 interface PlayerFormData {
   name: string;
   steamProfile: string;
   rank: string;
   auth_id?: string;
+  country?: string;
 }
 
 const initialPlayerState: PlayerFormData = {
@@ -16,11 +19,23 @@ const initialPlayerState: PlayerFormData = {
   rank: "",
 };
 
+const getCountry = async () => {
+  try {
+    const response = await fetch('https://ipapi.co/json/');
+    const data = await response.json();
+    return data.country_name;
+  } catch (error) {
+    console.error('Error getting country:', error);
+    return 'Unknown';
+  }
+};
+
 export const JoinTeamForm: React.FC = () => {
   const [teamId, setTeamId] = useState("");
   const [player, setPlayer] = useState<PlayerFormData>(initialPlayerState);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isSuccess, setIsSuccess] = useState(false);
   const { user } = useAuth();
 
   const handlePlayerChange = (field: keyof PlayerFormData, value: string) => {
@@ -38,7 +53,11 @@ export const JoinTeamForm: React.FC = () => {
 
     try {
       // First, fetch the current team data
-      const { data: teamData, error: fetchError } = await supabase.from("teams").select("players").eq("id", teamId).single();
+      const { data: teamData, error: fetchError } = await supabase
+        .from("teams")
+        .select("players")
+        .eq("id", teamId)
+        .single();
 
       if (fetchError) throw fetchError;
       if (!teamData) throw new Error("Team not found");
@@ -51,21 +70,25 @@ export const JoinTeamForm: React.FC = () => {
         throw new Error("Team is already full");
       }
 
+      const country = await getCountry();
+
       // Add new player
       const playerWithAuthId = {
         ...player,
         auth_id: user.sub,
+        country: country,
       };
 
       // Create new array with stringified player objects
-      const updatedPlayers = [...currentPlayers.map((p: Player) => JSON.stringify(p)), JSON.stringify(playerWithAuthId)];
+      const updatedPlayers = [
+        ...currentPlayers.map((p: Player) => JSON.stringify(p)),
+        JSON.stringify(playerWithAuthId)
+      ];
 
       // Update the team with the new player
       const { error: updateError } = await supabase
         .from("teams")
-        .update({
-          players: updatedPlayers, // Now sending array of stringified objects
-        })
+        .update({ players: updatedPlayers })
         .eq("id", teamId);
 
       if (updateError) throw updateError;
@@ -73,7 +96,7 @@ export const JoinTeamForm: React.FC = () => {
       // Reset form on success
       setTeamId("");
       setPlayer(initialPlayerState);
-      alert("Successfully joined team!");
+      setIsSuccess(true);
     } catch (err) {
       console.error("Error joining team:", err);
       setError(err instanceof Error ? err.message : "An error occurred");
@@ -81,6 +104,40 @@ export const JoinTeamForm: React.FC = () => {
       setIsSubmitting(false);
     }
   };
+
+  if (isSuccess) {
+    return (
+      <div className="max-w-4xl mx-auto">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 transition-colors">
+          <div className="text-center space-y-4">
+            <div className="flex justify-center">
+              <CheckCircle2 className="h-16 w-16 text-green-500" />
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              Successfully Joined Team!
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300">
+              You have successfully joined the team. You can now view your team details and roster.
+            </p>
+            <div className="flex justify-center space-x-4 pt-4">
+              <Link
+                to="/my-team"
+                className="bg-[#169B62] hover:bg-[#0b472d] dark:bg-[#0A2F51] dark:hover:bg-[#0E4D64] text-white px-6 py-3 rounded-lg transition-colors font-medium"
+              >
+                View My Team
+              </Link>
+              <Link
+                to="/"
+                className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white px-6 py-3 rounded-lg transition-colors font-medium"
+              >
+                Return to Home
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const ranks = ["Herald", "Guardian", "Crusader", "Archon", "Legend", "Ancient", "Divine", "Immortal"];
 
@@ -165,7 +222,7 @@ export const JoinTeamForm: React.FC = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-indigo-600 dark:bg-indigo-500 text-white py-4 px-6 rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 focus:outline-none focus:ring-4 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:ring-opacity-50 transition-colors text-lg font-medium"
+              className="w-full bg-[#169B62] dark:bg-indigo-500 text-white py-4 px-6 rounded-lg hover:bg-[#128152]/80 dark:hover:bg-indigo-600 focus:outline-none focus:ring-4 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:ring-opacity-50 transition-colors text-lg font-medium"
             >
               {isSubmitting ? "Joining Team..." : "Join Team"}
             </button>

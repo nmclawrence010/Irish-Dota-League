@@ -32,13 +32,19 @@ export const MyTeamPage: React.FC = () => {
   const handleRemovePlayer = async (playerToRemove: Player) => {
     if (!team || !isTeamCaptain) return;
 
+    const confirmed = window.confirm(`Are you sure you want to remove ${playerToRemove.name} from the team?`);
+    if (!confirmed) return;
+
     try {
       // Filter out the player to remove and stringify remaining players
       const updatedPlayers = team.players
         .filter((player) => player.auth_id !== playerToRemove.auth_id)
         .map((player) => JSON.stringify(player));
 
-      const { error: updateError } = await supabase.from("teams").update({ players: updatedPlayers }).eq("id", team.id);
+      const { error: updateError } = await supabase
+        .from("teams")
+        .update({ players: updatedPlayers })
+        .eq("id", team.id);
 
       if (updateError) throw updateError;
 
@@ -106,7 +112,7 @@ export const MyTeamPage: React.FC = () => {
               ) : (
                 <>
                   <Copy size={16} />
-                  <span>Copy Team ID</span>
+                  <span>Copy Team Invite Code</span>
                 </>
               )}
             </button>

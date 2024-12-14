@@ -16,12 +16,24 @@ interface PlayerFormData {
   steamProfile: string;
   rank: string;
   auth_id?: string;
+  country?: string;
 }
 
 const initialPlayerState: PlayerFormData = {
   name: "",
   steamProfile: "",
   rank: "",
+};
+
+const getCountry = async () => {
+  try {
+    const response = await fetch('https://ipapi.co/json/');
+    const data = await response.json();
+    return data.country_name;
+  } catch (error) {
+    console.error('Error getting country:', error);
+    return 'Unknown';
+  }
 };
 
 export const AddTeamForm: React.FC<AddTeamFormProps> = ({ divisionId }) => {
@@ -68,22 +80,25 @@ export const AddTeamForm: React.FC<AddTeamFormProps> = ({ divisionId }) => {
 
     setIsSubmitting(true);
 
-    const playerWithAuthId = {
-      ...player,
-      auth_id: user.sub,
-    };
-
-    const newTeam = {
-      name: teamName,
-      players: [playerWithAuthId] as Player[],
-      points: 0,
-      wins: 0,
-      losses: 0,
-      draws: 0,
-      division_id: divisionId,
-    };
-
     try {
+      const country = await getCountry();
+      
+      const playerWithAuthId = {
+        ...player,
+        auth_id: user.sub,
+        country: country,
+      };
+
+      const newTeam = {
+        name: teamName,
+        players: [JSON.stringify(playerWithAuthId)],
+        points: 0,
+        wins: 0,
+        losses: 0,
+        draws: 0,
+        division_id: divisionId,
+      };
+
       const { data, error } = await supabase.from("teams").insert([newTeam]).select().single();
 
       if (error) throw error;

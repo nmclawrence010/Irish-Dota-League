@@ -3,6 +3,7 @@ export interface Player {
   steamProfile: string;
   rank: string;
   auth_id?: string;
+  country?: string;
 }
 
 export type Team = {

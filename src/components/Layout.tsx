@@ -10,7 +10,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors">
-      <header className="bg-gradient-to-r from-[#169B62] via-[#169B62]/80 to-[#169B62] dark:from-[#0A2F51] dark:via-[#0E4D64] dark:to-[#137177] text-white py-6 transition-colors">
+      <header className="bg-gradient-to-r from-[#169B62] via-[#169B62] to-[#169B62] dark:from-[#0A2F51] dark:via-[#0E4D64] dark:to-[#137177] text-white py-6 transition-colors">
         <div className="px-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-8">
@@ -64,7 +64,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                     className="flex items-center space-x-2 bg-yellow-400 text-gray-800 hover:bg-yellow-300 dark:bg-yellow-500 dark:text-gray-900 dark:hover:bg-yellow-400 px-4 py-2 rounded-full font-semibold transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-yellow-400/30 dark:hover:shadow-yellow-500/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#169B62] focus:ring-yellow-400"
                   >
                     <Users size={20} />
-                    <span>Team Signup</span>
+                    <span>Team Registration</span>
                   </Link>
 
                   <Link
