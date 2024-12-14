@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Users, ClipboardList, UserPlus, User, TableProperties, LogOut } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useAuth } from "../hooks/useAuth";
-import logo from "../public/irishdotalogo.png";
+import logo from "/irishdotalogo.png";
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, login, logout } = useAuth();
