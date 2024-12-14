@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useTournamentStore } from "../store/tournamentStore";
 import { supabase } from "../lib/supabase";
-import { Player } from "../types/tournament";
+// import { Player } from "../types/tournament";
 import { useAuth } from "../hooks/useAuth";
 import { useMyTeam } from "../hooks/useMyTeam";
 import { CheckCircle2 } from "lucide-react";
@@ -27,12 +27,12 @@ const initialPlayerState: PlayerFormData = {
 
 const getCountry = async () => {
   try {
-    const response = await fetch('https://ipapi.co/json/');
+    const response = await fetch("https://ipapi.co/json/");
     const data = await response.json();
     return data.country_name;
   } catch (error) {
-    console.error('Error getting country:', error);
-    return 'Unknown';
+    console.error("Error getting country:", error);
+    return "Unknown";
   }
 };
 
@@ -82,7 +82,7 @@ export const AddTeamForm: React.FC<AddTeamFormProps> = ({ divisionId }) => {
 
     try {
       const country = await getCountry();
-      
+
       const playerWithAuthId = {
         ...player,
         auth_id: user.sub,
