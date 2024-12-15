@@ -166,7 +166,7 @@ export const AddTeamForm: React.FC<AddTeamFormProps> = ({ divisionId }) => {
           </div>
 
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Player Information</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Captain Information</h3>
             <div className="bg-gray-50 dark:bg-gray-750 p-6 rounded-lg space-y-4 border-2 border-gray-200 dark:border-gray-600">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
