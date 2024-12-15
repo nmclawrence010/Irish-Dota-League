@@ -97,7 +97,7 @@ export const HomePage: React.FC = () => {
         <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
           {divisions.find((d) => d.id === selectedDivision)?.name} Fixtures
         </h2>
-        <div className="text-center text-gray-500 dark:text-gray-400 py-8">No fixtures available yet. Starts 13-01/2025</div>
+        <div className="text-center text-gray-500 dark:text-gray-400 py-8">No fixtures available yet. Starts 13-01-2025</div>
       </div>
     </div>
   );
