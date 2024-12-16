@@ -9,6 +9,7 @@ import { JoinTeamPage } from './pages/JoinTeamPage';
 import { MyTeamPage } from './pages/MyTeamPage';
 import { useThemeStore } from './store/themeStore';
 import { LFTPage } from './pages/LFTPage';
+import { ImprintPage } from './pages/ImprintPage';
 
 function App() {
   const isDark = useThemeStore((state) => state.isDark);
@@ -38,6 +39,7 @@ function App() {
             <Route path="/rosters" element={<RostersPage />} />
             <Route path="/my-team" element={<MyTeamPage />} />
             <Route path="/lft" element={<LFTPage />} />
+            <Route path="/imprint" element={<ImprintPage />} />
           </Routes>
         </Layout>
       </BrowserRouter>

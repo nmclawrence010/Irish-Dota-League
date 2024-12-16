@@ -3,11 +3,12 @@ import { Navigate } from "react-router-dom";
 import { LFTForm } from "../components/LFTForm";
 import { useLFTPlayers } from "../hooks/useLFTPlayers";
 import { useAuth } from "../hooks/useAuth";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, X } from "lucide-react";
+import { supabase } from "../lib/supabase";
 
 export const LFTPage: React.FC = () => {
-  const { isAuthenticated, isLoading } = useAuth();
-  const { players, loading, error } = useLFTPlayers();
+  const { isAuthenticated, isLoading, user } = useAuth();
+  const { players, loading, error, mutate } = useLFTPlayers();
   const [showForm, setShowForm] = useState(false);
 
   if (isLoading) {
@@ -17,6 +18,27 @@ export const LFTPage: React.FC = () => {
   if (!isAuthenticated) {
     return <Navigate to="/" replace />;
   }
+
+  const handleRemovePlayer = async (playerId: string) => {
+    if (!user?.sub) return;
+
+    const confirmed = window.confirm("Are you sure you want to remove yourself from the LFT list?");
+    if (!confirmed) return;
+
+    try {
+      const { error: deleteError } = await supabase
+        .from("lft_players")
+        .delete()
+        .eq("id", playerId);
+
+      if (deleteError) throw deleteError;
+
+      // Refresh the players list
+      mutate();
+    } catch (err) {
+      console.error("Error removing LFT entry:", err);
+    }
+  };
 
   return (
     <div className="space-y-8">
@@ -67,8 +89,10 @@ export const LFTPage: React.FC = () => {
               </thead>
               <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                 {players.map((player) => (
-                  <tr key={player.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                    <td className="px-6 py-4 whitespace-nowrap text-base font-medium text-gray-900 dark:text-white">{player.name}</td>
+                  <tr key={player.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors relative group">
+                    <td className="px-6 py-4 whitespace-nowrap text-base font-medium text-gray-900 dark:text-white">
+                      {player.name}
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900 dark:text-white">
                       <a
                         href={player.steamProfile}
@@ -79,7 +103,9 @@ export const LFTPage: React.FC = () => {
                         Steam Profile
                       </a>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900 dark:text-white">{player.rank}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900 dark:text-white">
+                      {player.rank}
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900 dark:text-white">
                       <div className="flex flex-wrap gap-1">
                         {player.roles.map((role) => (
@@ -92,7 +118,18 @@ export const LFTPage: React.FC = () => {
                         ))}
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-base text-gray-900 dark:text-white">{player.notes}</td>
+                    <td className="px-6 py-4 text-base text-gray-900 dark:text-white pr-12">
+                      {player.notes}
+                      {user?.sub === player.auth_id && (
+                        <button
+                          onClick={() => handleRemovePlayer(player.id)}
+                          className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 rounded-full text-red-500 hover:text-white hover:bg-red-500 dark:text-red-400 dark:hover:text-white dark:hover:bg-red-600 transition-all transform hover:scale-110"
+                          title="Remove yourself from LFT"
+                        >
+                          <X size={18} />
+                        </button>
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>

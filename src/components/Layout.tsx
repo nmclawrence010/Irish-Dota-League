@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Users, ClipboardList, UserPlus, User, TableProperties, LogOut } from "lucide-react";
+import { Users, ClipboardList, UserPlus, User, LogOut } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useAuth } from "../hooks/useAuth";
 import logo from "/irishdotalogo.png";
+import imprintlogo from "/imprint.png";
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, login, logout } = useAuth();
@@ -19,13 +20,13 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 <h1 className="text-3xl font-bold tracking-tight">Irish Dota League</h1>
               </Link>
 
-              <Link
+              {/* <Link
                 to="/"
                 className="flex items-center space-x-2 hover:text-white/90 hover:scale-105 transition-all duration-300 font-medium"
               >
                 <TableProperties size={20} />
                 <span>League Table</span>
-              </Link>
+              </Link> */}
 
               <Link
                 to="/rosters"
@@ -53,10 +54,25 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                   <Users size={20} />
                   <span>Looking for Team</span>
                 </Link>
+                
               )}
+
             </div>
             <div className="flex items-center space-x-4">
               <ThemeToggle />
+
+              <Link
+                to="/imprint"
+                className="relative flex items-center justify-center w-12 h-12 bg-[#1d1d1b] rounded-full transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-[#47ffd0]/30 focus:outline-none focus:ring-2 focus:ring-[#47ffd0] focus:ring-offset-2 focus:ring-offset-[#1d1d1b]"
+              >
+                <div className="relative w-8 h-8">
+                  <img
+                    src={imprintlogo}
+                    alt="Imprint Logo"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              </Link>
               {isAuthenticated ? (
                 <div className="flex items-center space-x-4">
                   <Link
