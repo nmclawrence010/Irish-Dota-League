@@ -29,6 +29,8 @@ function App() {
       authorizationParams={{
         redirect_uri: window.location.origin
       }}
+      useRefreshTokens={true}
+      cacheLocation="localstorage" // Optional: Store tokens in local storage
     >
       <BrowserRouter>
         <Layout>
