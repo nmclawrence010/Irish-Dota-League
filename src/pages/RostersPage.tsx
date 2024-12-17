@@ -1,6 +1,21 @@
 import React from "react";
 import { useAllTeams } from "../hooks/useAllTeams";
 
+const getRankImage = (rank: string) => {
+  const rankToImage: { [key: string]: string } = {
+    'Herald': '/herald.png',
+    'Guardian': '/guardian.png',
+    'Crusader': '/crusader.png',
+    'Archon': '/archon.png',
+    'Legend': '/legend.png',
+    'Ancient': '/ancient.png',
+    'Divine': '/divine.png',
+    'Immortal': '/immortal.png',
+  };
+
+  return rankToImage[rank] || '/unranked.png';
+};
+
 export const RostersPage: React.FC = () => {
   const { teams, loading, error } = useAllTeams();
 
@@ -8,13 +23,17 @@ export const RostersPage: React.FC = () => {
     const emptySlots = [];
     for (let i = currentPlayers; i < 5; i++) {
       emptySlots.push(
-        <div key={i} className="p-3 bg-gray-50 dark:bg-gray-750 rounded-lg border-2 border-dashed border-gray-200 dark:border-gray-600">
+        <div key={i} className="h-[76px] p-2 bg-gray-50 dark:bg-gray-750 rounded-lg border border-dashed border-gray-200 dark:border-gray-600">
           <div className="flex justify-between items-center">
-            <div>
-              <p className="font-medium text-gray-400 dark:text-gray-500">Empty Slot</p>
-              <p className="text-sm text-gray-400 dark:text-gray-500">No player assigned</p>
-              <p className="text-sm text-gray-400 dark:text-gray-500">Unranked</p>
+            <div className="space-y-0.5">
+              <p className="font-medium text-sm text-gray-400 dark:text-gray-500">Empty Slot</p>
+              <p className="text-xs text-gray-400 dark:text-gray-500">No player assigned</p>
             </div>
+            <img 
+              src="/unranked.png" 
+              alt="Unranked" 
+              className="w-14 h-14 object-contain"
+            />
           </div>
         </div>
       );
@@ -48,18 +67,24 @@ export const RostersPage: React.FC = () => {
               <div className="space-y-2">
                 {team.players &&
                   team.players.map((player, index) => (
-                    <div key={index} className="p-2 bg-gray-50 dark:bg-gray-750 rounded-lg border border-gray-200 dark:border-gray-600">
-                      <div className="space-y-0.5">
-                        <p className="font-medium text-sm text-gray-900 dark:text-white">{player.name}</p>
-                        <a
-                          href={player.steamProfile}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline"
-                        >
-                          Steam Profile
-                        </a>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">Rank: {player.rank}</p>
+                    <div key={index} className="h-[76px] p-2 bg-gray-50 dark:bg-gray-750 rounded-lg border border-gray-200 dark:border-gray-600">
+                      <div className="flex justify-between items-center">
+                        <div className="space-y-0.5">
+                          <p className="font-medium text-lg text-gray-900 dark:text-white">{player.name}</p>
+                          <a
+                            href={player.steamProfile}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline"
+                          >
+                            Steam Profile
+                          </a>
+                        </div>
+                        <img 
+                          src={getRankImage(player.rank)} 
+                          alt={player.rank} 
+                          className="w-16 h-16 object-contain"
+                        />
                       </div>
                     </div>
                   ))}
