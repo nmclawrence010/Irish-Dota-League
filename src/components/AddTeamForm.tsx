@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTournamentStore } from "../store/tournamentStore";
-import { supabase } from "../lib/supabase";
+import { getSupabaseClient } from "../lib/supabase";
 // import { Player } from "../types/tournament";
 import { useAuth } from "../hooks/useAuth";
 import { useMyTeam } from "../hooks/useMyTeam";
@@ -42,7 +42,7 @@ export const AddTeamForm: React.FC<AddTeamFormProps> = ({ divisionId }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const addTeam = useTournamentStore((state) => state.addTeam);
-  const { user } = useAuth();
+  const { user, supabaseToken } = useAuth();
   const { team: existingTeam, loading } = useMyTeam();
 
   const ADMIN_ID = "google-oauth2|116693036538557171022";
@@ -76,12 +76,13 @@ export const AddTeamForm: React.FC<AddTeamFormProps> = ({ divisionId }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isSubmitting || !user?.sub) return;
+    if (isSubmitting || !user?.sub || !supabaseToken) return;
 
     setIsSubmitting(true);
 
     try {
       const country = await getCountry();
+      const authenticatedClient = getSupabaseClient(supabaseToken);
 
       const playerWithAuthId = {
         ...player,
@@ -99,7 +100,11 @@ export const AddTeamForm: React.FC<AddTeamFormProps> = ({ divisionId }) => {
         division_id: divisionId,
       };
 
-      const { data, error } = await supabase.from("teams").insert([newTeam]).select().single();
+      const { data, error } = await authenticatedClient
+        .from("teams")
+        .insert([newTeam])
+        .select()
+        .single();
 
       if (error) throw error;
       if (data) {
