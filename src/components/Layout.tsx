@@ -5,6 +5,7 @@ import { ThemeToggle } from "./ThemeToggle";
 import { useAuth } from "../hooks/useAuth";
 import logo from "/irishdotalogo.png";
 import imprintlogo from "/imprint.png";
+import { DiscordIcon } from "./DiscordIcon";
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, login, logout } = useAuth();
@@ -65,6 +66,17 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
             <div className="flex items-center space-x-4">
               <ThemeToggle />
+              
+              <a
+                href="https://discord.gg/fErrveaumv"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative flex items-center justify-center w-12 h-12 bg-[#5865F2] rounded-full transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-[#5865F2]/30 focus:outline-none focus:ring-2 focus:ring-[#5865F2] focus:ring-offset-2 focus:ring-offset-[#169B62]"
+                title="Join our Discord"
+              >
+                <DiscordIcon />
+              </a>
+
               <Link
                 to="/imprint"
                 className="relative flex items-center justify-center w-12 h-12 bg-[#1d1d1b] rounded-full transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-[#47ffd0]/30 focus:outline-none focus:ring-2 focus:ring-[#47ffd0] focus:ring-offset-2 focus:ring-offset-[#1d1d1b]"
