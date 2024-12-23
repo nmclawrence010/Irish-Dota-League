@@ -16,6 +16,10 @@ const getRankImage = (rank: string) => {
   return rankToImage[rank] || '/unranked.png';
 };
 
+const truncateText = (text: string, maxLength: number) => {
+  return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
+};
+
 export const RostersPage: React.FC = () => {
   const { teams, loading, error } = useAllTeams();
 
@@ -58,7 +62,12 @@ export const RostersPage: React.FC = () => {
           {teams.map((team) => (
             <div key={team.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 transition-colors">
               <div className="flex items-center justify-between mb-3">
-                <h2 className="text-lg font-bold text-gray-900 dark:text-white">{team.name}</h2>
+                <h2 
+                  className="text-lg font-bold text-gray-900 dark:text-white cursor-default"
+                  title={team.name}
+                >
+                  {truncateText(team.name, 20)}
+                </h2>
                 <span className="px-2 py-1 text-xs rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200">
                   Div {team.division_id}
                 </span>
