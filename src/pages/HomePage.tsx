@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useTeams } from "../hooks/useTeams";
 import { clsx } from "clsx";
 import { Team } from "@/types/tournament";
+import { MatchList } from "@/components/MatchList";
 
 export const HomePage: React.FC = () => {
   const [selectedDivision, setSelectedDivision] = useState(1);
@@ -93,11 +94,13 @@ export const HomePage: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition-colors">
-        <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
-          {divisions.find((d) => d.id === selectedDivision)?.name} Fixtures
-        </h2>
-        <div className="text-center text-gray-500 dark:text-gray-400 py-8">No fixtures available yet. Season 4 starts 13-01-2025</div>
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            Fixtures - Ignore this, I'm working on main branch like a pleb
+          </h2>
+        </div>
+        <MatchList />
       </div>
     </div>
   );

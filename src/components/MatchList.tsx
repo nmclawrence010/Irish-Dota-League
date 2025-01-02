@@ -1,147 +1,183 @@
 import React, { useState } from "react";
-import { Match, Division } from "../types/tournament";
-import { useTournamentStore } from "../store/tournamentStore";
-import { ChevronDown, ChevronUp } from "lucide-react";
-import { clsx } from "clsx";
+import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
+import { divisionMatches } from "@/data/matchData";
+import { Match } from "@/types/tournament";
+import { MatchStats } from "@/components/MatchStats";
 
-interface MatchListProps {
-  division: Division;
-}
-
-export const MatchList: React.FC<MatchListProps> = ({ division }) => {
-  const [expandedWeeks, setExpandedWeeks] = useState<number[]>([]);
-  const updateMatch = useTournamentStore((state) => state.updateMatch);
+export const MatchList: React.FC = () => {
+  const [currentWeek, setCurrentWeek] = useState(1);
+  const [expandedMatch, setExpandedMatch] = useState<string | null>(null);
+  const maxWeeks = 5;
 
   const getTeamName = (teamId: string): string => {
-    const team = division.teams.find((t) => t.id === teamId);
-    return team?.name || "Unknown Team";
+    // Remove 'team_' prefix and replace underscores with spaces
+    return teamId
+      .replace("team_", "")
+      .split("_")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
   };
 
-  const handleGameUpdate = (match: Match, gameNumber: 1 | 2, winner: string) => {
-    const updatedMatch = {
-      ...match,
-      games: {
-        ...match.games,
-        [gameNumber === 1 ? "game1Winner" : "game2Winner"]: winner,
-      },
-    };
+  const getMatchesForWeek = (week: number) => {
+    const div1Matches = divisionMatches[1].filter((match) => match.week === week);
+    const div2Matches = divisionMatches[2].filter((match) => match.week === week);
+    const weekDate = div1Matches[0]?.date;
+    return { div1Matches, div2Matches, weekDate };
+  };
 
-    // If both games are completed, calculate the final score
-    if (updatedMatch.games.game1Winner && updatedMatch.games.game2Winner) {
-      const team1Wins =
-        (updatedMatch.games.game1Winner === match.team1Id ? 1 : 0) + (updatedMatch.games.game2Winner === match.team1Id ? 1 : 0);
-      const team2Wins = 2 - team1Wins;
+  const { div1Matches, div2Matches, weekDate } = getMatchesForWeek(currentWeek);
 
-      updatedMatch.completed = true;
-      updatedMatch.score = [team1Wins, team2Wins];
+  const handlePreviousWeek = () => {
+    setCurrentWeek((week) => Math.max(1, week - 1));
+  };
+
+  const handleNextWeek = () => {
+    setCurrentWeek((week) => Math.min(maxWeeks, week + 1));
+  };
+
+  const getScoreColor = (score: number[], index: number) => {
+    if (score[0] === score[1]) return "text-gray-900 dark:text-white"; // Draw
+    if ((index === 0 && score[0] > score[1]) || (index === 1 && score[1] > score[0])) {
+      return "text-emerald-600 dark:text-emerald-400"; // Winner
     }
-
-    updateMatch(division.id, updatedMatch);
+    return "text-red-500 dark:text-red-400"; // Loser
   };
 
-  const toggleWeek = (week: number) => {
-    setExpandedWeeks((prev) => (prev.includes(week) ? prev.filter((w) => w !== week) : [...prev, week]));
+  const toggleMatch = (matchId: string) => {
+    setExpandedMatch((currentId) => (currentId === matchId ? null : matchId));
   };
 
-  const matchesByWeek = division.matches.reduce((acc, match) => {
-    if (!acc[match.week]) {
-      acc[match.week] = [];
-    }
-    acc[match.week].push(match);
-    return acc;
-  }, {} as Record<number, Match[]>);
-
-  return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mt-6 transition-colors">
-      <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Fixture List</h3>
-
-      <div className="space-y-4">
-        {Object.entries(matchesByWeek).map(([week, matches]) => (
-          <div key={week} className="border dark:border-gray-700 rounded-lg overflow-hidden">
-            <button
-              onClick={() => toggleWeek(parseInt(week))}
-              className="w-full flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
-            >
-              <span className="font-semibold text-gray-900 dark:text-white">Week {week}</span>
-              {expandedWeeks.includes(parseInt(week)) ? (
-                <ChevronUp size={20} className="text-gray-500 dark:text-gray-400" />
-              ) : (
-                <ChevronDown size={20} className="text-gray-500 dark:text-gray-400" />
-              )}
-            </button>
-
-            <div
-              className={clsx("transition-all duration-300", {
-                hidden: !expandedWeeks.includes(parseInt(week)),
-              })}
-            >
-              {matches.map((match) => (
-                <div key={match.id} className="border-t dark:border-gray-700 p-4 bg-white dark:bg-gray-800">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center space-x-4 text-gray-900 dark:text-white">
-                      <span className="font-medium">{getTeamName(match.team1Id)}</span>
-                      <span className="text-gray-500 dark:text-gray-400">vs</span>
-                      <span className="font-medium">{getTeamName(match.team2Id)}</span>
-                    </div>
-                    {match.completed && (
-                      <div className="text-gray-600 dark:text-gray-400">
-                        Score: {match.score?.[0]} - {match.score?.[1]}
-                      </div>
-                    )}
+  const renderMatch = (match: Match) => (
+    <div key={match.id} className="relative">
+      <div className="p-4 hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors relative group">
+        <div className="absolute inset-x-0 top-0 h-[2px] bg-[#169B62] transform scale-x-0 group-hover:scale-x-100 transition-transform"></div>
+        <div className="absolute inset-x-0 bottom-0 h-[2px] bg-[#FF8200] transform scale-x-0 group-hover:scale-x-100 transition-transform"></div>
+        <div className="relative px-4">
+          <div className="grid grid-cols-[minmax(200px,1fr),auto,minmax(200px,1fr)] items-center gap-4 max-w-3xl mx-auto">
+            <div className="text-right">
+              <span className="font-medium text-gray-900 dark:text-white">{getTeamName(match.team1Id)}</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              {match.completed ? (
+                <>
+                  <div className="inline-block bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-lg min-w-[32px] text-center">
+                    <span className={`text-sm font-medium ${getScoreColor(match.score!, 0)}`}>{match.score?.[0]}</span>
                   </div>
-
-                  {!match.completed && (
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-sm text-gray-600 dark:text-gray-400">Game 1:</span>
-                        {!match.games.game1Winner ? (
-                          <div className="space-x-2">
-                            <button
-                              onClick={() => handleGameUpdate(match, 1, match.team1Id)}
-                              className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 text-sm transition-colors"
-                            >
-                              {getTeamName(match.team1Id)} Won
-                            </button>
-                            <button
-                              onClick={() => handleGameUpdate(match, 1, match.team2Id)}
-                              className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 text-sm transition-colors"
-                            >
-                              {getTeamName(match.team2Id)} Won
-                            </button>
-                          </div>
-                        ) : (
-                          <span className="text-sm text-gray-900 dark:text-white">Winner: {getTeamName(match.games.game1Winner)}</span>
-                        )}
-                      </div>
-
-                      <div className="flex items-center space-x-2">
-                        <span className="text-sm text-gray-600 dark:text-gray-400">Game 2:</span>
-                        {!match.games.game2Winner ? (
-                          <div className="space-x-2">
-                            <button
-                              onClick={() => handleGameUpdate(match, 2, match.team1Id)}
-                              className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 text-sm transition-colors"
-                            >
-                              {getTeamName(match.team1Id)} Won
-                            </button>
-                            <button
-                              onClick={() => handleGameUpdate(match, 2, match.team2Id)}
-                              className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 text-sm transition-colors"
-                            >
-                              {getTeamName(match.team2Id)} Won
-                            </button>
-                          </div>
-                        ) : (
-                          <span className="text-sm text-gray-900 dark:text-white">Winner: {getTeamName(match.games.game2Winner)}</span>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
+                  <div className="inline-block bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-lg min-w-[40px] text-center">
+                    <span className="text-sm font-medium text-gray-600 dark:text-gray-300">vs</span>
+                  </div>
+                  <div className="inline-block bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-lg min-w-[32px] text-center">
+                    <span className={`text-sm font-medium ${getScoreColor(match.score!, 1)}`}>{match.score?.[1]}</span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="inline-block bg-gray-100/50 dark:bg-gray-700/50 px-2 py-1 rounded-lg min-w-[32px] text-center">
+                    <span className="text-sm font-medium text-transparent">0</span>
+                  </div>
+                  <div className="inline-block bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-lg min-w-[40px] text-center">
+                    <span className="text-sm font-medium text-gray-600 dark:text-gray-300">vs</span>
+                  </div>
+                  <div className="inline-block bg-gray-100/50 dark:bg-gray-700/50 px-2 py-1 rounded-lg min-w-[32px] text-center">
+                    <span className="text-sm font-medium text-transparent">0</span>
+                  </div>
+                </>
+              )}
+            </div>
+            <div className="text-left">
+              <span className="font-medium text-gray-900 dark:text-white">{getTeamName(match.team2Id)}</span>
             </div>
           </div>
-        ))}
+
+          {/* Position chevron absolutely */}
+          <div className="absolute right-2 top-1/2 -translate-y-1/2">
+            <button
+              onClick={() => toggleMatch(match.id)}
+              className="w-8 h-8 rounded-full bg-[#1d1d1b] flex items-center justify-center hover:opacity-90 transition-all"
+            >
+              <ChevronDown
+                size={20}
+                className={`text-[#46ffd0] transform transition-transform ${expandedMatch === match.id ? "rotate-180" : ""}`}
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Expandable content */}
+      <div className={`overflow-hidden transition-all duration-300 ${expandedMatch === match.id ? "max-h-[800px]" : "max-h-0"}`}>
+        <div className="p-4 pb-8 bg-gray-50 dark:bg-gray-750 border-t border-gray-200 dark:border-gray-700">
+          <div className="max-w-3xl mx-auto space-y-6">
+            {/* Game 1 */}
+            <div>
+              <h4 className="text-sm font-medium text-gray-600 dark:text-gray-300 mb-3 text-center">Game 1</h4>
+              <MatchStats matchId={match.id} dota2MatchId={match.games.game1.dota2MatchId || ""} />
+            </div>
+
+            {/* Game 2 */}
+            <div>
+              <h4 className="text-sm font-medium text-gray-600 dark:text-gray-300 mb-3 text-center">Game 2</h4>
+              <MatchStats matchId={match.id} dota2MatchId={match.games.game2.dota2MatchId || ""} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+      {/* Header with navigation */}
+      <div className="bg-gray-50 dark:bg-gray-750 p-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex items-center justify-between mb-2">
+          <button
+            onClick={handlePreviousWeek}
+            disabled={currentWeek === 1}
+            className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+          </button>
+
+          <div className="text-center">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Week {currentWeek}</h2>
+            {weekDate && (
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                {new Date(weekDate).toLocaleDateString("en-GB", {
+                  weekday: "short",
+                  day: "numeric",
+                  month: "short",
+                })}
+              </p>
+            )}
+          </div>
+
+          <button
+            onClick={handleNextWeek}
+            disabled={currentWeek === maxWeeks}
+            className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            <ChevronRight className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+          </button>
+        </div>
+      </div>
+
+      {/* Matches list */}
+      <div className="divide-y divide-gray-200 dark:divide-gray-700">
+        {/* Division 1 */}
+        <div className="px-4 py-3 bg-gray-50 dark:bg-gray-750 relative">
+          <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 text-center">Division 1</h3>
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
+            <p className="text-xs text-gray-500 dark:text-gray-400">powered by</p>
+            <img src="/imprintbannernoback.png" alt="Imprint Banner" className="h-8" />
+          </div>
+        </div>
+        {div1Matches.map(renderMatch)}
+
+        {/* Division 2 */}
+        <div className="px-4 py-3 bg-gray-50 dark:bg-gray-750 text-center">
+          <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Division 2</h3>
+        </div>
+        {div2Matches.map(renderMatch)}
       </div>
     </div>
   );

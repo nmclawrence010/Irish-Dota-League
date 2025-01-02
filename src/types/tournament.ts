@@ -17,18 +17,25 @@ export type Team = {
   division_id: number;
 };
 
+interface Game {
+  played: boolean;
+  winner?: string;
+  dota2MatchId?: string;
+}
+
 export type Match = {
   id: string;
   team1Id: string;
   team2Id: string;
-  score?: [number, number];
   date: string;
   completed: boolean;
   week: number;
   games: {
-    game1Winner?: string;
-    game2Winner?: string;
+    game1: Game;
+    game2: Game;
   };
+  seriesWinner?: string;
+  score?: [number, number];
 };
 
 export type Division = {
