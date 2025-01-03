@@ -15,6 +15,9 @@ export default defineConfig({
         target: "https://api.imprint.gg",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
       },
     },
   },
