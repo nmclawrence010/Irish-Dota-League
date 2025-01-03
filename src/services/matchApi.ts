@@ -21,8 +21,7 @@ interface MatchResponse {
 }
 
 const API_TOKEN = import.meta.env.VITE_IMPRINT_API_TOKEN;
-const isDevelopment = import.meta.env.DEV;
-const API_URL = isDevelopment ? "/api/match" : import.meta.env.VITE_API_URL;
+const API_URL = "/api/match";
 
 export const fetchMatchDetails = async (matchId: string): Promise<MatchResponse> => {
   try {
