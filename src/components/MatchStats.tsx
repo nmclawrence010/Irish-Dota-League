@@ -39,6 +39,11 @@ export const MatchStats: React.FC<MatchStatsProps> = ({ dota2MatchId }) => {
     return num.toString().padStart(2, "0");
   };
 
+  // Helper function to truncate long names
+  const truncateName = (name: string, limit: number = 15): string => {
+    return name.length > limit ? `${name.substring(0, limit)}...` : name;
+  };
+
   // Find highest imprint rating from all players
   const allPlayers = [...team1Players, ...team2Players];
   const highestRating = Math.max(...allPlayers.map((player) => player.imprint_rating));
@@ -49,28 +54,43 @@ export const MatchStats: React.FC<MatchStatsProps> = ({ dota2MatchId }) => {
     <div className="grid grid-cols-2 gap-8 px-4">
       {/* Team 1 */}
       <div>
-        <div className="space-y-2">
+        <div className="divide-y divide-gray-200 dark:divide-gray-700">
           {team1Players.map((player: any) => (
-            <div key={player.account_id} className="flex items-center justify-end gap-2">
-              <span
-                className={`text-sm ${
-                  isMVP(player.imprint_rating) ? "text-[#46ffd0] font-semibold flex items-center gap-1" : "text-gray-900 dark:text-white"
-                }`}
-              >
-                {player.account_name}
-                {isMVP(player.imprint_rating) && (
-                  <span className="text-[#46ffd0]" title="MVP">
-                    👑
+            <div key={player.account_id} className="py-4 first:pt-0 last:pb-0">
+              <div className="flex items-center justify-end relative">
+                <div className="flex gap-1 absolute -left-56">
+                  {player.items.map(
+                    (item: any, index: number) =>
+                      item.icon_src && (
+                        <img key={index} src={item.icon_src} alt={item.Name} title={item.Name} className="w-8 h-8 object-contain rounded" />
+                      )
+                  )}
+                </div>
+                <span className="text-sm text-gray-700 dark:text-gray-300 absolute -left-0">
+                  {padNumber(player.kills)}-{padNumber(player.deaths)}-{padNumber(player.assists)}
+                </span>
+                <div className="flex items-center gap-2">
+                  <span
+                    className={`text-base ${
+                      isMVP(player.imprint_rating)
+                        ? "text-[#46ffd0] font-semibold flex items-center gap-1"
+                        : "text-gray-900 dark:text-white"
+                    }`}
+                    title={player.account_name}
+                  >
+                    {truncateName(player.account_name)}
+                    {isMVP(player.imprint_rating) && (
+                      <span className="text-[#46ffd0]" title="MVP">
+                        👑
+                      </span>
+                    )}
                   </span>
-                )}
-              </span>
-              <div className="w-7 h-7 rounded-lg bg-[#1d1d1b] flex items-center justify-center">
-                <span className="text-sm font-medium text-[#46ffd0]">{Math.round(player.imprint_rating)}</span>
+                  <div className="w-8 h-8 rounded-lg bg-[#1d1d1b] flex items-center justify-center">
+                    <span className="text-base font-medium text-[#46ffd0]">{Math.round(player.imprint_rating)}</span>
+                  </div>
+                  <img src={player.hero.static_portrait_src} alt={player.hero.Name} className="w-14 h-10 object-cover rounded" />
+                </div>
               </div>
-              <img src={player.hero.static_portrait_src} alt={player.hero.Name} className="w-12 h-8 object-cover rounded" />
-              <span className="text-sm text-gray-600 dark:text-gray-400 font-mono">
-                {padNumber(player.kills)}-{padNumber(player.deaths)}-{padNumber(player.assists)}
-              </span>
             </div>
           ))}
         </div>
@@ -78,28 +98,43 @@ export const MatchStats: React.FC<MatchStatsProps> = ({ dota2MatchId }) => {
 
       {/* Team 2 */}
       <div>
-        <div className="space-y-2">
+        <div className="divide-y divide-gray-200 dark:divide-gray-700">
           {team2Players.map((player: any) => (
-            <div key={player.account_id} className="flex items-center gap-2">
-              <span className="text-sm text-gray-600 dark:text-gray-400 font-mono">
-                {padNumber(player.kills)}-{padNumber(player.deaths)}-{padNumber(player.assists)}
-              </span>
-              <img src={player.hero.static_portrait_src} alt={player.hero.Name} className="w-12 h-8 object-cover rounded" />
-              <div className="w-7 h-7 rounded-lg bg-[#1d1d1b] flex items-center justify-center">
-                <span className="text-sm font-medium text-[#46ffd0]">{Math.round(player.imprint_rating)}</span>
-              </div>
-              <span
-                className={`text-sm ${
-                  isMVP(player.imprint_rating) ? "text-[#46ffd0] font-semibold flex items-center gap-1" : "text-gray-900 dark:text-white"
-                }`}
-              >
-                {player.account_name}
-                {isMVP(player.imprint_rating) && (
-                  <span className="text-[#46ffd0]" title="MVP">
-                    👑
+            <div key={player.account_id} className="py-4 first:pt-0 last:pb-0">
+              <div className="flex items-center relative">
+                <div className="flex items-center gap-2">
+                  <img src={player.hero.static_portrait_src} alt={player.hero.Name} className="w-14 h-10 object-cover rounded" />
+                  <div className="w-8 h-8 rounded-lg bg-[#1d1d1b] flex items-center justify-center">
+                    <span className="text-base font-medium text-[#46ffd0]">{Math.round(player.imprint_rating)}</span>
+                  </div>
+                  <span
+                    className={`text-base ${
+                      isMVP(player.imprint_rating)
+                        ? "text-[#46ffd0] font-semibold flex items-center gap-1"
+                        : "text-gray-900 dark:text-white"
+                    }`}
+                    title={player.account_name}
+                  >
+                    {truncateName(player.account_name)}
+                    {isMVP(player.imprint_rating) && (
+                      <span className="text-[#46ffd0]" title="MVP">
+                        👑
+                      </span>
+                    )}
                   </span>
-                )}
-              </span>
+                </div>
+                <span className="text-sm text-gray-700 dark:text-gray-300 absolute -right-0">
+                  {padNumber(player.kills)}-{padNumber(player.deaths)}-{padNumber(player.assists)}
+                </span>
+                <div className="flex gap-1 absolute -right-56">
+                  {player.items.map(
+                    (item: any, index: number) =>
+                      item.icon_src && (
+                        <img key={index} src={item.icon_src} alt={item.Name} title={item.Name} className="w-8 h-8 object-contain rounded" />
+                      )
+                  )}
+                </div>
+              </div>
             </div>
           ))}
         </div>

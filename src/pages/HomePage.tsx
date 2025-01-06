@@ -47,7 +47,7 @@ export const HomePage: React.FC = () => {
 
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition-colors">
         <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
-          {divisions.find((d) => d.id === selectedDivision)?.name} Standings
+          {divisions.find((d) => d.id === selectedDivision)?.name} League Phase
         </h2>
         <div className="overflow-x-auto">
           <table className="min-w-full">

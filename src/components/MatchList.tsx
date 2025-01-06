@@ -7,7 +7,7 @@ import { MatchStats } from "@/components/MatchStats";
 export const MatchList: React.FC = () => {
   const [currentWeek, setCurrentWeek] = useState(1);
   const [expandedMatch, setExpandedMatch] = useState<string | null>(null);
-  const maxWeeks = 5;
+  const maxWeeks = 3;
 
   const getTeamName = (teamId: string): string => {
     // Remove 'team_' prefix and replace underscores with spaces
@@ -106,18 +106,21 @@ export const MatchList: React.FC = () => {
       </div>
 
       {/* Expandable content */}
-      <div className={`overflow-hidden transition-all duration-300 ${expandedMatch === match.id ? "max-h-[800px]" : "max-h-0"}`}>
+      <div className={`overflow-hidden transition-all duration-300 ${expandedMatch === match.id ? "max-h-fit" : "max-h-0"}`}>
         <div className="p-4 pb-8 bg-gray-50 dark:bg-gray-750 border-t border-gray-200 dark:border-gray-700">
           <div className="max-w-3xl mx-auto space-y-6">
             {/* Game 1 */}
             <div>
-              <h4 className="text-sm font-medium text-gray-600 dark:text-gray-300 mb-3 text-center">Game 1</h4>
+              <h4 className="text-lg font-medium text-gray-600 dark:text-gray-300 mb-3 text-center">Game 1</h4>
               <MatchStats matchId={match.id} dota2MatchId={match.games.game1.dota2MatchId || ""} />
             </div>
 
+            {/* Game divider */}
+            <div className="border-b-2 border-gray-300 dark:border-gray-600 w-full opacity-75"></div>
+
             {/* Game 2 */}
             <div>
-              <h4 className="text-sm font-medium text-gray-600 dark:text-gray-300 mb-3 text-center">Game 2</h4>
+              <h4 className="text-lg font-medium text-gray-600 dark:text-gray-300 mb-3 text-center">Game 2</h4>
               <MatchStats matchId={match.id} dota2MatchId={match.games.game2.dota2MatchId || ""} />
             </div>
           </div>
