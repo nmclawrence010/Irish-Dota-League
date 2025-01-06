@@ -11,6 +11,7 @@ export const HomePage: React.FC = () => {
   const divisions = [
     { id: 1, name: "Division 1" },
     { id: 2, name: "Division 2" },
+    { id: 3, name: "Division 3" },
   ];
 
   const renderTeamRow = (team: Team, index: number) => (

@@ -34,6 +34,17 @@ export const MatchStats: React.FC<MatchStatsProps> = ({ dota2MatchId }) => {
   const team1Players = matchData.teams[0]?.players || [];
   const team2Players = matchData.teams[1]?.players || [];
 
+  // Helper function for padding numbers
+  const padNumber = (num: number): string => {
+    return num.toString().padStart(2, "0");
+  };
+
+  // Find highest imprint rating from all players
+  const allPlayers = [...team1Players, ...team2Players];
+  const highestRating = Math.max(...allPlayers.map((player) => player.imprint_rating));
+
+  const isMVP = (rating: number) => rating === highestRating;
+
   return (
     <div className="grid grid-cols-2 gap-8 px-4">
       {/* Team 1 */}
@@ -41,11 +52,25 @@ export const MatchStats: React.FC<MatchStatsProps> = ({ dota2MatchId }) => {
         <div className="space-y-2">
           {team1Players.map((player: any) => (
             <div key={player.account_id} className="flex items-center justify-end gap-2">
-              <span className="text-sm text-gray-900 dark:text-white">{player.account_name}</span>
+              <span
+                className={`text-sm ${
+                  isMVP(player.imprint_rating) ? "text-[#46ffd0] font-semibold flex items-center gap-1" : "text-gray-900 dark:text-white"
+                }`}
+              >
+                {player.account_name}
+                {isMVP(player.imprint_rating) && (
+                  <span className="text-[#46ffd0]" title="MVP">
+                    👑
+                  </span>
+                )}
+              </span>
               <div className="w-7 h-7 rounded-lg bg-[#1d1d1b] flex items-center justify-center">
                 <span className="text-sm font-medium text-[#46ffd0]">{Math.round(player.imprint_rating)}</span>
               </div>
               <img src={player.hero.static_portrait_src} alt={player.hero.Name} className="w-12 h-8 object-cover rounded" />
+              <span className="text-sm text-gray-600 dark:text-gray-400 font-mono">
+                {padNumber(player.kills)}-{padNumber(player.deaths)}-{padNumber(player.assists)}
+              </span>
             </div>
           ))}
         </div>
@@ -56,11 +81,25 @@ export const MatchStats: React.FC<MatchStatsProps> = ({ dota2MatchId }) => {
         <div className="space-y-2">
           {team2Players.map((player: any) => (
             <div key={player.account_id} className="flex items-center gap-2">
+              <span className="text-sm text-gray-600 dark:text-gray-400 font-mono">
+                {padNumber(player.kills)}-{padNumber(player.deaths)}-{padNumber(player.assists)}
+              </span>
               <img src={player.hero.static_portrait_src} alt={player.hero.Name} className="w-12 h-8 object-cover rounded" />
               <div className="w-7 h-7 rounded-lg bg-[#1d1d1b] flex items-center justify-center">
                 <span className="text-sm font-medium text-[#46ffd0]">{Math.round(player.imprint_rating)}</span>
               </div>
-              <span className="text-sm text-gray-900 dark:text-white">{player.account_name}</span>
+              <span
+                className={`text-sm ${
+                  isMVP(player.imprint_rating) ? "text-[#46ffd0] font-semibold flex items-center gap-1" : "text-gray-900 dark:text-white"
+                }`}
+              >
+                {player.account_name}
+                {isMVP(player.imprint_rating) && (
+                  <span className="text-[#46ffd0]" title="MVP">
+                    👑
+                  </span>
+                )}
+              </span>
             </div>
           ))}
         </div>

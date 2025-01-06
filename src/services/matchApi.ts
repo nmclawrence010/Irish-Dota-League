@@ -16,6 +16,9 @@ interface MatchResponse {
         static_portrait_src: string;
       };
       imprint_rating: number;
+      kills: number;
+      deaths: number;
+      assists: number;
     }[];
   }[];
 }

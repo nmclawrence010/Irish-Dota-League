@@ -21,11 +21,12 @@ export const MatchList: React.FC = () => {
   const getMatchesForWeek = (week: number) => {
     const div1Matches = divisionMatches[1].filter((match) => match.week === week);
     const div2Matches = divisionMatches[2].filter((match) => match.week === week);
+    const div3Matches = divisionMatches[3].filter((match) => match.week === week);
     const weekDate = div1Matches[0]?.date;
-    return { div1Matches, div2Matches, weekDate };
+    return { div1Matches, div2Matches, div3Matches, weekDate };
   };
 
-  const { div1Matches, div2Matches, weekDate } = getMatchesForWeek(currentWeek);
+  const { div1Matches, div2Matches, div3Matches, weekDate } = getMatchesForWeek(currentWeek);
 
   const handlePreviousWeek = () => {
     setCurrentWeek((week) => Math.max(1, week - 1));
@@ -178,6 +179,12 @@ export const MatchList: React.FC = () => {
           <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Division 2</h3>
         </div>
         {div2Matches.map(renderMatch)}
+
+        {/* Division 3 */}
+        <div className="px-4 py-3 bg-gray-50 dark:bg-gray-750 text-center">
+          <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Division 3</h3>
+        </div>
+        {div3Matches.map(renderMatch)}
       </div>
     </div>
   );
