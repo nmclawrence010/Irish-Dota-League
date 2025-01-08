@@ -3,6 +3,7 @@ import { useTeams } from "../hooks/useTeams";
 import { clsx } from "clsx";
 import { Team } from "@/types/tournament";
 import { MatchList } from "@/components/MatchList";
+import { Twitch } from "lucide-react";
 
 export const HomePage: React.FC = () => {
   const [selectedDivision, setSelectedDivision] = useState(1);
@@ -96,10 +97,16 @@ export const HomePage: React.FC = () => {
       </div>
 
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-            Fixtures - Ignore this, I'm working on main branch like a pleb
-          </h2>
+        <div className="pl-6 pt-4 pb-2 border-b border-gray-200 dark:border-gray-700 relative">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Fixtures</h2>
+          <a
+            href="https://www.twitch.tv/dota2ireland"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-1 text-base text-gray-600 hover:text-[#6441a5] dark:text-gray-400 dark:hover:text-[#6441a5] transition-colors"
+          >
+            Games will be live on <Twitch size={20} className="text-[#6441a5]" />
+          </a>
         </div>
         <MatchList />
       </div>

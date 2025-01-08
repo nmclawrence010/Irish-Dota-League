@@ -50,7 +50,10 @@ export const MatchList: React.FC = () => {
 
   const renderMatch = (match: Match) => (
     <div key={match.id} className="relative">
-      <div className="p-4 hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors relative group">
+      <button
+        onClick={() => toggleMatch(match.id)}
+        className="w-full p-4 hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors relative group text-left"
+      >
         <div className="absolute inset-x-0 top-0 h-[2px] bg-[#169B62] transform scale-x-0 group-hover:scale-x-100 transition-transform"></div>
         <div className="absolute inset-x-0 bottom-0 h-[2px] bg-[#FF8200] transform scale-x-0 group-hover:scale-x-100 transition-transform"></div>
         <div className="relative px-4">
@@ -90,20 +93,17 @@ export const MatchList: React.FC = () => {
             </div>
           </div>
 
-          {/* Position chevron absolutely */}
+          {/* Chevron */}
           <div className="absolute right-2 top-1/2 -translate-y-1/2">
-            <button
-              onClick={() => toggleMatch(match.id)}
-              className="w-8 h-8 rounded-full bg-[#1d1d1b] flex items-center justify-center hover:opacity-90 transition-all"
-            >
+            <div className="w-8 h-8 rounded-full bg-[#1d1d1b] flex items-center justify-center hover:opacity-90 transition-all">
               <ChevronDown
                 size={20}
                 className={`text-[#46ffd0] transform transition-transform ${expandedMatch === match.id ? "rotate-180" : ""}`}
               />
-            </button>
+            </div>
           </div>
         </div>
-      </div>
+      </button>
 
       {/* Expandable content */}
       <div className={`overflow-hidden transition-all duration-300 ${expandedMatch === match.id ? "max-h-fit" : "max-h-0"}`}>
@@ -112,7 +112,7 @@ export const MatchList: React.FC = () => {
             {/* Game 1 */}
             <div>
               <h4 className="text-lg font-medium text-gray-600 dark:text-gray-300 mb-3 text-center">Game 1</h4>
-              <MatchStats matchId={match.id} dota2MatchId={match.games.game1.dota2MatchId || ""} />
+              <MatchStats matchId={match.id} dota2MatchId={match.games.game1.dota2MatchId || ""} isExpanded={expandedMatch === match.id} />
             </div>
 
             {/* Game divider */}
@@ -121,7 +121,7 @@ export const MatchList: React.FC = () => {
             {/* Game 2 */}
             <div>
               <h4 className="text-lg font-medium text-gray-600 dark:text-gray-300 mb-3 text-center">Game 2</h4>
-              <MatchStats matchId={match.id} dota2MatchId={match.games.game2.dota2MatchId || ""} />
+              <MatchStats matchId={match.id} dota2MatchId={match.games.game2.dota2MatchId || ""} isExpanded={expandedMatch === match.id} />
             </div>
           </div>
         </div>

@@ -4,15 +4,18 @@ import { fetchMatchDetails } from "@/services/matchApi";
 interface MatchStatsProps {
   matchId: string;
   dota2MatchId: string;
+  isExpanded: boolean;
 }
 
-export const MatchStats: React.FC<MatchStatsProps> = ({ dota2MatchId }) => {
+export const MatchStats: React.FC<MatchStatsProps> = ({ dota2MatchId, isExpanded }) => {
   const [matchData, setMatchData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const loadMatchData = async () => {
+      if (!isExpanded || !dota2MatchId) return;
+
       try {
         setLoading(true);
         const data = await fetchMatchDetails(dota2MatchId);
@@ -25,19 +28,15 @@ export const MatchStats: React.FC<MatchStatsProps> = ({ dota2MatchId }) => {
     };
 
     loadMatchData();
-  }, [dota2MatchId]);
+  }, [dota2MatchId, isExpanded]);
 
+  if (!isExpanded) return null;
   if (loading) return <div className="text-center py-4">Loading match details...</div>;
   if (error) return <div className="text-center py-4 text-red-500">{error}</div>;
   if (!matchData) return null;
 
   const team1Players = matchData.teams[0]?.players || [];
   const team2Players = matchData.teams[1]?.players || [];
-
-  // Helper function for padding numbers
-  const padNumber = (num: number): string => {
-    return num.toString().padStart(2, "0");
-  };
 
   // Helper function to truncate long names
   const truncateName = (name: string, limit: number = 15): string => {
@@ -66,8 +65,8 @@ export const MatchStats: React.FC<MatchStatsProps> = ({ dota2MatchId }) => {
                       )
                   )}
                 </div>
-                <span className="text-sm text-gray-700 dark:text-gray-300 absolute -left-0">
-                  {padNumber(player.kills)}-{padNumber(player.deaths)}-{padNumber(player.assists)}
+                <span className="text-sm text-gray-700 dark:text-gray-300 absolute -left-0 w-20 text-right">
+                  {player.kills}-{player.deaths}-{player.assists}
                 </span>
                 <div className="flex items-center gap-2">
                   <span
@@ -123,8 +122,8 @@ export const MatchStats: React.FC<MatchStatsProps> = ({ dota2MatchId }) => {
                     )}
                   </span>
                 </div>
-                <span className="text-sm text-gray-700 dark:text-gray-300 absolute -right-0">
-                  {padNumber(player.kills)}-{padNumber(player.deaths)}-{padNumber(player.assists)}
+                <span className="text-sm text-gray-700 dark:text-gray-300 absolute -right-0 w-20 text-left">
+                  {player.kills}-{player.deaths}-{player.assists}
                 </span>
                 <div className="flex gap-1 absolute -right-56">
                   {player.items.map(
