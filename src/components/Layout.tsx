@@ -21,52 +21,47 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 <img src={logo} alt="Irish Dota League Logo" className="h-16 w-16 rounded-full object-cover" />
                 <h1 className="text-3xl font-bold tracking-tight">Irish Dota League</h1>
               </Link>
-              
+
               {/* Mobile menu button */}
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="ml-4 p-2 rounded-lg hover:bg-white/10 lg:hidden"
-              >
+              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="ml-4 p-2 rounded-lg hover:bg-white/10 lg:hidden">
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-8 ml-8">
-              <Link
-                to="/rosters"
-                className="flex items-center space-x-2 hover:text-white/90 hover:scale-105 transition-all duration-300 font-medium"
-              >
-                <ClipboardList size={20} />
-                <span>Team Rosters</span>
-              </Link>
+              {/* Desktop Navigation */}
+              <div className="hidden lg:flex items-center space-x-8 ml-8">
+                <Link
+                  to="/rosters"
+                  className="flex items-center space-x-2 hover:text-white/90 hover:scale-105 transition-all duration-300 font-medium"
+                >
+                  <ClipboardList size={20} />
+                  <span>Team Rosters</span>
+                </Link>
 
-              {isAuthenticated && (
-                <>
-                  <Link
-                    to="/my-team"
-                    className="flex items-center space-x-2 hover:text-white/90 hover:scale-105 transition-all duration-300 font-medium"
-                  >
-                    <User size={20} />
-                    <span>My Team</span>
-                  </Link>
+                {isAuthenticated && (
+                  <>
+                    <Link
+                      to="/my-team"
+                      className="flex items-center space-x-2 hover:text-white/90 hover:scale-105 transition-all duration-300 font-medium"
+                    >
+                      <User size={20} />
+                      <span>My Team</span>
+                    </Link>
 
-                  <Link
-                    to="/lft"
-                    className="flex items-center space-x-2 hover:text-white/90 hover:scale-105 transition-all duration-300 font-medium"
-                  >
-                    <Users size={20} />
-                    <span>Looking for Team</span>
-                  </Link>
-                </>
-              )}
+                    <Link
+                      to="/lft"
+                      className="flex items-center space-x-2 hover:text-white/90 hover:scale-105 transition-all duration-300 font-medium"
+                    >
+                      <Users size={20} />
+                      <span>Looking for Team</span>
+                    </Link>
+                  </>
+                )}
+              </div>
             </div>
-            </div>
-
-
 
             <div className="flex items-center space-x-4">
               <ThemeToggle />
-              
+
               <a
                 href="https://discord.gg/fErrveaumv"
                 target="_blank"
@@ -82,23 +77,20 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 className="relative flex items-center justify-center w-12 h-12 bg-[#1d1d1b] rounded-full transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-[#47ffd0]/30 focus:outline-none focus:ring-2 focus:ring-[#47ffd0] focus:ring-offset-2 focus:ring-offset-[#1d1d1b]"
               >
                 <div className="relative w-8 h-8">
-                  <img
-                    src={imprintlogo}
-                    alt="Imprint Logo"
-                    className="w-full h-full object-contain"
-                  />
+                  <img src={imprintlogo} alt="Imprint Logo" className="w-full h-full object-contain" />
                 </div>
               </Link>
 
               {isAuthenticated ? (
                 <div className="hidden lg:flex items-center space-x-4">
-                  <Link
-                    to="/signup"
-                    className="flex items-center space-x-2 bg-yellow-400 text-gray-800 hover:bg-yellow-300 dark:bg-yellow-500 dark:text-gray-900 dark:hover:bg-yellow-400 px-4 py-2 rounded-full font-semibold transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-yellow-400/30 dark:hover:shadow-yellow-500/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#169B62] focus:ring-yellow-400"
+                  <button
+                    disabled
+                    className="flex items-center space-x-2 bg-yellow-400 text-gray-600 cursor-not-allowed px-4 py-2 rounded-full font-semibold transition-all duration-300 opacity-75"
+                    title="Team Registration is currently closed"
                   >
                     <Users size={20} />
                     <span>Team Registration</span>
-                  </Link>
+                  </button>
 
                   <Link
                     to="/join"
@@ -160,14 +152,14 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                       <span>Looking for Team</span>
                     </Link>
 
-                    <Link
-                      to="/signup"
-                      className="flex items-center space-x-2 hover:bg-white/10 px-4 py-2 rounded-lg transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
+                    <button
+                      disabled
+                      className="flex items-center space-x-2 opacity-50 cursor-not-allowed px-4 py-2 rounded-lg transition-colors w-full text-left"
+                      title="Team Registration is currently closed"
                     >
                       <Users size={20} />
                       <span>Team Registration</span>
-                    </Link>
+                    </button>
 
                     <Link
                       to="/join"

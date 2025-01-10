@@ -30,12 +30,13 @@ export type Match = {
   date: string;
   completed: boolean;
   week: number;
-  games: {
+  games?: {
     game1: Game;
     game2: Game;
   };
   seriesWinner?: string;
   score?: [number, number];
+  isByeWeek?: boolean;
 };
 
 export type Division = {
