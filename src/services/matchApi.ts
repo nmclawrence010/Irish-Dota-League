@@ -13,14 +13,27 @@ interface MatchResponse {
       account_name: string;
       hero: {
         Name: string;
+        live_portrait_src: string;
+        icon_src: string;
         static_portrait_src: string;
       };
-      imprint_rating: number;
+      position: string;
       kills: number;
-      deaths: number;
       assists: number;
+      deaths: number;
+      gpm: number;
+      net_worth: number;
+      hero_damage: number;
+      kill_participation: string;
+      support_gold_spent: number;
+      imprint_rating: number;
+      items: {
+        Name: string;
+        icon_src: string;
+      }[];
     }[];
   }[];
+  replay_available: boolean;
 }
 
 const API_TOKEN = import.meta.env.VITE_IMPRINT_API_TOKEN;
