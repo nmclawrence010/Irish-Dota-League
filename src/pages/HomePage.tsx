@@ -19,7 +19,6 @@ export const HomePage: React.FC = () => {
     <tr key={team.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
       <td className="px-6 py-4 text-center whitespace-nowrap text-gray-900 dark:text-gray-100">{index + 1}</td>
       <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900 dark:text-white">{team.name}</td>
-      <td className="px-6 py-4 text-center whitespace-nowrap text-gray-900 dark:text-gray-100">{team.points}</td>
       <td className="px-6 py-4 text-center whitespace-nowrap text-gray-900 dark:text-gray-100">{team.wins}</td>
       <td className="px-6 py-4 text-center whitespace-nowrap text-gray-900 dark:text-gray-100">{team.draws}</td>
       <td className="px-6 py-4 text-center whitespace-nowrap text-gray-900 dark:text-gray-100">{team.losses}</td>
@@ -58,9 +57,6 @@ export const HomePage: React.FC = () => {
                   Position
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Team</th>
-                <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                  Games Won
-                </th>
                 <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                   Wins
                 </th>

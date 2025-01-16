@@ -19,6 +19,14 @@ export default defineConfig({
           "Access-Control-Allow-Origin": "*",
         },
       },
+      "/api/league/players": {
+        target: "https://api.imprint.gg",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      },
     },
   },
   define: {

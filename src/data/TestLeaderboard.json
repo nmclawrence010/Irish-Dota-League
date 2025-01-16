@@ -1,0 +1,757 @@
+{
+    "league_id": 17414,
+    "league_name": "BLAST SLAM I",
+    "player_count": 50,
+    "players": [
+      {
+        "account_id": 210053851,
+        "account_name": "lorenof",
+        "primary_team": {
+          "team_id": 8291895,
+          "team_name": "Tundra Esports",
+          "team_logo_src": "https://cdn.imprint.gg/teams/8291895_2031716132171967904.png"
+        },
+        "primary_position": 2,
+        "wins": 7,
+        "losses": 3,
+        "win_rate": "70.0%",
+        "match_count": 10,
+        "average_imprint_rating": 67.5
+      },
+      {
+        "account_id": 183719386,
+        "account_name": "AMMAR_THE_F",
+        "primary_team": {
+          "team_id": 9247354,
+          "team_name": "Team Falcons",
+          "team_logo_src": "https://cdn.imprint.gg/teams/9247354_2314350571781870059.png"
+        },
+        "primary_position": 3,
+        "wins": 4,
+        "losses": 5,
+        "win_rate": "44.4%",
+        "match_count": 9,
+        "average_imprint_rating": 62.1
+      },
+      {
+        "account_id": 106573901,
+        "account_name": "ilugmfimhu'rtb<317824",
+        "primary_team": {
+          "team_id": 9572001,
+          "team_name": "PARIVISION",
+          "team_logo_src": "https://cdn.imprint.gg/teams/9572001_2476508692281774105.png"
+        },
+        "primary_position": 2,
+        "wins": 6,
+        "losses": 5,
+        "win_rate": "54.5%",
+        "match_count": 11,
+        "average_imprint_rating": 62.1
+      },
+      {
+        "account_id": 136829091,
+        "account_name": "Whitemon",
+        "primary_team": {
+          "team_id": 8291895,
+          "team_name": "Tundra Esports",
+          "team_logo_src": "https://cdn.imprint.gg/teams/8291895_2031716132171967904.png"
+        },
+        "primary_position": 5,
+        "wins": 7,
+        "losses": 3,
+        "win_rate": "70.0%",
+        "match_count": 10,
+        "average_imprint_rating": 61.4
+      },
+      {
+        "account_id": 91730177,
+        "account_name": "Seleri",
+        "primary_team": {
+          "team_id": 8599101,
+          "team_name": "Gaimin Gladiators",
+          "team_logo_src": "https://cdn.imprint.gg/teams/8599101_1850419664501191993.png"
+        },
+        "primary_position": 5,
+        "wins": 5,
+        "losses": 4,
+        "win_rate": "55.6%",
+        "match_count": 9,
+        "average_imprint_rating": 58.8
+      },
+      {
+        "account_id": 317880638,
+        "account_name": "Save-",
+        "primary_team": {
+          "team_id": 8255888,
+          "team_name": "BetBoom Team",
+          "team_logo_src": "https://cdn.imprint.gg/teams/8255888_2501271299873667086.png"
+        },
+        "primary_position": 4,
+        "wins": 8,
+        "losses": 2,
+        "win_rate": "80.0%",
+        "match_count": 10,
+        "average_imprint_rating": 56.9
+      },
+      {
+        "account_id": 898455820,
+        "account_name": "Malr1ne",
+        "primary_team": {
+          "team_id": 9247354,
+          "team_name": "Team Falcons",
+          "team_logo_src": "https://cdn.imprint.gg/teams/9247354_2314350571781870059.png"
+        },
+        "primary_position": 2,
+        "wins": 4,
+        "losses": 5,
+        "win_rate": "44.4%",
+        "match_count": 9,
+        "average_imprint_rating": 56.2
+      },
+      {
+        "account_id": 86698277,
+        "account_name": "33",
+        "primary_team": {
+          "team_id": 8291895,
+          "team_name": "Tundra Esports",
+          "team_logo_src": "https://cdn.imprint.gg/teams/8291895_2031716132171967904.png"
+        },
+        "primary_position": 3,
+        "wins": 7,
+        "losses": 3,
+        "win_rate": "70.0%",
+        "match_count": 10,
+        "average_imprint_rating": 55.8
+      },
+      {
+        "account_id": 10366616,
+        "account_name": "Sneyking",
+        "primary_team": {
+          "team_id": 9247354,
+          "team_name": "Team Falcons",
+          "team_logo_src": "https://cdn.imprint.gg/teams/9247354_2314350571781870059.png"
+        },
+        "primary_position": 5,
+        "wins": 4,
+        "losses": 5,
+        "win_rate": "44.4%",
+        "match_count": 9,
+        "average_imprint_rating": 55.5
+      },
+      {
+        "account_id": 201358612,
+        "account_name": "Nisha",
+        "primary_team": {
+          "team_id": 2163,
+          "team_name": "Team Liquid",
+          "team_logo_src": "https://cdn.imprint.gg/teams/2163_2026094195660244377.png"
+        },
+        "primary_position": 2,
+        "wins": 3,
+        "losses": 3,
+        "win_rate": "50.0%",
+        "match_count": 6,
+        "average_imprint_rating": 54.8
+      },
+      {
+        "account_id": 108958769,
+        "account_name": "diogen",
+        "primary_team": {
+          "team_id": 9572001,
+          "team_name": "PARIVISION",
+          "team_logo_src": "https://cdn.imprint.gg/teams/9572001_2476508692281774105.png"
+        },
+        "primary_position": 5,
+        "wins": 6,
+        "losses": 5,
+        "win_rate": "54.5%",
+        "match_count": 11,
+        "average_imprint_rating": 54.5
+      },
+      {
+        "account_id": 97590558,
+        "account_name": "Ace ♠",
+        "primary_team": {
+          "team_id": 8599101,
+          "team_name": "Gaimin Gladiators",
+          "team_logo_src": "https://cdn.imprint.gg/teams/8599101_1850419664501191993.png"
+        },
+        "primary_position": 3,
+        "wins": 5,
+        "losses": 4,
+        "win_rate": "55.6%",
+        "match_count": 9,
+        "average_imprint_rating": 53.7
+      },
+      {
+        "account_id": 221666230,
+        "account_name": "Quinn",
+        "primary_team": {
+          "team_id": 8599101,
+          "team_name": "Gaimin Gladiators",
+          "team_logo_src": "https://cdn.imprint.gg/teams/8599101_1850419664501191993.png"
+        },
+        "primary_position": 2,
+        "wins": 5,
+        "losses": 4,
+        "win_rate": "55.6%",
+        "match_count": 9,
+        "average_imprint_rating": 53.3
+      },
+      {
+        "account_id": 54580962,
+        "account_name": "Insania ",
+        "primary_team": {
+          "team_id": 2163,
+          "team_name": "Team Liquid",
+          "team_logo_src": "https://cdn.imprint.gg/teams/2163_2026094195660244377.png"
+        },
+        "primary_position": 5,
+        "wins": 3,
+        "losses": 3,
+        "win_rate": "50.0%",
+        "match_count": 6,
+        "average_imprint_rating": 53
+      },
+      {
+        "account_id": 25907144,
+        "account_name": "Cr1t-",
+        "primary_team": {
+          "team_id": 9247354,
+          "team_name": "Team Falcons",
+          "team_logo_src": "https://cdn.imprint.gg/teams/9247354_2314350571781870059.png"
+        },
+        "primary_position": 4,
+        "wins": 4,
+        "losses": 5,
+        "win_rate": "44.4%",
+        "match_count": 9,
+        "average_imprint_rating": 52.8
+      },
+      {
+        "account_id": 138543123,
+        "account_name": "Pyw",
+        "primary_team": {
+          "team_id": 8261500,
+          "team_name": "Xtreme Gaming",
+          "team_logo_src": "https://cdn.imprint.gg/teams/8261500_2402194226059610590.png"
+        },
+        "primary_position": 4,
+        "wins": 5,
+        "losses": 4,
+        "win_rate": "55.6%",
+        "match_count": 9,
+        "average_imprint_rating": 52.8
+      },
+      {
+        "account_id": 103735745,
+        "account_name": "Saksa",
+        "primary_team": {
+          "team_id": 8291895,
+          "team_name": "Tundra Esports",
+          "team_logo_src": "https://cdn.imprint.gg/teams/8291895_2031716132171967904.png"
+        },
+        "primary_position": 4,
+        "wins": 7,
+        "losses": 3,
+        "win_rate": "70.0%",
+        "match_count": 10,
+        "average_imprint_rating": 52.5
+      },
+      {
+        "account_id": 137129583,
+        "account_name": "Xm",
+        "primary_team": {
+          "team_id": 8261500,
+          "team_name": "Xtreme Gaming",
+          "team_logo_src": "https://cdn.imprint.gg/teams/8261500_2402194226059610590.png"
+        },
+        "primary_position": 2,
+        "wins": 5,
+        "losses": 4,
+        "win_rate": "55.6%",
+        "match_count": 9,
+        "average_imprint_rating": 52.2
+      },
+      {
+        "account_id": 152962063,
+        "account_name": "m1CKe",
+        "primary_team": {
+          "team_id": 2163,
+          "team_name": "Team Liquid",
+          "team_logo_src": "https://cdn.imprint.gg/teams/2163_2026094195660244377.png"
+        },
+        "primary_position": 1,
+        "wins": 3,
+        "losses": 3,
+        "win_rate": "50.0%",
+        "match_count": 6,
+        "average_imprint_rating": 51.9
+      },
+      {
+        "account_id": 165564598,
+        "account_name": "MieRo ",
+        "primary_team": {
+          "team_id": 8255888,
+          "team_name": "BetBoom Team",
+          "team_logo_src": "https://cdn.imprint.gg/teams/8255888_2501271299873667086.png"
+        },
+        "primary_position": 3,
+        "wins": 8,
+        "losses": 2,
+        "win_rate": "80.0%",
+        "match_count": 10,
+        "average_imprint_rating": 51.6
+      },
+      {
+        "account_id": 56351509,
+        "account_name": "666 TERRORBLADE",
+        "primary_team": {
+          "team_id": 9572001,
+          "team_name": "PARIVISION",
+          "team_logo_src": "https://cdn.imprint.gg/teams/9572001_2476508692281774105.png"
+        },
+        "primary_position": 3,
+        "wins": 6,
+        "losses": 5,
+        "win_rate": "54.5%",
+        "match_count": 11,
+        "average_imprint_rating": 51.1
+      },
+      {
+        "account_id": 480412663,
+        "account_name": "Wwwwwwwwwwwwww",
+        "primary_team": {
+          "team_id": 8255888,
+          "team_name": "BetBoom Team",
+          "team_logo_src": "https://cdn.imprint.gg/teams/8255888_2501271299873667086.png"
+        },
+        "primary_position": 2,
+        "wins": 8,
+        "losses": 2,
+        "win_rate": "80.0%",
+        "match_count": 10,
+        "average_imprint_rating": 51
+      },
+      {
+        "account_id": 124801257,
+        "account_name": "Nightfall",
+        "primary_team": {
+          "team_id": 8291895,
+          "team_name": "Tundra Esports",
+          "team_logo_src": "https://cdn.imprint.gg/teams/8291895_2031716132171967904.png"
+        },
+        "primary_position": 1,
+        "wins": 7,
+        "losses": 3,
+        "win_rate": "70.0%",
+        "match_count": 10,
+        "average_imprint_rating": 49.4
+      },
+      {
+        "account_id": 127617979,
+        "account_name": "Crystallis",
+        "primary_team": {
+          "team_id": 9572001,
+          "team_name": "PARIVISION",
+          "team_logo_src": "https://cdn.imprint.gg/teams/9572001_2476508692281774105.png"
+        },
+        "primary_position": 1,
+        "wins": 6,
+        "losses": 5,
+        "win_rate": "54.5%",
+        "match_count": 11,
+        "average_imprint_rating": 49.2
+      },
+      {
+        "account_id": 164199202,
+        "account_name": "No Mercy",
+        "primary_team": {
+          "team_id": 9572001,
+          "team_name": "PARIVISION",
+          "team_logo_src": "https://cdn.imprint.gg/teams/9572001_2476508692281774105.png"
+        },
+        "primary_position": 4,
+        "wins": 6,
+        "losses": 5,
+        "win_rate": "54.5%",
+        "match_count": 11,
+        "average_imprint_rating": 48.1
+      },
+      {
+        "account_id": 1044002267,
+        "account_name": "Satanic",
+        "primary_team": {
+          "team_id": 7119388,
+          "team_name": "Team Spirit",
+          "team_logo_src": "https://cdn.imprint.gg/teams/7119388_1839179120711951766.png"
+        },
+        "primary_position": 1,
+        "wins": 2,
+        "losses": 6,
+        "win_rate": "25.0%",
+        "match_count": 8,
+        "average_imprint_rating": 47.2
+      },
+      {
+        "account_id": 185908355,
+        "account_name": "楼",
+        "primary_team": {
+          "team_id": 8261500,
+          "team_name": "Xtreme Gaming",
+          "team_logo_src": "https://cdn.imprint.gg/teams/8261500_2402194226059610590.png"
+        },
+        "primary_position": 1,
+        "wins": 5,
+        "losses": 4,
+        "win_rate": "55.6%",
+        "match_count": 9,
+        "average_imprint_rating": 47.1
+      },
+      {
+        "account_id": 16497807,
+        "account_name": "tOfu",
+        "primary_team": {
+          "team_id": 8599101,
+          "team_name": "Gaimin Gladiators",
+          "team_logo_src": "https://cdn.imprint.gg/teams/8599101_1850419664501191993.png"
+        },
+        "primary_position": 4,
+        "wins": 5,
+        "losses": 4,
+        "win_rate": "55.6%",
+        "match_count": 9,
+        "average_imprint_rating": 47
+      },
+      {
+        "account_id": 76904792,
+        "account_name": "poloson",
+        "primary_team": {
+          "team_id": 8261500,
+          "team_name": "Xtreme Gaming",
+          "team_logo_src": "https://cdn.imprint.gg/teams/8261500_2402194226059610590.png"
+        },
+        "primary_position": 5,
+        "wins": 5,
+        "losses": 4,
+        "win_rate": "55.6%",
+        "match_count": 9,
+        "average_imprint_rating": 46.2
+      },
+      {
+        "account_id": 77490514,
+        "account_name": "Boxi",
+        "primary_team": {
+          "team_id": 2163,
+          "team_name": "Team Liquid",
+          "team_logo_src": "https://cdn.imprint.gg/teams/2163_2026094195660244377.png"
+        },
+        "primary_position": 4,
+        "wins": 3,
+        "losses": 3,
+        "win_rate": "50.0%",
+        "match_count": 6,
+        "average_imprint_rating": 45
+      },
+      {
+        "account_id": 145957968,
+        "account_name": "niu",
+        "primary_team": {
+          "team_id": 8261500,
+          "team_name": "Xtreme Gaming",
+          "team_logo_src": "https://cdn.imprint.gg/teams/8261500_2402194226059610590.png"
+        },
+        "primary_position": 3,
+        "wins": 5,
+        "losses": 4,
+        "win_rate": "55.6%",
+        "match_count": 9,
+        "average_imprint_rating": 44.6
+      },
+      {
+        "account_id": 331855530,
+        "account_name": "Pure",
+        "primary_team": {
+          "team_id": 8255888,
+          "team_name": "BetBoom Team",
+          "team_logo_src": "https://cdn.imprint.gg/teams/8255888_2501271299873667086.png"
+        },
+        "primary_position": 1,
+        "wins": 8,
+        "losses": 2,
+        "win_rate": "80.0%",
+        "match_count": 10,
+        "average_imprint_rating": 44.4
+      },
+      {
+        "account_id": 126212866,
+        "account_name": "El SaberLightO",
+        "primary_team": {
+          "team_id": 2163,
+          "team_name": "Team Liquid",
+          "team_logo_src": "https://cdn.imprint.gg/teams/2163_2026094195660244377.png"
+        },
+        "primary_position": 3,
+        "wins": 3,
+        "losses": 3,
+        "win_rate": "50.0%",
+        "match_count": 6,
+        "average_imprint_rating": 43.8
+      },
+      {
+        "account_id": 94786276,
+        "account_name": "full ulf",
+        "primary_team": {
+          "team_id": 2586976,
+          "team_name": "OG",
+          "team_logo_src": "https://cdn.imprint.gg/teams/2586976_33309069798149577.png"
+        },
+        "primary_position": 2,
+        "wins": 2,
+        "losses": 6,
+        "win_rate": "25.0%",
+        "match_count": 8,
+        "average_imprint_rating": 43.4
+      },
+      {
+        "account_id": 81306398,
+        "account_name": "KingJungles",
+        "primary_team": {
+          "team_id": 9303484,
+          "team_name": "HEROIC",
+          "team_logo_src": "https://cdn.imprint.gg/teams/9303484_2471984170520125054.png"
+        },
+        "primary_position": 5,
+        "wins": 3,
+        "losses": 7,
+        "win_rate": "30.0%",
+        "match_count": 10,
+        "average_imprint_rating": 43.3
+      },
+      {
+        "account_id": 113331514,
+        "account_name": "Miposhka",
+        "primary_team": {
+          "team_id": 7119388,
+          "team_name": "Team Spirit",
+          "team_logo_src": "https://cdn.imprint.gg/teams/7119388_1839179120711951766.png"
+        },
+        "primary_position": 5,
+        "wins": 2,
+        "losses": 6,
+        "win_rate": "25.0%",
+        "match_count": 8,
+        "average_imprint_rating": 43.2
+      },
+      {
+        "account_id": 171262902,
+        "account_name": "医者watson`",
+        "primary_team": {
+          "team_id": 8599101,
+          "team_name": "Gaimin Gladiators",
+          "team_logo_src": "https://cdn.imprint.gg/teams/8599101_1850419664501191993.png"
+        },
+        "primary_position": 1,
+        "wins": 5,
+        "losses": 4,
+        "win_rate": "55.6%",
+        "match_count": 9,
+        "average_imprint_rating": 42.8
+      },
+      {
+        "account_id": 346412363,
+        "account_name": "girls that get it",
+        "primary_team": {
+          "team_id": 2586976,
+          "team_name": "OG",
+          "team_logo_src": "https://cdn.imprint.gg/teams/2586976_33309069798149577.png"
+        },
+        "primary_position": 4,
+        "wins": 2,
+        "losses": 6,
+        "win_rate": "25.0%",
+        "match_count": 8,
+        "average_imprint_rating": 42.6
+      },
+      {
+        "account_id": 196878136,
+        "account_name": "Kataomi`",
+        "primary_team": {
+          "team_id": 8255888,
+          "team_name": "BetBoom Team",
+          "team_logo_src": "https://cdn.imprint.gg/teams/8255888_2501271299873667086.png"
+        },
+        "primary_position": 5,
+        "wins": 8,
+        "losses": 2,
+        "win_rate": "80.0%",
+        "match_count": 10,
+        "average_imprint_rating": 42.4
+      },
+      {
+        "account_id": 138880576,
+        "account_name": "Davai Lama",
+        "primary_team": {
+          "team_id": 9303484,
+          "team_name": "HEROIC",
+          "team_logo_src": "https://cdn.imprint.gg/teams/9303484_2471984170520125054.png"
+        },
+        "primary_position": 3,
+        "wins": 3,
+        "losses": 7,
+        "win_rate": "30.0%",
+        "match_count": 10,
+        "average_imprint_rating": 42.4
+      },
+      {
+        "account_id": 292921272,
+        "account_name": "OLD.Smash",
+        "primary_team": {
+          "team_id": 2586976,
+          "team_name": "OG",
+          "team_logo_src": "https://cdn.imprint.gg/teams/2586976_33309069798149577.png"
+        },
+        "primary_position": 3,
+        "wins": 2,
+        "losses": 6,
+        "win_rate": "25.0%",
+        "match_count": 8,
+        "average_imprint_rating": 41.2
+      },
+      {
+        "account_id": 94296097,
+        "account_name": "feather",
+        "primary_team": {
+          "team_id": 2586976,
+          "team_name": "OG",
+          "team_logo_src": "https://cdn.imprint.gg/teams/2586976_33309069798149577.png"
+        },
+        "primary_position": 5,
+        "wins": 2,
+        "losses": 6,
+        "win_rate": "25.0%",
+        "match_count": 8,
+        "average_imprint_rating": 41.1
+      },
+      {
+        "account_id": 203351055,
+        "account_name": "Malik",
+        "primary_team": {
+          "team_id": 7119388,
+          "team_name": "Team Spirit",
+          "team_logo_src": "https://cdn.imprint.gg/teams/7119388_1839179120711951766.png"
+        },
+        "primary_position": 3,
+        "wins": 2,
+        "losses": 6,
+        "win_rate": "25.0%",
+        "match_count": 8,
+        "average_imprint_rating": 40.1
+      },
+      {
+        "account_id": 157989498,
+        "account_name": "Scofield",
+        "primary_team": {
+          "team_id": 9303484,
+          "team_name": "HEROIC",
+          "team_logo_src": "https://cdn.imprint.gg/teams/9303484_2471984170520125054.png"
+        },
+        "primary_position": 4,
+        "wins": 3,
+        "losses": 7,
+        "win_rate": "30.0%",
+        "match_count": 10,
+        "average_imprint_rating": 39.9
+      },
+      {
+        "account_id": 177203952,
+        "account_name": "Yuma",
+        "primary_team": {
+          "team_id": 9303484,
+          "team_name": "HEROIC",
+          "team_logo_src": "https://cdn.imprint.gg/teams/9303484_2471984170520125054.png"
+        },
+        "primary_position": 1,
+        "wins": 3,
+        "losses": 7,
+        "win_rate": "30.0%",
+        "match_count": 10,
+        "average_imprint_rating": 38.9
+      },
+      {
+        "account_id": 847565596,
+        "account_name": "rue",
+        "primary_team": {
+          "team_id": 7119388,
+          "team_name": "Team Spirit",
+          "team_logo_src": "https://cdn.imprint.gg/teams/7119388_1839179120711951766.png"
+        },
+        "primary_position": 4,
+        "wins": 2,
+        "losses": 6,
+        "win_rate": "25.0%",
+        "match_count": 8,
+        "average_imprint_rating": 37.7
+      },
+      {
+        "account_id": 106305042,
+        "account_name": "Larl",
+        "primary_team": {
+          "team_id": 7119388,
+          "team_name": "Team Spirit",
+          "team_logo_src": "https://cdn.imprint.gg/teams/7119388_1839179120711951766.png"
+        },
+        "primary_position": 2,
+        "wins": 2,
+        "losses": 6,
+        "win_rate": "25.0%",
+        "match_count": 8,
+        "average_imprint_rating": 37.2
+      },
+      {
+        "account_id": 100058342,
+        "account_name": "skiter",
+        "primary_team": {
+          "team_id": 9247354,
+          "team_name": "Team Falcons",
+          "team_logo_src": "https://cdn.imprint.gg/teams/9247354_2314350571781870059.png"
+        },
+        "primary_position": 1,
+        "wins": 4,
+        "losses": 5,
+        "win_rate": "44.4%",
+        "match_count": 9,
+        "average_imprint_rating": 36
+      },
+      {
+        "account_id": 375507918,
+        "account_name": "8 miles",
+        "primary_team": {
+          "team_id": 2586976,
+          "team_name": "OG",
+          "team_logo_src": "https://cdn.imprint.gg/teams/2586976_33309069798149577.png"
+        },
+        "primary_position": 1,
+        "wins": 2,
+        "losses": 6,
+        "win_rate": "25.0%",
+        "match_count": 8,
+        "average_imprint_rating": 35.6
+      },
+      {
+        "account_id": 131303632,
+        "account_name": "4nalog <01",
+        "primary_team": {
+          "team_id": 9303484,
+          "team_name": "HEROIC",
+          "team_logo_src": "https://cdn.imprint.gg/teams/9303484_2471984170520125054.png"
+        },
+        "primary_position": 2,
+        "wins": 3,
+        "losses": 7,
+        "win_rate": "30.0%",
+        "match_count": 10,
+        "average_imprint_rating": 34.7
+      }
+    ]
+  }
