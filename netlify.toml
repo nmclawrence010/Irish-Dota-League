@@ -1,6 +1,6 @@
 [[redirects]]
-  from = "/api/*"
-  to = "https://api.imprint.gg/:splat"
+  from = "/api/match"
+  to = "https://api.imprint.gg/match"
   status = 200
   force = true
   methods = ["POST", "OPTIONS"]
@@ -8,3 +8,15 @@
     Access-Control-Allow-Origin = "*"
     Access-Control-Allow-Headers = "Origin, X-Requested-With, Content-Type, Accept, token"
     Access-Control-Allow-Methods = "POST, OPTIONS"
+
+[[redirects]]
+  from = "/api/league/players"
+  to = "https://api.imprint.gg/league/players"
+  status = 200
+  force = true
+  methods = ["POST", "OPTIONS"]
+  [redirects.headers]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Headers = "Origin, X-Requested-With, Content-Type, Accept, token"
+    Access-Control-Allow-Methods = "POST, OPTIONS"
+    Content-Type = "application/json"
