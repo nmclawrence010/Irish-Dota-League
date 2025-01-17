@@ -22,7 +22,7 @@ interface LeaderboardResponse {
 }
 
 const API_TOKEN = import.meta.env.VITE_IMPRINT_API_TOKEN;
-const API_URL_LEADERBOARD = import.meta.env.DEV ? "/api/league/players" : "https://api.imprint.gg/league/players";
+const API_URL_LEADERBOARD = "/api/league/players";
 
 export const fetchLeaderboard = async (): Promise<LeaderboardResponse> => {
   try {
