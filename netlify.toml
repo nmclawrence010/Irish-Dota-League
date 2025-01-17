@@ -19,4 +19,3 @@
     Access-Control-Allow-Origin = "*"
     Access-Control-Allow-Headers = "Origin, X-Requested-With, Content-Type, Accept, token"
     Access-Control-Allow-Methods = "POST, OPTIONS"
-    Content-Type = "application/json"
