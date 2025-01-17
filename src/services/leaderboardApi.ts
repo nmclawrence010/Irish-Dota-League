@@ -38,7 +38,8 @@ export const fetchLeaderboard = async (): Promise<LeaderboardResponse> => {
     });
 
     if (!response.ok) {
-      throw new Error("Failed to fetch leaderboard data");
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || "Failed to fetch leaderboard data");
     }
 
     return await response.json();

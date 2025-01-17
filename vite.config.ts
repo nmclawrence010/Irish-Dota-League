@@ -11,20 +11,26 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      "/api/match": {
-        target: "https://api.imprint.gg",
+      "^/api/.": {
+        // Using a regex to match all /api/ routes
+        target: "https://api.imprint.gg/",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-      },
-      "/api/league/players": {
-        target: "https://api.imprint.gg",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
-        headers: {
-          "Access-Control-Allow-Origin": "*",
+        configure: (proxy, options) => {
+          proxy.on("proxyRes", (proxyRes, req, res) => {
+            // Add proper CORS headers to the response from the proxied server
+            proxyRes.headers["Access-Control-Allow-Origin"] = "*";
+            proxyRes.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS";
+            proxyRes.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization";
+          });
+          proxy.on("error", (err, req, res) => {
+            // Handle proxy errors gracefully
+            console.error("Proxy error:", err);
+            res.writeHead(500, {
+              "Content-Type": "text/plain",
+            });
+            res.end("Proxy error: Something went wrong.");
+          });
         },
       },
     },
