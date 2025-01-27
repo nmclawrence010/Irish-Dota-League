@@ -5,7 +5,7 @@ import { Match } from "@/types/tournament";
 import { MatchStats } from "@/components/MatchStats";
 
 export const MatchList: React.FC = () => {
-  const [currentWeek, setCurrentWeek] = useState(2);
+  const [currentWeek, setCurrentWeek] = useState(3);
   const [expandedMatch, setExpandedMatch] = useState<string | null>(null);
   const maxWeeks = 5;
 
