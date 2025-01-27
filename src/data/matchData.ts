@@ -45,7 +45,7 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       team2Id: "the_standins",
       date: "2025-01-20",
       completed: true,
-      week: 1,
+      week: 2,
       games: {
         game1: { played: true, winner: "wongs_bakery", dota2MatchId: "8147084430" },
         game2: { played: true, winner: "wongs_bakery", dota2MatchId: "8147194627" },
@@ -237,7 +237,7 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       team2Id: "creep_enjoyers",
       date: "2025-01-20",
       completed: true,
-      week: 1,
+      week: 2,
       games: {
         game1: { played: true, winner: "creep_enjoyers", dota2MatchId: "8146342240" },
         game2: { played: true, winner: "stinky_steve", dota2MatchId: "8146422026" },
