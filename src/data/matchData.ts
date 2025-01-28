@@ -334,8 +334,8 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
     // Week 5
     {
       id: "d2w5m1",
-      team1Id: "kobold_camp",
-      team2Id: "taylors_angels",
+      team1Id: "creep_enjoyers",
+      team2Id: "cavan_champions",
       date: "2025-02-10",
       completed: false,
       week: 5,
@@ -346,8 +346,8 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
     },
     {
       id: "d2w5m2",
-      team1Id: "void",
-      team2Id: "creep_enjoyers",
+      team1Id: "kobold_camp",
+      team2Id: "void",
       date: "2025-02-10",
       completed: false,
       week: 5,
@@ -358,8 +358,8 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
     },
     {
       id: "d2w5m3",
-      team1Id: "stinky_steve",
-      team2Id: "cavan_champions",
+      team1Id: "taylors_angels",
+      team2Id: "stinky_steve",
       date: "2025-02-10",
       completed: false,
       week: 5,
