@@ -1,13 +1,23 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Users, ClipboardList, UserPlus, User, LogOut, Menu, X } from "lucide-react";
+import {
+  Users,
+  ClipboardList,
+  UserPlus,
+  User,
+  LogOut,
+  Menu,
+  X,
+} from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useAuth } from "../hooks/useAuth";
 import logo from "/irishdotalogo.png";
 import imprintlogo from "/imprint.png";
 import { DiscordIcon } from "./DiscordIcon";
 
-export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const Layout: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const { isAuthenticated, login, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -17,15 +27,19 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         <div className="px-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <Link to="/" className="flex items-center space-x-3 hover:opacity-90 transition-all">
-                <img src={logo} alt="Irish Dota League Logo" className="h-16 w-16 rounded-full object-cover" />
-                <h1 className="text-3xl font-bold tracking-tight">Irish Dota League</h1>
+              <Link
+                to="/"
+                className="flex items-center space-x-3 hover:opacity-90 transition-all"
+              >
+                <img
+                  src={logo}
+                  alt="Irish Dota League Logo"
+                  className="h-16 w-16 rounded-full object-cover"
+                />
+                <h1 className="text-base md:text-3xl font-bold tracking-tight">
+                  Irish Dota League
+                </h1>
               </Link>
-
-              {/* Mobile menu button */}
-              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="ml-4 p-2 rounded-lg hover:bg-white/10 lg:hidden">
-                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
 
               {/* Desktop Navigation */}
               <div className="hidden lg:flex items-center space-x-8 ml-8">
@@ -60,13 +74,15 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             </div>
 
             <div className="flex items-center space-x-4">
-              <ThemeToggle />
+              <span className="hidden md:flex">
+                <ThemeToggle />
+              </span>
 
               <a
                 href="https://discord.gg/fErrveaumv"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative flex items-center justify-center w-12 h-12 bg-[#5865F2] rounded-full transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-[#5865F2]/30 focus:outline-none focus:ring-2 focus:ring-[#5865F2] focus:ring-offset-2 focus:ring-offset-[#169B62]"
+                className="hidden relative md:flex items-center justify-center w-12 h-12 bg-[#5865F2] rounded-full transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-[#5865F2]/30 focus:outline-none focus:ring-2 focus:ring-[#5865F2] focus:ring-offset-2 focus:ring-offset-[#169B62]"
                 title="Join our Discord"
               >
                 <DiscordIcon />
@@ -74,10 +90,14 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
               <Link
                 to="/imprint"
-                className="relative flex items-center justify-center w-12 h-12 bg-[#1d1d1b] rounded-full transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-[#47ffd0]/30 focus:outline-none focus:ring-2 focus:ring-[#47ffd0] focus:ring-offset-2 focus:ring-offset-[#1d1d1b]"
+                className="hidden relative md:flex items-center justify-center w-12 h-12 bg-[#1d1d1b] rounded-full transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-[#47ffd0]/30 focus:outline-none focus:ring-2 focus:ring-[#47ffd0] focus:ring-offset-2 focus:ring-offset-[#1d1d1b]"
               >
                 <div className="relative w-8 h-8">
-                  <img src={imprintlogo} alt="Imprint Logo" className="w-full h-full object-contain" />
+                  <img
+                    src={imprintlogo}
+                    alt="Imprint Logo"
+                    className="w-full h-full object-contain"
+                  />
                 </div>
               </Link>
 
@@ -111,11 +131,19 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
               ) : (
                 <button
                   onClick={() => login()}
-                  className="flex items-center space-x-2 bg-yellow-400 text-gray-800 hover:bg-yellow-300 dark:bg-yellow-500 dark:text-gray-900 dark:hover:bg-yellow-400 px-4 py-2 rounded-full font-semibold transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-yellow-400/30 dark:hover:shadow-yellow-500/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#169B62] focus:ring-yellow-400"
+                  className="text-xs md:text-base flex items-center space-x-2 bg-yellow-400 text-gray-800 hover:bg-yellow-300 dark:bg-yellow-500 dark:text-gray-900 dark:hover:bg-yellow-400 px-4 py-2 rounded-full font-semibold transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-yellow-400/30 dark:hover:shadow-yellow-500/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#169B62] focus:ring-yellow-400"
                 >
                   Login
                 </button>
               )}
+
+              {/* Mobile menu button */}
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="ml-4 p-2 rounded-lg hover:bg-white/10 lg:hidden"
+              >
+                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
             </div>
           </div>
 
@@ -182,6 +210,31 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                     </button>
                   </>
                 )}
+                <div className="flex items-center space-x-4 ml-4">
+                  <a
+                    href="https://discord.gg/fErrveaumv"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative flex items-center justify-center w-8 h-8 bg-[#5865F2] rounded-full transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-[#5865F2]/30 focus:outline-none focus:ring-2 focus:ring-[#5865F2] focus:ring-offset-2 focus:ring-offset-[#169B62]"
+                    title="Join our Discord"
+                  >
+                    <DiscordIcon />
+                  </a>
+
+                  <Link
+                    to="/imprint"
+                    className="relative flex items-center justify-center w-8 h-8 bg-[#1d1d1b] rounded-full transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-[#47ffd0]/30 focus:outline-none focus:ring-2 focus:ring-[#47ffd0] focus:ring-offset-2 focus:ring-offset-[#1d1d1b]"
+                  >
+                    <div className="flex justify-center align-middle mt-4 relative w-8 h-8">
+                      <img
+                        src={imprintlogo}
+                        alt="Imprint Logo"
+                        className="w-4 h-4 md:w-full md:h-full object-contain"
+                      />
+                    </div>
+                  </Link>
+                  <ThemeToggle />
+                </div>
               </div>
             </div>
           )}
