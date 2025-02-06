@@ -374,7 +374,7 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
         game1: { played: true, winner: "stinky_steve", dota2MatchId: "8162565545" },
         game2: { played: true, winner: "stinky_steve", dota2MatchId: "8162641620" },
       },
-      score: [2, 0],
+      score: [0, 2],
     },
   ],
   3: [
@@ -507,7 +507,7 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
         game1: { played: true, winner: "imprint_esports", dota2MatchId: "8162553790" },
         game2: { played: true, winner: "imprint_esports", dota2MatchId: "8162649481" },
       },
-      score: [0, 2],
+      score: [2, 0],
     },
     {
       id: "d3w4bye",
