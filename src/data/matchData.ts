@@ -126,12 +126,13 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       team1Id: "wongs_bakery",
       team2Id: "joonsquad",
       date: "2025-02-03",
-      completed: false,
+      completed: true,
       week: 4,
       games: {
-        game1: { played: false },
-        game2: { played: false },
+        game1: { played: true, winner: "wongs_bakery", dota2MatchId: "8167151922" },
+        game2: { played: true, winner: "wongs_bakery", dota2MatchId: "8167259598" },
       },
+      score: [1, 1],
     },
     {
       id: "d1w4bye",
