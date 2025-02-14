@@ -1,44 +1,25 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  Users,
-  ClipboardList,
-  UserPlus,
-  User,
-  LogOut,
-  Menu,
-  X,
-} from "lucide-react";
+import { Users, ClipboardList, UserPlus, User, LogOut, Menu, X } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useAuth } from "../hooks/useAuth";
 import logo from "/irishdotalogo.png";
 import imprintlogo from "/imprint.png";
 import { DiscordIcon } from "./DiscordIcon";
 
-export const Layout: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, login, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors">
-      <header className="bg-gradient-to-r from-[#169B62] via-[#169B62] to-[#169B62] dark:from-[#0A2F51] dark:via-[#0E4D64] dark:to-[#137177] text-white py-6 transition-colors relative">
+      <header className="bg-gradient-to-r from-[#169B62] via-[#169B62] to-[#169B62] dark:from-[#0A2F51] dark:via-[#0A3851] dark:to-[#0A4151] text-white py-6 transition-colors relative">
         <div className="px-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <Link
-                to="/"
-                className="flex items-center space-x-3 hover:opacity-90 transition-all"
-              >
-                <img
-                  src={logo}
-                  alt="Irish Dota League Logo"
-                  className="h-16 w-16 rounded-full object-cover"
-                />
-                <h1 className="text-base md:text-3xl font-bold tracking-tight">
-                  Irish Dota League
-                </h1>
+              <Link to="/" className="flex items-center space-x-3 hover:opacity-90 transition-all">
+                <img src={logo} alt="Irish Dota League Logo" className="h-16 w-16 rounded-full object-cover" />
+                <h1 className="text-base md:text-3xl font-bold tracking-tight">Irish Dota League</h1>
               </Link>
 
               {/* Desktop Navigation */}
@@ -93,11 +74,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
                 className="hidden relative md:flex items-center justify-center w-12 h-12 bg-[#1d1d1b] rounded-full transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-[#47ffd0]/30 focus:outline-none focus:ring-2 focus:ring-[#47ffd0] focus:ring-offset-2 focus:ring-offset-[#1d1d1b]"
               >
                 <div className="relative w-8 h-8">
-                  <img
-                    src={imprintlogo}
-                    alt="Imprint Logo"
-                    className="w-full h-full object-contain"
-                  />
+                  <img src={imprintlogo} alt="Imprint Logo" className="w-full h-full object-contain" />
                 </div>
               </Link>
 
@@ -138,10 +115,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
               )}
 
               {/* Mobile menu button */}
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="ml-4 p-2 rounded-lg hover:bg-white/10 lg:hidden"
-              >
+              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="ml-4 p-2 rounded-lg hover:bg-white/10 lg:hidden">
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
             </div>
@@ -226,11 +200,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
                     className="relative flex items-center justify-center w-8 h-8 bg-[#1d1d1b] rounded-full transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-[#47ffd0]/30 focus:outline-none focus:ring-2 focus:ring-[#47ffd0] focus:ring-offset-2 focus:ring-offset-[#1d1d1b]"
                   >
                     <div className="flex justify-center align-middle mt-4 relative w-8 h-8">
-                      <img
-                        src={imprintlogo}
-                        alt="Imprint Logo"
-                        className="w-4 h-4 md:w-full md:h-full object-contain"
-                      />
+                      <img src={imprintlogo} alt="Imprint Logo" className="w-4 h-4 md:w-full md:h-full object-contain" />
                     </div>
                   </Link>
                   <ThemeToggle />
