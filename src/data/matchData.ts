@@ -57,12 +57,13 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       team1Id: "team_secret",
       team2Id: "joonsquad",
       date: "2025-01-20",
-      completed: false,
+      completed: true,
       week: 2,
       games: {
-        game1: { played: false },
-        game2: { played: false },
+        game1: { played: true, winner: "team_secret", dota2MatchId: "8177227513" },
+        game2: { played: true, winner: "joonsquad", dota2MatchId: "8177315650" },
       },
+      score: [1, 1],
     },
     {
       id: "d1w2bye",
@@ -471,12 +472,13 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       team1Id: "andy_archons",
       team2Id: "dans_crusty_socks",
       date: "2025-01-27",
-      completed: false,
+      completed: true,
       week: 3,
       games: {
-        game1: { played: false },
-        game2: { played: false },
+        game1: { played: true, winner: "andy_archons", dota2MatchId: "8177266539" },
+        game2: { played: true, winner: "dans_crusty_socks", dota2MatchId: "8177324537" },
       },
+      score: [1, 1],
     },
     {
       id: "d3w3bye",
