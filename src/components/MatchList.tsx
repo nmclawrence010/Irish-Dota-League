@@ -156,6 +156,18 @@ export const MatchList: React.FC = () => {
                     dota2MatchId={match.games.game1.dota2MatchId || ""}
                     isExpanded={expandedMatch === match.id}
                   />
+                  {match.games.game1.dota2MatchId && (
+                    <div className="mt-4 text-center">
+                      <a
+                        href={`https://www.dotabuff.com/matches/${match.games.game1.dota2MatchId}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mx-2 inline-block hover:opacity-80 transition-opacity"
+                      >
+                        <img src="/dotabuff.png" alt="View on Dotabuff" className="h-6 w-auto" />
+                      </a>
+                    </div>
+                  )}
                 </div>
 
                 {/* Game divider */}
@@ -169,6 +181,18 @@ export const MatchList: React.FC = () => {
                     dota2MatchId={match.games.game2.dota2MatchId || ""}
                     isExpanded={expandedMatch === match.id}
                   />
+                  {match.games.game2.dota2MatchId && (
+                    <div className="mt-4 text-center">
+                      <a
+                        href={`https://www.dotabuff.com/matches/${match.games.game2.dota2MatchId}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mx-2 inline-block hover:opacity-80 transition-opacity"
+                      >
+                        <img src="/dotabuff.png" alt="View on Dotabuff" className="h-6 w-auto" />
+                      </a>
+                    </div>
+                  )}
                 </div>
               </>
             )}
