@@ -7,10 +7,7 @@ interface MatchStatsProps {
   isExpanded: boolean;
 }
 
-export const MatchStats: React.FC<MatchStatsProps> = ({
-  dota2MatchId,
-  isExpanded,
-}) => {
+export const MatchStats: React.FC<MatchStatsProps> = ({ dota2MatchId, isExpanded }) => {
   const [matchData, setMatchData] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -40,8 +37,7 @@ export const MatchStats: React.FC<MatchStatsProps> = ({
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#46ffd0]"></div>
       </div>
     );
-  if (error)
-    return <div className="text-center py-4 text-red-500">{error}</div>;
+  if (error) return <div className="text-center py-4 text-red-500">{error}</div>;
   if (!matchData) return null;
 
   const team1Players = matchData.teams[0]?.players || [];
@@ -54,9 +50,7 @@ export const MatchStats: React.FC<MatchStatsProps> = ({
 
   // Find highest imprint rating from all players
   const allPlayers = [...team1Players, ...team2Players];
-  const highestRating = Math.max(
-    ...allPlayers.map((player) => player.imprint_rating)
-  );
+  const highestRating = Math.max(...allPlayers.map((player) => player.imprint_rating));
 
   const isMVP = (rating: number) => rating === highestRating;
 
@@ -69,18 +63,18 @@ export const MatchStats: React.FC<MatchStatsProps> = ({
           <div key={player.account_id} className="py-4 first:pt-0 last:pb-0">
             <div className="flex items-center md:justify-end justify-between relative">
               <div className="block md:flex gap-1 md:absolute relative md:-left-56">
-                {player.items.map(
+                {player.items?.map(
                   (item: any, index: number) =>
-                    item.icon_src && (
+                    item?.icon_src && (
                       <img
                         key={index}
                         src={item.icon_src}
-                        alt={item.Name}
-                        title={item.Name}
+                        alt={item.Name || "Item"}
+                        title={item.Name || "Item"}
                         className="w-8 h-8 object-contain rounded"
                       />
                     )
-                )}
+                ) || null}
               </div>
               <span className="text-base font-semibold text-gray-700 dark:text-gray-300 block md:absolute -left-0 w-20 text-center md:text-right">
                 {player.kills}-{player.deaths}-{player.assists}
@@ -88,9 +82,7 @@ export const MatchStats: React.FC<MatchStatsProps> = ({
               <div className="flex items-center gap-2">
                 <span
                   className={`text-base text-center md:text-left ${
-                    isMVP(player.imprint_rating)
-                      ? "text-[#46ffd0] font-semibold flex items-center gap-1"
-                      : "text-gray-900 dark:text-white"
+                    isMVP(player.imprint_rating) ? "text-[#46ffd0] font-semibold flex items-center gap-1" : "text-gray-900 dark:text-white"
                   }`}
                   title={player.account_name}
                 >
@@ -102,15 +94,9 @@ export const MatchStats: React.FC<MatchStatsProps> = ({
                   )}
                 </span>
                 <div className="w-8 h-8 rounded-lg bg-[#1d1d1b] flex items-center justify-center">
-                  <span className="text-base font-medium text-[#46ffd0]">
-                    {Math.round(player.imprint_rating)}
-                  </span>
+                  <span className="text-base font-medium text-[#46ffd0]">{Math.round(player.imprint_rating)}</span>
                 </div>
-                <img
-                  src={player.hero.static_portrait_src}
-                  alt={player.hero.Name}
-                  className="w-14 h-10 object-cover rounded"
-                />
+                <img src={player.hero.static_portrait_src} alt={player.hero.Name} className="w-14 h-10 object-cover rounded" />
               </div>
             </div>
           </div>
@@ -124,21 +110,13 @@ export const MatchStats: React.FC<MatchStatsProps> = ({
           <div key={player.account_id} className="py-4 first:pt-0 last:pb-0">
             <div className="flex items-center md:justify-start justify-between relative">
               <div className="flex items-center gap-2">
-                <img
-                  src={player.hero.static_portrait_src}
-                  alt={player.hero.Name}
-                  className="w-14 h-10 object-cover rounded"
-                />
+                <img src={player.hero.static_portrait_src} alt={player.hero.Name} className="w-14 h-10 object-cover rounded" />
                 <div className="w-8 h-8 rounded-lg bg-[#1d1d1b] flex items-center justify-center">
-                  <span className="text-base font-medium text-[#46ffd0]">
-                    {Math.round(player.imprint_rating)}
-                  </span>
+                  <span className="text-base font-medium text-[#46ffd0]">{Math.round(player.imprint_rating)}</span>
                 </div>
                 <span
                   className={`text-center md:text-right ${
-                    isMVP(player.imprint_rating)
-                      ? "text-[#46ffd0] font-semibold flex items-center gap-1"
-                      : "text-gray-900 dark:text-white"
+                    isMVP(player.imprint_rating) ? "text-[#46ffd0] font-semibold flex items-center gap-1" : "text-gray-900 dark:text-white"
                   }`}
                   title={player.account_name}
                 >
@@ -156,18 +134,18 @@ export const MatchStats: React.FC<MatchStatsProps> = ({
               </span>
 
               <div className="block md:flex gap-1 md:absolute relative md:-right-56">
-                {player.items.map(
+                {player.items?.map(
                   (item: any, index: number) =>
-                    item.icon_src && (
+                    item?.icon_src && (
                       <img
                         key={index}
                         src={item.icon_src}
-                        alt={item.Name}
-                        title={item.Name}
+                        alt={item.Name || "Item"}
+                        title={item.Name || "Item"}
                         className="w-8 h-8 object-contain rounded"
                       />
                     )
-                )}
+                ) || null}
               </div>
             </div>
           </div>
