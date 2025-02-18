@@ -4,6 +4,7 @@ import { clsx } from "clsx";
 import { Team } from "@/types/tournament";
 import { MatchList } from "@/components/MatchList";
 import { Twitch } from "lucide-react";
+import { KnockoutBracket } from "@/components/KnockoutBracket";
 
 export const HomePage: React.FC = () => {
   const [selectedDivision, setSelectedDivision] = useState(2);
@@ -123,8 +124,8 @@ export const HomePage: React.FC = () => {
             </table>
           </div>
         ) : (
-          <div className="flex items-center justify-center h-48">
-            <p className="text-gray-500 dark:text-gray-400">Knockout bracket coming soon...</p>
+          <div className="overflow-x-auto">
+            <KnockoutBracket teams={currentTeams} division={selectedDivision} />
           </div>
         )}
       </div>
