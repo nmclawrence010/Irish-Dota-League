@@ -116,12 +116,13 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       team1Id: "monkey_kings",
       team2Id: "team_secret",
       date: "2025-02-03",
-      completed: false,
+      completed: true,
       week: 4,
       games: {
-        game1: { played: false },
-        game2: { played: false },
+        game1: { played: true, winner: "monkey_kings", dota2MatchId: "8187879467" },
+        game2: { played: true, winner: "monkey_kings", dota2MatchId: "8187961300" },
       },
+      score: [2, 0],
     },
     {
       id: "d1w4m2",
@@ -180,6 +181,19 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       completed: false,
       week: 5,
       isByeWeek: true,
+    },
+    // Week 6
+    {
+      id: "d1w6m1",
+      team1Id: "the_standins",
+      team2Id: "team_secret",
+      date: "2025-02-24",
+      completed: false,
+      week: 6,
+      games: {
+        game1: { played: false },
+        game2: { played: false },
+      },
     },
   ],
   2: [
@@ -383,6 +397,31 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       },
       score: [0, 2],
     },
+    // Week 6
+    {
+      id: "d2w6m1",
+      team1Id: "stinky_steve",
+      team2Id: "taylors_angels",
+      date: "2025-02-24",
+      completed: false,
+      week: 6,
+      games: {
+        game1: { played: false },
+        game2: { played: false },
+      },
+    },
+    {
+      id: "d2w6m2",
+      team1Id: "kobold_camp",
+      team2Id: "void",
+      date: "2025-02-24",
+      completed: false,
+      week: 6,
+      games: {
+        game1: { played: false },
+        game2: { played: false },
+      },
+    },
   ],
   3: [
     // Week 1
@@ -561,6 +600,31 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       completed: false,
       week: 5,
       isByeWeek: true,
+    },
+    // Week 6
+    {
+      id: "d3w6m1",
+      team1Id: "dans_crusty_socks",
+      team2Id: "imprint_esports",
+      date: "2025-02-24",
+      completed: false,
+      week: 6,
+      games: {
+        game1: { played: false },
+        game2: { played: false },
+      },
+    },
+    {
+      id: "d3w6m2",
+      team1Id: "andy_archons",
+      team2Id: "no_discord",
+      date: "2025-02-24",
+      completed: false,
+      week: 6,
+      games: {
+        game1: { played: false },
+        game2: { played: false },
+      },
     },
   ],
 };

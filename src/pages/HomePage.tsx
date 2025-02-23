@@ -8,7 +8,7 @@ import { KnockoutBracket } from "@/components/KnockoutBracket";
 
 export const HomePage: React.FC = () => {
   const [selectedDivision, setSelectedDivision] = useState(2);
-  const [selectedPhase, setSelectedPhase] = useState<"league" | "knockout">("league");
+  const [selectedPhase, setSelectedPhase] = useState<"league" | "knockout">("knockout");
   const { teams: currentTeams, loading } = useTeams(selectedDivision);
 
   const divisions = [
