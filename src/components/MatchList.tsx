@@ -194,6 +194,36 @@ export const MatchList: React.FC = () => {
                     </div>
                   )}
                 </div>
+
+                {/* Game 3 - Only show for knockout matches if game3 exists and was played */}
+                {match.isKnockout && match.games.game3 && match.games.game3.played && (
+                  <>
+                    {/* Game divider */}
+                    <div className="border-b-2 border-gray-300 dark:border-gray-600 w-full opacity-75"></div>
+
+                    {/* Game 3 */}
+                    <div>
+                      <h4 className="text-lg font-medium text-gray-600 dark:text-gray-300 mb-3 text-center">Game 3</h4>
+                      <MatchStats
+                        matchId={match.id}
+                        dota2MatchId={match.games.game3.dota2MatchId || ""}
+                        isExpanded={expandedMatch === match.id}
+                      />
+                      {match.games.game3.dota2MatchId && (
+                        <div className="mt-4 text-center">
+                          <a
+                            href={`https://www.dotabuff.com/matches/${match.games.game3.dota2MatchId}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mx-2 inline-block hover:opacity-80 transition-opacity"
+                          >
+                            <img src="/dotabuff.png" alt="View on Dotabuff" className="h-6 w-auto" />
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
               </>
             )}
           </div>

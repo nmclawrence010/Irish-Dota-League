@@ -139,7 +139,7 @@ export const KnockoutBracket: React.FC<KnockoutBracketProps> = ({ teams, divisio
           </div>
           <div className="flex flex-col gap-3">
             {renderMatchBox("1st Seed", sortedTeams[0])}
-            {renderMatchBox("Winner of 4th vs 5th", "TBD")}
+            {renderMatchBox("Winner of 4th vs 5th", sortedTeams[3])}
           </div>
         </div>
 

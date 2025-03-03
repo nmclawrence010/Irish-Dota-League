@@ -37,6 +37,10 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       completed: false,
       week: 1,
       isByeWeek: true,
+      games: {
+        game1: { played: false },
+        game2: { played: false },
+      },
     },
     // Week 2
     {
@@ -73,6 +77,10 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       completed: false,
       week: 2,
       isByeWeek: true,
+      games: {
+        game1: { played: false },
+        game2: { played: false },
+      },
     },
     // Week 3
     {
@@ -109,6 +117,10 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       completed: false,
       week: 3,
       isByeWeek: true,
+      games: {
+        game1: { played: false },
+        game2: { played: false },
+      },
     },
     // Week 4
     {
@@ -145,6 +157,10 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       completed: false,
       week: 4,
       isByeWeek: true,
+      games: {
+        game1: { played: false },
+        game2: { played: false },
+      },
     },
     // Week 5
     {
@@ -181,6 +197,10 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       completed: false,
       week: 5,
       isByeWeek: true,
+      games: {
+        game1: { played: false },
+        game2: { played: false },
+      },
     },
     // Week 6
     {
@@ -405,9 +425,11 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       date: "2025-02-24",
       completed: false,
       week: 6,
+      isKnockout: true,
       games: {
         game1: { played: false },
         game2: { played: false },
+        game3: { played: false },
       },
     },
     {
@@ -415,12 +437,15 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       team1Id: "kobold_camp",
       team2Id: "void",
       date: "2025-02-24",
-      completed: false,
+      completed: true,
       week: 6,
+      isKnockout: true,
       games: {
-        game1: { played: false },
-        game2: { played: false },
+        game1: { played: true, winner: "kobold_camp", dota2MatchId: "8197942156" },
+        game2: { played: true, winner: "void", dota2MatchId: "8198045818" },
+        game3: { played: true, winner: "kobold_camp", dota2MatchId: "8198110183" },
       },
+      score: [2, 1],
     },
   ],
   3: [
@@ -459,6 +484,10 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       completed: false,
       week: 1,
       isByeWeek: true,
+      games: {
+        game1: { played: false },
+        game2: { played: false },
+      },
     },
     // Week 2
     {
@@ -494,6 +523,10 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       completed: false,
       week: 2,
       isByeWeek: true,
+      games: {
+        game1: { played: false },
+        game2: { played: false },
+      },
     },
     // Week 3
     {
@@ -529,6 +562,10 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       completed: false,
       week: 3,
       isByeWeek: true,
+      games: {
+        game1: { played: false },
+        game2: { played: false },
+      },
     },
     // Week 4
     {
@@ -565,6 +602,10 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       completed: false,
       week: 4,
       isByeWeek: true,
+      games: {
+        game1: { played: false },
+        game2: { played: false },
+      },
     },
     // Week 5
     {
@@ -600,6 +641,10 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       completed: false,
       week: 5,
       isByeWeek: true,
+      games: {
+        game1: { played: false },
+        game2: { played: false },
+      },
     },
     // Week 6
     {
@@ -609,9 +654,11 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       date: "2025-02-24",
       completed: false,
       week: 6,
+      isKnockout: true,
       games: {
         game1: { played: false },
         game2: { played: false },
+        game3: { played: false },
       },
     },
     {
@@ -621,11 +668,32 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       date: "2025-02-24",
       completed: true,
       week: 6,
+      isKnockout: true,
       games: {
         game1: { played: true, winner: "no_discord", dota2MatchId: "8193399920" },
         game2: { played: true, winner: "no_discord", dota2MatchId: "8193464930" },
+        game3: { played: false },
       },
       score: [0, 2],
     },
   ],
 };
+
+// Update all bye week matches to include games field
+const byeWeekGames = {
+  game1: { played: false },
+  game2: { played: false },
+};
+
+// Find all matches with isByeWeek: true and add games field
+divisionMatches[1].forEach((match) => {
+  if (match.isByeWeek) {
+    match.games = byeWeekGames;
+  }
+});
+
+divisionMatches[3].forEach((match) => {
+  if (match.isByeWeek) {
+    match.games = byeWeekGames;
+  }
+});
