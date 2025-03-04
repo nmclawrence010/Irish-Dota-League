@@ -45,58 +45,30 @@ const MatchNode = ({ data, isConnectable }: NodeProps) => {
   };
 
   return (
-    <div
-      className={`p-2 rounded border ${getBorderColor()} ${getBgColor()} min-w-40 shadow-md`}
-    >
-      <Handle
-        type="target"
-        position={Position.Left}
-        isConnectable={isConnectable}
-        className="!bg-red-500 dark:!bg-red-500"
-      />
+    <div className={`p-2 rounded border ${getBorderColor()} ${getBgColor()} min-w-40 shadow-md`}>
+      <Handle type="target" position={Position.Left} isConnectable={isConnectable} className="!bg-red-500 dark:!bg-red-500" />
 
-      <div className="text-xs text-gray-300 dark:text-gray-300 truncate mb-1">
-        {label}
-      </div>
+      <div className="text-xs text-gray-300 dark:text-gray-300 truncate mb-1">{label}</div>
 
       {team1 && (
-        <div
-          className={`text-sm ${getTextColor()} truncate ${
-            winner === team1.name ? "font-bold" : ""
-          }`}
-        >
+        <div className={`text-sm ${getTextColor()} truncate max-w-36 ${winner === team1.name ? "font-bold" : ""}`}>
           {result && winner === team1.name && "✓ "}
           {team1.name}
-          {result && team1 === winner && (
-            <span className="ml-1 text-xs">{result[0]}</span>
-          )}
+          {result && team1 === winner && <span className="ml-1 text-xs">{result[0]}</span>}
         </div>
       )}
 
       {team2 && (
-        <div
-          className={`text-sm ${getTextColor()} truncate ${
-            winner === team2.name ? "font-bold" : ""
-          }`}
-        >
+        <div className={`text-sm ${getTextColor()} truncate max-w-36 ${winner === team2.name ? "font-bold" : ""}`}>
           {result && winner === team2.name && "✓ "}
           {team2.name}
-          {result && team2 === winner && (
-            <span className="ml-1 text-xs">{result[1]}</span>
-          )}
+          {result && team2 === winner && <span className="ml-1 text-xs">{result[1]}</span>}
         </div>
       )}
 
-      {!team1 && !team2 && (
-        <div className={`text-sm ${getTextColor()} truncate`}>TBD</div>
-      )}
+      {!team1 && !team2 && <div className={`text-sm ${getTextColor()} truncate`}>TBD</div>}
 
-      <Handle
-        type="source"
-        position={Position.Right}
-        isConnectable={isConnectable}
-        className="!bg-red-500 dark:!bg-red-500"
-      />
+      <Handle type="source" position={Position.Right} isConnectable={isConnectable} className="!bg-red-500 dark:!bg-red-500" />
     </div>
   );
 };
@@ -107,27 +79,13 @@ const SeedNode = ({ data, isConnectable }: NodeProps) => {
 
   return (
     <div className="p-2 rounded border border-gray-600 dark:border-gray-600 bg-[#1A365D] dark:bg-[#1A365D] min-w-40 shadow-md">
-      <Handle
-        type="target"
-        position={Position.Left}
-        isConnectable={isConnectable}
-        className="!bg-red-500 dark:!bg-red-500 !opacity-0"
-      />
+      <Handle type="target" position={Position.Left} isConnectable={isConnectable} className="!bg-red-500 dark:!bg-red-500 !opacity-0" />
 
-      <div className="text-xs text-gray-300 dark:text-gray-300 truncate mb-1">
-        {seed}
-      </div>
+      <div className="text-xs text-gray-300 dark:text-gray-300 truncate mb-1">{seed}</div>
 
-      <div className="text-sm text-white dark:text-white truncate max-w-36">
-        {team?.name || "TBD"}
-      </div>
+      <div className="text-sm text-white dark:text-white truncate max-w-36">{team?.name || "TBD"}</div>
 
-      <Handle
-        type="source"
-        position={Position.Right}
-        isConnectable={isConnectable}
-        className="!bg-red-500 dark:!bg-red-500"
-      />
+      <Handle type="source" position={Position.Right} isConnectable={isConnectable} className="!bg-red-500 dark:!bg-red-500" />
     </div>
   );
 };
@@ -138,10 +96,7 @@ const nodeTypes = {
   seed: SeedNode,
 };
 
-export const KnockoutBracket: React.FC<KnockoutBracketProps> = ({
-  teams,
-  division = 2,
-}) => {
+export const KnockoutBracket: React.FC<KnockoutBracketProps> = ({ teams, division = 2 }) => {
   // Add check for empty teams array
   if (!teams || teams.length === 0) {
     return (
@@ -152,10 +107,7 @@ export const KnockoutBracket: React.FC<KnockoutBracketProps> = ({
   }
 
   // Sort teams by points to determine seeding
-  const sortedTeams = useMemo(
-    () => [...teams].sort((a, b) => b.points - a.points),
-    [teams]
-  );
+  const sortedTeams = useMemo(() => [...teams].sort((a, b) => b.points - a.points), [teams]);
 
   // Generate bracket for Division 2 (6 teams)
   const generateDivision2Bracket = useCallback(() => {
@@ -233,8 +185,8 @@ export const KnockoutBracket: React.FC<KnockoutBracketProps> = ({
         id: "qf-2",
         type: "match",
         data: {
-          label: "Winner of 4th vs 5th",
-          team1: { name: "TBD" },
+          label: "4th Seed Won",
+          team1: sortedTeams[3],
           stage: "quarterfinal",
         },
         position: { x: xStart + xGap, y: yStart + yGap * 3.5 },
@@ -294,9 +246,9 @@ export const KnockoutBracket: React.FC<KnockoutBracketProps> = ({
         id: "sf-2",
         type: "match",
         data: {
-          label: "Semi Final 2",
-          team1: { name: "TBD" },
-          team2: { name: "TBD" },
+          label: "1st Seed vs 4th Seed",
+          team1: sortedTeams[0],
+          team2: sortedTeams[3],
           stage: "semifinal",
         },
         position: { x: xStart + xGap * 2, y: yStart + yGap * 3 },
@@ -427,8 +379,8 @@ export const KnockoutBracket: React.FC<KnockoutBracketProps> = ({
       id: "qf-1",
       type: "match",
       data: {
-        label: "Winner of 4th vs 5th",
-        team1: { name: "TBD" },
+        label: "4th Seed Won",
+        team1: sortedTeams[3],
         stage: "quarterfinal",
       },
       position: { x: xStart + xGap, y: yStart + yGap * 3.5 },
@@ -482,9 +434,9 @@ export const KnockoutBracket: React.FC<KnockoutBracketProps> = ({
         id: "sf-1",
         type: "match",
         data: {
-          label: "Semi Final 1",
-          team1: { name: "TBD" },
-          team2: { name: "TBD" },
+          label: "2nd Seed vs 3rd Seed",
+          team1: sortedTeams[1],
+          team2: sortedTeams[2],
           stage: "semifinal",
         },
         position: { x: xStart + xGap, y: yStart + yGap / 2 },
@@ -493,9 +445,9 @@ export const KnockoutBracket: React.FC<KnockoutBracketProps> = ({
         id: "sf-2",
         type: "match",
         data: {
-          label: "Semi Final 2",
-          team1: { name: "TBD" },
-          team2: { name: "TBD" },
+          label: "1st Seed vs 4th Seed",
+          team1: sortedTeams[0],
+          team2: sortedTeams[3],
           stage: "semifinal",
         },
         position: { x: xStart + xGap * 2, y: yStart + yGap * 3 },
@@ -654,9 +606,9 @@ export const KnockoutBracket: React.FC<KnockoutBracketProps> = ({
         id: "sf-2",
         type: "match",
         data: {
-          label: "Semi Final 2",
-          team1: { name: "TBD" },
-          team2: { name: "TBD" },
+          label: "2nd Seed vs 3rd Seed",
+          team1: sortedTeams[1],
+          team2: sortedTeams[2],
           stage: "semifinal",
         },
         position: { x: xStart + xGap, y: yStart + yGap * 3.5 },
@@ -771,13 +723,7 @@ export const KnockoutBracket: React.FC<KnockoutBracketProps> = ({
 
     setNodes(newElements.nodes);
     setEdges(newElements.edges);
-  }, [
-    division,
-    teams,
-    generateDivision1Bracket,
-    generateDivision2Bracket,
-    generateDivision3Bracket,
-  ]);
+  }, [division, teams, generateDivision1Bracket, generateDivision2Bracket, generateDivision3Bracket]);
 
   // Flow configuration
   const defaultEdgeOptions = {
@@ -811,10 +757,7 @@ export const KnockoutBracket: React.FC<KnockoutBracketProps> = ({
           panOnScroll={true}
         >
           <Background color="#2D3748" gap={16} size={1} />
-          <Controls
-            showInteractive={false}
-            className="!bg-gray-800 !text-white !border-gray-700"
-          />
+          <Controls showInteractive={false} className="!bg-gray-800 !text-white !border-gray-700" />
         </ReactFlow>
       </ReactFlowProvider>
     </div>

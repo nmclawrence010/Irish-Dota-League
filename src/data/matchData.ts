@@ -208,8 +208,34 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       team1Id: "the_standins",
       team2Id: "team_secret",
       date: "2025-02-24",
-      completed: false,
+      completed: true,
       week: 6,
+      games: {
+        game1: { played: false },
+        game2: { played: false },
+      },
+      score: [2, 0],
+    },
+    // Week 7
+    {
+      id: "d1w7m1",
+      team1Id: "monkey_kings",
+      team2Id: "joonsquad",
+      date: "2025-03-03",
+      completed: false,
+      week: 7,
+      games: {
+        game1: { played: false },
+        game2: { played: false },
+      },
+    },
+    {
+      id: "d1w7m2",
+      team1Id: "wongs_bakery",
+      team2Id: "the_standins",
+      date: "2025-03-03",
+      completed: false,
+      week: 7,
       games: {
         game1: { played: false },
         game2: { played: false },
@@ -446,6 +472,19 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
         game3: { played: true, winner: "kobold_camp", dota2MatchId: "8198110183" },
       },
       score: [2, 1],
+    },
+    // Week 7
+    {
+      id: "d2w7m1",
+      team1Id: "creep_enjoyers",
+      team2Id: "kobold_camp",
+      date: "2025-03-03",
+      completed: false,
+      week: 7,
+      games: {
+        game1: { played: false },
+        game2: { played: false },
+      },
     },
   ],
   3: [
