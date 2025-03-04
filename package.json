@@ -12,6 +12,7 @@
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
     "@supabase/supabase-js": "^2.39.0",
+    "@xyflow/react": "^12.4.4",
     "clsx": "^2.1.0",
     "jose": "^5.9.6",
     "jsonwebtoken": "^9.0.2",
@@ -19,7 +20,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
-    "zustand": "^4.5.2"
+    "zustand": "^4.5.2",
+    "reactflow": "^11.7.0"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.7",

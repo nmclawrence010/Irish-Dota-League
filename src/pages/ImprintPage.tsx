@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Instagram, Facebook, Linkedin, X } from "lucide-react";
 import { fetchLeaderboard } from "../services/leaderboardApi";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 interface Player {
   account_id: number;
@@ -33,13 +34,19 @@ export const ImprintPage: React.FC = () => {
   const [players, setPlayers] = useState<Player[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [isDarkMode, setIsDarkMode] = useState(document.documentElement.classList.contains("dark"));
+  const [isDarkMode, setIsDarkMode] = useState(
+    document.documentElement.classList.contains("dark")
+  );
 
   useEffect(() => {
     const loadLeaderboard = async () => {
       try {
         const data = await fetchLeaderboard();
-        setPlayers(data.players.sort((a, b) => b.average_imprint_rating - a.average_imprint_rating));
+        setPlayers(
+          data.players.sort(
+            (a, b) => b.average_imprint_rating - a.average_imprint_rating
+          )
+        );
       } catch (err) {
         setError("Failed to load leaderboard data");
       } finally {
@@ -71,10 +78,12 @@ export const ImprintPage: React.FC = () => {
     <div className="max-w-6xl mx-auto space-y-8">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 transition-colors">
         <div className="text-center space-y-6 mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Imprint Leaderboard</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            Imprint Leaderboard
+          </h1>
 
           {loading ? (
-            <p className="text-gray-600 dark:text-gray-300">Loading leaderboard data...</p>
+            <LoadingSpinner />
           ) : error ? (
             <p className="text-red-500">{error}</p>
           ) : (
@@ -104,14 +113,22 @@ export const ImprintPage: React.FC = () => {
                 </thead>
                 <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                   {players.map((player, index) => (
-                    <tr key={player.account_id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{index + 1}</td>
+                    <tr
+                      key={player.account_id}
+                      className="hover:bg-gray-50 dark:hover:bg-gray-700"
+                    >
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                        {index + 1}
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
                         {player.account_name}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
                         <img
-                          src={getPositionImage(player.primary_position, isDarkMode)}
+                          src={getPositionImage(
+                            player.primary_position,
+                            isDarkMode
+                          )}
                           alt={`Position ${player.primary_position}`}
                           className="w-6 h-6 inline-block"
                           title={`Position ${player.primary_position}`}
