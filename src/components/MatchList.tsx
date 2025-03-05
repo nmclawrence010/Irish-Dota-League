@@ -5,9 +5,9 @@ import { Match } from "@/types/tournament";
 import { MatchStats } from "@/components/MatchStats";
 
 export const MatchList: React.FC = () => {
-  const [currentWeek, setCurrentWeek] = useState(6);
+  const [currentWeek, setCurrentWeek] = useState(7);
   const [expandedMatch, setExpandedMatch] = useState<string | null>(null);
-  const maxWeeks = 7;
+  const maxWeeks = 8;
 
   const getTeamName = (teamId: string): string => {
     const teamNames: Record<string, string> = {
@@ -53,7 +53,10 @@ export const MatchList: React.FC = () => {
     setCurrentWeek((week) => Math.min(maxWeeks, week + 1));
   };
 
-  const getScoreColor = (score: number[], index: number) => {
+  const getScoreColor = (score: number[] | undefined, index: number) => {
+    if (!score) {
+      return "text-gray-600 dark:text-gray-400"; // Default color for undefined scores
+    }
     if (score[0] === score[1]) {
       return "text-amber-500 dark:text-amber-400"; // Draw - yellow color
     }
@@ -101,13 +104,13 @@ export const MatchList: React.FC = () => {
                 {match.completed ? (
                   <>
                     <div className="inline-block bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-lg min-w-[32px] text-center">
-                      <span className={`text-sm font-medium ${getScoreColor(match.score!, 0)}`}>{match.score?.[0]}</span>
+                      <span className={`text-sm font-medium ${getScoreColor(match.score, 0)}`}>{match.score?.[0] || 0}</span>
                     </div>
                     <div className="inline-block bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-lg min-w-[40px] text-center">
                       <span className="text-sm font-medium text-gray-600 dark:text-gray-300">vs</span>
                     </div>
                     <div className="inline-block bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-lg min-w-[32px] text-center">
-                      <span className={`text-sm font-medium ${getScoreColor(match.score!, 1)}`}>{match.score?.[1]}</span>
+                      <span className={`text-sm font-medium ${getScoreColor(match.score, 1)}`}>{match.score?.[1] || 0}</span>
                     </div>
                   </>
                 ) : (
