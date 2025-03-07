@@ -230,7 +230,7 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
         game2: { played: true, winner: "monkey_kings", dota2MatchId: "8202093800" },
         game3: { played: true, winner: "joonsquad", dota2MatchId: "8202158991" },
       },
-      score: [2, 1],
+      score: [1, 2],
     },
     {
       id: "d1w7m2",
