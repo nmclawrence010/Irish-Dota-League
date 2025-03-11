@@ -238,6 +238,8 @@ export const KnockoutBracket: React.FC<KnockoutBracketProps> = ({ teams, divisio
           label: "2nd Seed vs 3rd Seed",
           team1: sortedTeams[1],
           team2: sortedTeams[2],
+          winner: sortedTeams[1].name,
+          completed: true,
           stage: "semifinal",
         },
         position: { x: xStart + xGap * 2, y: yStart + yGap },
@@ -298,8 +300,8 @@ export const KnockoutBracket: React.FC<KnockoutBracketProps> = ({ teams, divisio
       id: "final",
       type: "match",
       data: {
-        label: "Finals",
-        team1: { name: "TBD" },
+        label: "2nd Seed vs 1st Seed",
+        team1: sortedTeams[1],
         team2: sortedTeams[0],
         stage: "finals",
       },
@@ -466,7 +468,7 @@ export const KnockoutBracket: React.FC<KnockoutBracketProps> = ({ teams, divisio
         id: "final",
         type: "match",
         data: {
-          label: "3rd Seed vs TBD",
+          label: "3rd Seed vs 1st Seed",
           team1: sortedTeams[2],
           team2: sortedTeams[0],
           stage: "finals",

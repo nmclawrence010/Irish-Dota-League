@@ -515,9 +515,25 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       team1Id: "stinky_steve",
       team2Id: "cavan_champions",
       date: "2025-03-03",
-      completed: false,
+      completed: true,
       week: 7,
       isKnockout: true,
+      games: {
+        game1: { played: true, winner: "stinky_steve", dota2MatchId: "8210166709" },
+        game2: { played: true, winner: "cavan_champions", dota2MatchId: "8210241570" },
+        game3: { played: true, winner: "cavan_champions", dota2MatchId: "8210315832" },
+      },
+      score: [1, 2],
+    },
+    // Week 8
+    {
+      id: "d2w8m1",
+      team1Id: "cavan_champions",
+      team2Id: "creep_enjoyers",
+      date: "2025-03-10",
+      completed: false,
+      isKnockout: true,
+      week: 8,
       games: {
         game1: { played: false },
         game2: { played: false },
