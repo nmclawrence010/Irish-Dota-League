@@ -36,6 +36,8 @@ export type Match = {
     game1: Game;
     game2: Game;
     game3?: Game;
+    game4?: Game;
+    game5?: Game;
   };
   seriesWinner?: string;
   score?: [number, number];
