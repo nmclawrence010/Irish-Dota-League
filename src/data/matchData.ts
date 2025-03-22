@@ -528,7 +528,7 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       },
       score: [1, 2],
     },
-    // Week 8
+    // Week 88
     {
       id: "d2w8m1",
       team1Id: "cavan_champions",

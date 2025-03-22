@@ -320,7 +320,7 @@ export const KnockoutBracket: React.FC<KnockoutBracketProps> = ({ teams, divisio
       position: { x: xStart + xGap * 4, y: yStart + yGap * 2 },
     });
 
-    // Connecting edges for finals and champion
+    // Connecting edges for finals and champion..
     edges.push(
       {
         id: "e-sf1-final",
