@@ -780,14 +780,15 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       team1Id: "imprint_esports",
       team2Id: "no_discord",
       date: "2025-03-10",
-      completed: false,
+      completed: true,
       week: 8,
       isKnockout: true,
       games: {
-        game1: { played: false },
-        game2: { played: false },
+        game1: { played: true, winner: "imprint_esports", dota2MatchId: "8230459407" },
+        game2: { played: true, winner: "imprint_esports", dota2MatchId: "8230501391" },
         game3: { played: false },
       },
+      score: [2, 0],
     },
   ],
 };

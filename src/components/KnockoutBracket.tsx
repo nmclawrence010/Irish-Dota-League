@@ -643,7 +643,7 @@ export const KnockoutBracket: React.FC<KnockoutBracketProps> = ({ teams, divisio
         type: "match",
         data: {
           label: "👑 Champion",
-          team1: { name: "TBD" },
+          team1: { name: sortedTeams[0].name },
           stage: "champion",
         },
         position: { x: xStart + xGap * 3, y: yStart + yGap * 2 },
