@@ -32,22 +32,6 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="space-y-8">
-      {/* Event Banner */}
-      <div className="w-full mb-6">
-        <a
-          href="https://www.eventbrite.ie/e/dota-2-ireland-rebooted-tickets-1272549011349?aff=oddtdtcreator"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block w-full hover:opacity-95 transition-opacity"
-        >
-          <img
-            src="/krav.png"
-            alt="Dota 2 Ireland Rebooted Event"
-            className="w-full h-auto max-h-[200px] object-cover rounded-lg shadow-md"
-          />
-        </a>
-      </div>
-
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition-colors">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           <div className="bg-gray-100 dark:bg-gray-700 p-1 rounded-lg inline-flex shadow-sm">
