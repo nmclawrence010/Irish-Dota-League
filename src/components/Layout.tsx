@@ -30,112 +30,113 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 <span>Team Rosters</span>
               </Link>
 
+              <span className="text-idl-accent">|</span>
+
+              <Link
+                to="/lft"
+                className="flex items-center space-x-2 text-idl-light hover:text-idl-accent transition-all duration-300 font-medium"
+              >
+                <Users size={20} />
+                <span>Looking for Team</span>
+              </Link>
+
+              <span className="text-idl-accent">|</span>
+
               {isAuthenticated ? (
-                <>
-                  <span className="text-idl-accent">|</span>
-
-                  <Link
-                    to="/lft"
-                    className="flex items-center space-x-2 text-idl-light hover:text-idl-accent transition-all duration-300 font-medium"
-                  >
-                    <Users size={20} />
-                    <span>Looking for Team</span>
-                  </Link>
-
-                  <span className="text-idl-accent">|</span>
-
-                  <Link
-                    to="/signup"
-                    className="flex items-center space-x-2 text-idl-light hover:text-idl-accent transition-all duration-300 font-medium"
-                  >
+                <Link
+                  to="/signup"
+                  className="flex items-center space-x-2 text-idl-light hover:text-idl-accent transition-all duration-300 font-medium"
+                >
+                  <Users size={20} />
+                  <span>Team Registration</span>
+                </Link>
+              ) : (
+                <div className="relative group">
+                  <div className="flex items-center space-x-2 text-idl-light/50 cursor-not-allowed">
                     <Users size={20} />
                     <span>Team Registration</span>
-                  </Link>
+                  </div>
+                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1 bg-idl-gray text-sm text-idl-light rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap">
+                    Please login to register a team
+                  </div>
+                </div>
+              )}
 
-                  <span className="text-idl-accent">|</span>
+              <span className="text-idl-accent">|</span>
 
-                  <Link
-                    to="/join"
-                    className="flex items-center space-x-2 text-idl-light hover:text-idl-accent transition-all duration-300 font-medium"
-                  >
+              {isAuthenticated ? (
+                <Link
+                  to="/join"
+                  className="flex items-center space-x-2 text-idl-light hover:text-idl-accent transition-all duration-300 font-medium"
+                >
+                  <UserPlus size={20} />
+                  <span>Join Team</span>
+                </Link>
+              ) : (
+                <div className="relative group">
+                  <div className="flex items-center space-x-2 text-idl-light/50 cursor-not-allowed">
                     <UserPlus size={20} />
                     <span>Join Team</span>
-                  </Link>
+                  </div>
+                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1 bg-idl-gray text-sm text-idl-light rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap">
+                    Please login to join a team
+                  </div>
+                </div>
+              )}
 
-                  <span className="text-idl-accent">|</span>
+              <span className="text-idl-accent">|</span>
 
-                  <Link
-                    to="/my-team"
-                    className="flex items-center space-x-2 text-idl-light hover:text-idl-accent transition-all duration-300 font-medium"
-                  >
+              {isAuthenticated ? (
+                <Link
+                  to="/my-team"
+                  className="flex items-center space-x-2 text-idl-light hover:text-idl-accent transition-all duration-300 font-medium"
+                >
+                  <User size={20} />
+                  <span>My Team</span>
+                </Link>
+              ) : (
+                <div className="relative group">
+                  <div className="flex items-center space-x-2 text-idl-light/50 cursor-not-allowed">
                     <User size={20} />
                     <span>My Team</span>
-                  </Link>
-
-                  <span className="text-idl-accent">|</span>
-
-                  {/* Past Seasons Dropdown */}
-                  <div className="relative group" ref={dropdownRef}>
-                    <button className="flex items-center space-x-2 text-idl-light hover:text-idl-accent transition-all duration-300 font-medium">
-                      <Archive size={20} />
-                      <span>Archive</span>
-                      <ChevronDown size={16} className="transition-transform duration-200 group-hover:rotate-180" />
-                    </button>
-                    <div className="absolute top-full left-0 mt-2 w-56 bg-idl-gray rounded-lg shadow-xl py-2 z-50 border border-idl-accent/20 backdrop-blur-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                      <div className="px-3 py-2 border-b border-idl-accent/10">
-                        <h3 className="text-sm font-medium text-idl-accent">Season 4</h3>
-                      </div>
-                      <Link
-                        to="/season4"
-                        className="block px-4 py-2.5 text-idl-light hover:bg-idl-dark hover:text-idl-accent transition-colors duration-200"
-                      >
-                        <div className="flex items-center space-x-2">
-                          <span className="text-sm">Overview</span>
-                        </div>
-                      </Link>
-                      <Link
-                        to="/season4/rosters"
-                        className="block px-4 py-2.5 text-idl-light hover:bg-idl-dark hover:text-idl-accent transition-colors duration-200"
-                      >
-                        <div className="flex items-center space-x-2">
-                          <span className="text-sm">Team Rosters</span>
-                        </div>
-                      </Link>
-                    </div>
                   </div>
-                </>
-              ) : (
-                <>
-                  <div className="invisible flex items-center space-x-8">
-                    <span className="text-idl-accent">|</span>
-                    <div className="flex items-center space-x-2">
-                      <Users size={20} />
-                      <span>Looking for Team</span>
-                    </div>
-                    <span className="text-idl-accent">|</span>
-                    <div className="flex items-center space-x-2">
-                      <Users size={20} />
-                      <span>Team Registration</span>
-                    </div>
-                    <span className="text-idl-accent">|</span>
-                    <div className="flex items-center space-x-2">
-                      <UserPlus size={20} />
-                      <span>Join Team</span>
-                    </div>
-                    <span className="text-idl-accent">|</span>
-                    <div className="flex items-center space-x-2">
-                      <User size={20} />
-                      <span>My Team</span>
-                    </div>
-                    <span className="text-idl-accent">|</span>
-                    <div className="flex items-center space-x-2">
-                      <Archive size={20} />
-                      <span>Archive</span>
-                      <ChevronDown size={16} />
-                    </div>
+                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1 bg-idl-gray text-sm text-idl-light rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap">
+                    Please login to view your team
                   </div>
-                </>
+                </div>
               )}
+
+              <span className="text-idl-accent">|</span>
+
+              {/* Past Seasons Dropdown */}
+              <div className="relative group" ref={dropdownRef}>
+                <button className="flex items-center space-x-2 text-idl-light hover:text-idl-accent transition-all duration-300 font-medium">
+                  <Archive size={20} />
+                  <span>Archive</span>
+                  <ChevronDown size={16} className="transition-transform duration-200 group-hover:rotate-180" />
+                </button>
+                <div className="absolute top-full left-0 mt-2 w-56 bg-idl-gray rounded-lg shadow-xl py-2 z-50 border border-idl-accent/20 backdrop-blur-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                  <div className="px-3 py-2 border-b border-idl-accent/10">
+                    <h3 className="text-sm font-medium text-idl-accent">Season 4</h3>
+                  </div>
+                  <Link
+                    to="/season4"
+                    className="block px-4 py-2.5 text-idl-light hover:bg-idl-dark hover:text-idl-accent transition-colors duration-200"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <span className="text-sm">Overview</span>
+                    </div>
+                  </Link>
+                  <Link
+                    to="/season4/rosters"
+                    className="block px-4 py-2.5 text-idl-light hover:bg-idl-dark hover:text-idl-accent transition-colors duration-200"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <span className="text-sm">Team Rosters</span>
+                    </div>
+                  </Link>
+                </div>
+              </div>
             </div>
 
             <div className="hidden xl:flex items-center space-x-4">
