@@ -58,7 +58,7 @@ export const MatchStats: React.FC<MatchStatsProps> = ({ dota2MatchId, isExpanded
     <div className="block md:grid md:grid-cols-2 gap-8 px-4">
       {/* Team 1 */}
 
-      <div className="divide-y divide-gray-200 dark:divide-gray-700">
+      <div className="divide-y divide-idl-accent">
         {team1Players.map((player: any) => (
           <div key={player.account_id} className="py-4 first:pt-0 last:pb-0">
             <div className="flex items-center md:justify-end justify-between relative">
@@ -76,13 +76,13 @@ export const MatchStats: React.FC<MatchStatsProps> = ({ dota2MatchId, isExpanded
                     )
                 ) || null}
               </div>
-              <span className="text-base font-semibold text-gray-700 dark:text-gray-300 block md:absolute -left-0 w-20 text-center md:text-right">
+              <span className="text-base font-semibold text-idl-light block md:absolute -left-0 w-20 text-center md:text-right">
                 {player.kills}-{player.deaths}-{player.assists}
               </span>
               <div className="flex items-center gap-2">
                 <span
                   className={`text-base text-center md:text-left ${
-                    isMVP(player.imprint_rating) ? "text-[#46ffd0] font-semibold flex items-center gap-1" : "text-gray-900 dark:text-white"
+                    isMVP(player.imprint_rating) ? "text-[#46ffd0] font-semibold flex items-center gap-1" : "text-idl-light"
                   }`}
                   title={player.account_name}
                 >
@@ -104,8 +104,7 @@ export const MatchStats: React.FC<MatchStatsProps> = ({ dota2MatchId, isExpanded
       </div>
 
       {/* Team 2 */}
-
-      <div className="divide-y divide-gray-200 dark:divide-gray-700">
+      <div className="divide-y divide-idl-accent">
         {team2Players.map((player: any) => (
           <div key={player.account_id} className="py-4 first:pt-0 last:pb-0">
             <div className="flex items-center md:justify-start justify-between relative">
@@ -116,7 +115,7 @@ export const MatchStats: React.FC<MatchStatsProps> = ({ dota2MatchId, isExpanded
                 </div>
                 <span
                   className={`text-center md:text-right ${
-                    isMVP(player.imprint_rating) ? "text-[#46ffd0] font-semibold flex items-center gap-1" : "text-gray-900 dark:text-white"
+                    isMVP(player.imprint_rating) ? "text-[#46ffd0] font-semibold flex items-center gap-1" : "text-idl-light"
                   }`}
                   title={player.account_name}
                 >
@@ -129,7 +128,7 @@ export const MatchStats: React.FC<MatchStatsProps> = ({ dota2MatchId, isExpanded
                 </span>
               </div>
 
-              <span className="text-base font-semibold text-gray-700 dark:text-gray-300 block md:absolute -right-0 w-20 text-center md:text-left">
+              <span className="text-base font-semibold text-idl-light block md:absolute -right-0 w-20 text-center md:text-left">
                 {player.kills}-{player.deaths}-{player.assists}
               </span>
 

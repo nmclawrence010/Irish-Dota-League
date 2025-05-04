@@ -1,24 +1,25 @@
-import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Auth0Provider } from '@auth0/auth0-react';
-import { Layout } from './components/Layout';
-import { HomePage } from './pages/HomePage';
-import { SignupPage } from './pages/SignupPage';
-import { RostersPage } from './pages/RostersPage';
-import { JoinTeamPage } from './pages/JoinTeamPage';
-import { MyTeamPage } from './pages/MyTeamPage';
-import { useThemeStore } from './store/themeStore';
-import { LFTPage } from './pages/LFTPage';
-import { ImprintPage } from './pages/ImprintPage';
-
+import { useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Auth0Provider } from "@auth0/auth0-react";
+import { Layout } from "./components/Layout";
+import { HomePage } from "./pages/HomePage";
+import { SignupPage } from "./pages/SignupPage";
+import { RostersPage } from "./pages/RostersPage";
+import { JoinTeamPage } from "./pages/JoinTeamPage";
+import { MyTeamPage } from "./pages/MyTeamPage";
+import { useThemeStore } from "./store/themeStore";
+import { LFTPage } from "./pages/LFTPage";
+import { ImprintPage } from "./pages/ImprintPage";
+import { SeasonFourPage } from "./pages/SeasonFourPage";
+import { SeasonFourRostersPage } from "./pages/SeasonFourRostersPage";
 function App() {
   const isDark = useThemeStore((state) => state.isDark);
 
   useEffect(() => {
     if (isDark) {
-      document.documentElement.classList.add('dark');
+      document.documentElement.classList.add("dark");
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove("dark");
     }
   }, [isDark]);
 
@@ -27,7 +28,7 @@ function App() {
       domain={import.meta.env.VITE_AUTH0_DOMAIN}
       clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
       authorizationParams={{
-        redirect_uri: window.location.origin
+        redirect_uri: window.location.origin,
       }}
       useRefreshTokens={true}
       cacheLocation="localstorage" // Optional: Store tokens in local storage
@@ -42,6 +43,8 @@ function App() {
             <Route path="/my-team" element={<MyTeamPage />} />
             <Route path="/lft" element={<LFTPage />} />
             <Route path="/imprint" element={<ImprintPage />} />
+            <Route path="/season4" element={<SeasonFourPage />} />
+            <Route path="/season4/rosters" element={<SeasonFourRostersPage />} />
           </Routes>
         </Layout>
       </BrowserRouter>

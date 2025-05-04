@@ -12,7 +12,7 @@ export const LFTPage: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
 
   if (isLoading) {
-    return <div className="text-center text-gray-500 dark:text-gray-400 py-8">Loading...</div>;
+    return <div className="text-center text-idl-light py-8">Loading...</div>;
   }
 
   if (!isAuthenticated) {
@@ -26,10 +26,7 @@ export const LFTPage: React.FC = () => {
     if (!confirmed) return;
 
     try {
-      const { error: deleteError } = await supabase
-        .from("lft_players")
-        .delete()
-        .eq("id", playerId);
+      const { error: deleteError } = await supabase.from("lft_players").delete().eq("id", playerId);
 
       if (deleteError) throw deleteError;
 
@@ -45,7 +42,7 @@ export const LFTPage: React.FC = () => {
       <div className="flex flex-col gap-4">
         <button
           onClick={() => setShowForm(!showForm)}
-          className="flex items-center justify-center space-x-2 bg-[#169B62] hover:bg-[#128152]/80 dark:bg-[#0A2F51] dark:hover:bg-[#0E4D64] text-white py-3 px-6 rounded-lg transition-colors text-lg font-medium"
+          className="flex items-center justify-center space-x-2 bg-idl-accent hover:bg-idl-accent/80 text-idl-light py-3 px-6 rounded-lg transition-colors text-lg font-medium"
         >
           <span>{showForm ? "Hide Registration Form" : "Register as LFT"}</span>
           {showForm ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
@@ -56,74 +53,52 @@ export const LFTPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition-colors">
-        <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Players Looking for Team</h2>
+      <div className="bg-idl-gray rounded-lg shadow-md p-6 transition-colors">
+        <h2 className="text-2xl font-bold mb-6 text-idl-light">Players Looking for Team</h2>
 
         {error ? (
           <div className="text-center text-red-500 dark:text-red-400 py-4">Error loading players: {error}</div>
         ) : loading ? (
-          <div className="text-center text-gray-500 dark:text-gray-400 py-4">Loading players...</div>
+          <div className="text-center text-idl-light py-4">Loading players...</div>
         ) : players.length === 0 ? (
-          <div className="text-center text-gray-500 dark:text-gray-400 py-4">No players currently looking for team</div>
+          <div className="text-center text-idl-light py-4">No players currently looking for team</div>
         ) : (
           <div className="overflow-x-auto">
             <table className="min-w-full">
               <thead>
-                <tr className="bg-gray-50 dark:bg-gray-700">
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                    Name
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                    Steam Profile
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                    Rank
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                    Roles
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                    Notes
-                  </th>
+                <tr className="bg-idl-gray">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-idl-light uppercase tracking-wider">Name</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-idl-light uppercase tracking-wider">Steam Profile</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-idl-light uppercase tracking-wider">Rank</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-idl-light uppercase tracking-wider">Roles</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-idl-light uppercase tracking-wider">Notes</th>
                 </tr>
               </thead>
-              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+              <tbody className="bg-idl-gray divide-y divide-idl-light">
                 {players.map((player) => (
-                  <tr key={player.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors relative group">
-                    <td className="px-6 py-4 whitespace-nowrap text-base font-medium text-gray-900 dark:text-white">
-                      {player.name}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900 dark:text-white">
-                      <a
-                        href={player.steamProfile}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-indigo-600 dark:text-indigo-400 hover:underline"
-                      >
+                  <tr key={player.id} className="hover:bg-idl-dark transition-colors relative group rounded-lg">
+                    <td className="px-6 py-4 whitespace-nowrap text-base font-medium text-idl-light first:rounded-l-lg">{player.name}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-base text-idl-light">
+                      <a href={player.steamProfile} target="_blank" rel="noopener noreferrer" className="text-idl-accent hover:underline">
                         Steam Profile
                       </a>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900 dark:text-white">
-                      {player.rank}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900 dark:text-white">
+                    <td className="px-6 py-4 whitespace-nowrap text-base text-idl-light">{player.rank}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-base text-idl-light">
                       <div className="flex flex-wrap gap-1">
                         {player.roles.map((role) => (
-                          <span
-                            key={role}
-                            className="px-2 py-1 text-sm rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200"
-                          >
+                          <span key={role} className="px-2 py-1 text-sm rounded-full bg-idl-accent text-white">
                             {role}
                           </span>
                         ))}
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-base text-gray-900 dark:text-white pr-12">
+                    <td className="px-6 py-4 text-base text-idl-light pr-12 last:rounded-r-lg">
                       {player.notes}
                       {user?.sub === player.auth_id && (
                         <button
                           onClick={() => handleRemovePlayer(player.id)}
-                          className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 rounded-full text-red-500 hover:text-white hover:bg-red-500 dark:text-red-400 dark:hover:text-white dark:hover:bg-red-600 transition-all transform hover:scale-110"
+                          className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 rounded-full text-red-500 hover:text-idl-accent hover:bg-red-500 transition-all transform hover:scale-110"
                           title="Remove yourself from LFT"
                         >
                           <X size={18} />

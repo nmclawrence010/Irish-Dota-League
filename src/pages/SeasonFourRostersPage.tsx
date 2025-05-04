@@ -1,5 +1,5 @@
 import React from "react";
-import { useAllTeams } from "../hooks/useAllTeams";
+import { useSeasonFourTeams } from "../hooks/useSeasonFourTeams";
 import { Trophy } from "lucide-react";
 
 const getRankImage = (rank: string) => {
@@ -21,8 +21,8 @@ const truncateText = (text: string, maxLength: number) => {
   return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
 };
 
-export const RostersPage: React.FC = () => {
-  const { teams, loading, error } = useAllTeams();
+export const SeasonFourRostersPage: React.FC = () => {
+  const { teams, loading, error } = useSeasonFourTeams();
 
   const renderEmptySlots = (currentPlayers: number) => {
     const emptySlots = [];
@@ -48,7 +48,7 @@ export const RostersPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-idl-light">Team Rosters</h1>
+      <h1 className="text-2xl font-bold text-idl-light">Season 4 Team Rosters</h1>
 
       {loading ? (
         <div className="text-center text-idl-light py-8">Loading teams...</div>

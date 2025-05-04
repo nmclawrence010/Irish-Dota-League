@@ -41,10 +41,7 @@ export const MyTeamPage: React.FC = () => {
         .filter((player) => player.auth_id !== playerToRemove.auth_id)
         .map((player) => JSON.stringify(player));
 
-      const { error: updateError } = await supabase
-        .from("teams")
-        .update({ players: updatedPlayers })
-        .eq("id", team.id);
+      const { error: updateError } = await supabase.from("teams").update({ players: updatedPlayers }).eq("id", team.id);
 
       if (updateError) throw updateError;
 
@@ -59,12 +56,12 @@ export const MyTeamPage: React.FC = () => {
     const emptySlots = [];
     for (let i = currentPlayers; i < 5; i++) {
       emptySlots.push(
-        <div key={i} className="p-3 bg-gray-50 dark:bg-gray-750 rounded-lg border-2 border-dashed border-gray-200 dark:border-gray-600">
+        <div key={i} className="p-3 bg-idl-gray rounded-lg border-2 border-dashed border-idl-accent">
           <div className="flex justify-between items-center">
             <div>
-              <p className="font-medium text-gray-400 dark:text-gray-500">Empty Slot</p>
-              <p className="text-sm text-gray-400 dark:text-gray-500">No player assigned</p>
-              <p className="text-sm text-gray-400 dark:text-gray-500">Unranked</p>
+              <p className="font-medium text-idl-light">Empty Slot</p>
+              <p className="text-sm text-idl-light">No player assigned</p>
+              <p className="text-sm text-idl-light">Unranked</p>
             </div>
           </div>
         </div>
@@ -78,31 +75,29 @@ export const MyTeamPage: React.FC = () => {
   }
 
   if (loading) {
-    return <div className="text-center text-gray-500 dark:text-gray-400 py-8">Loading team...</div>;
+    return <div className="text-center text-idl-light py-8">Loading team...</div>;
   }
 
   if (!team) {
-    return <div className="text-center text-gray-500 dark:text-gray-400 py-8">You are not part of any team yet</div>;
+    return <div className="text-center text-idl-light py-8">You are not part of any team yet</div>;
   }
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition-colors">
+      <div className="bg-idl-gray rounded-lg shadow-md p-6 transition-colors">
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-            My Team {isTeamCaptain && <span className="text-sm text-indigo-500">(Captain)</span>}
+          <h1 className="text-2xl font-bold text-idl-light">
+            My Team {isTeamCaptain && <span className="text-sm text-idl-accent">(Captain)</span>}
           </h1>
-          <span className="px-3 py-1 text-sm rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200">
-            Division {team.division_id}
-          </span>
+          <span className="px-3 py-1 text-sm rounded-full bg-idl-accent text-white">Division {team.division_id}</span>
         </div>
 
         <div className="mb-6">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{team.name}</h2>
+          <h2 className="text-xl font-bold text-idl-light mb-2">{team.name}</h2>
           <div className="flex items-center space-x-2">
             <button
               onClick={handleCopyId}
-              className="flex items-center space-x-2 px-4 py-2 bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 rounded-lg hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors"
+              className="flex items-center space-x-2 px-4 py-2 bg-idl-accent text-white rounded-lg hover:bg-idl-accent/80 transition-colors"
             >
               {copied ? (
                 <>
@@ -120,21 +115,21 @@ export const MyTeamPage: React.FC = () => {
         </div>
 
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Roster</h3>
+          <h3 className="text-lg font-semibold text-idl-light">Roster</h3>
           {team.players.map((player, index) => (
-            <div key={index} className="p-4 bg-gray-50 dark:bg-gray-750 rounded-lg border border-gray-200 dark:border-gray-600">
+            <div key={index} className="p-4 bg-idl-gray rounded-lg border border-idl-accent">
               <div className="flex justify-between items-center">
                 <div className="space-y-1">
-                  <p className="font-medium text-sm text-gray-900 dark:text-white">Name: {player.name}</p>
+                  <p className="font-medium text-sm text-idl-light">Name: {player.name}</p>
                   <a
                     href={player.steamProfile}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline"
+                    className="text-xs text-idl-accent hover:underline"
                   >
                     Steam Profile
                   </a>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">Rank: {player.rank}</p>
+                  <p className="text-xs text-idl-light">Rank: {player.rank}</p>
                 </div>
                 {isTeamCaptain && index > 0 && (
                   <button

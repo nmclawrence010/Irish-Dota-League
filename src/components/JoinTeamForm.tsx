@@ -21,12 +21,12 @@ const initialPlayerState: PlayerFormData = {
 
 const getCountry = async () => {
   try {
-    const response = await fetch('https://ipapi.co/json/');
+    const response = await fetch("https://ipapi.co/json/");
     const data = await response.json();
     return data.country_name;
   } catch (error) {
-    console.error('Error getting country:', error);
-    return 'Unknown';
+    console.error("Error getting country:", error);
+    return "Unknown";
   }
 };
 
@@ -53,11 +53,7 @@ export const JoinTeamForm: React.FC = () => {
 
     try {
       // First, fetch the current team data
-      const { data: teamData, error: fetchError } = await supabase
-        .from("teams")
-        .select("players")
-        .eq("id", teamId)
-        .single();
+      const { data: teamData, error: fetchError } = await supabase.from("teams").select("players").eq("id", teamId).single();
 
       if (fetchError) throw fetchError;
       if (!teamData) throw new Error("Team not found");
@@ -80,16 +76,10 @@ export const JoinTeamForm: React.FC = () => {
       };
 
       // Create new array with stringified player objects
-      const updatedPlayers = [
-        ...currentPlayers.map((p: Player) => JSON.stringify(p)),
-        JSON.stringify(playerWithAuthId)
-      ];
+      const updatedPlayers = [...currentPlayers.map((p: Player) => JSON.stringify(p)), JSON.stringify(playerWithAuthId)];
 
       // Update the team with the new player
-      const { error: updateError } = await supabase
-        .from("teams")
-        .update({ players: updatedPlayers })
-        .eq("id", teamId);
+      const { error: updateError } = await supabase.from("teams").update({ players: updatedPlayers }).eq("id", teamId);
 
       if (updateError) throw updateError;
 
@@ -108,27 +98,23 @@ export const JoinTeamForm: React.FC = () => {
   if (isSuccess) {
     return (
       <div className="max-w-4xl mx-auto">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 transition-colors">
+        <div className="bg-idl-dark rounded-lg shadow-lg p-8 transition-colors">
           <div className="text-center space-y-4">
             <div className="flex justify-center">
-              <CheckCircle2 className="h-16 w-16 text-green-500" />
+              <CheckCircle2 className="h-16 w-16 text-idl-accent" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              Successfully Joined Team!
-            </h2>
-            <p className="text-gray-600 dark:text-gray-300">
-              You have successfully joined the team. You can now view your team details and roster.
-            </p>
+            <h2 className="text-2xl font-bold text-idl-light">Successfully Joined Team!</h2>
+            <p className="text-idl-light">You have successfully joined the team. You can now view your team details and roster.</p>
             <div className="flex justify-center space-x-4 pt-4">
               <Link
                 to="/my-team"
-                className="bg-[#169B62] hover:bg-[#0b472d] dark:bg-[#0A2F51] dark:hover:bg-[#0E4D64] text-white px-6 py-3 rounded-lg transition-colors font-medium"
+                className="bg-idl-accent hover:bg-idl-accent/80 text-idl-light px-6 py-3 rounded-lg transition-colors font-medium"
               >
                 View My Team
               </Link>
               <Link
                 to="/"
-                className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white px-6 py-3 rounded-lg transition-colors font-medium"
+                className="bg-idl-accent hover:bg-idl-accent/80 text-idl-light px-6 py-3 rounded-lg transition-colors font-medium"
               >
                 Return to Home
               </Link>
@@ -142,20 +128,20 @@ export const JoinTeamForm: React.FC = () => {
   const ranks = ["Herald", "Guardian", "Crusader", "Archon", "Legend", "Ancient", "Divine", "Immortal"];
 
   const inputClasses =
-    "w-full px-4 py-2 bg-white dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-300 outline-none transition-colors duration-200 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500";
+    "w-full px-4 py-2 bg-idl-light border-2 border-gray-300 rounded-lg focus:border-idl-accent focus:ring-2 focus:ring-idl-accent outline-none transition-colors duration-200 text-gray-900 placeholder-gray-400";
   const selectClasses =
-    "w-full px-4 py-2 bg-white dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-300 outline-none transition-colors duration-200 text-gray-900 dark:text-white appearance-none";
+    "w-full px-4 py-2 bg-idl-light border-2 border-gray-300 rounded-lg focus:border-idl-accent focus:ring-2 focus:ring-idl-accent outline-none transition-colors duration-200 text-gray-900";
 
   return (
     <div className="max-w-4xl mx-auto">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 transition-colors">
-        <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Join a Team</h2>
+      <div className="bg-idl-gray rounded-lg shadow-lg p-8 transition-colors">
+        <h2 className="text-2xl font-bold mb-6 text-idl-light">Join a Team</h2>
 
         {error && <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">{error}</div>}
 
         <form onSubmit={handleSubmit} className="space-y-8">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Team ID</label>
+            <label className="block text-sm font-medium text-idl-light mb-2">Team ID</label>
             <input
               type="text"
               value={teamId}
@@ -167,11 +153,11 @@ export const JoinTeamForm: React.FC = () => {
           </div>
 
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Player Information</h3>
-            <div className="bg-gray-50 dark:bg-gray-750 p-6 rounded-lg space-y-4 border-2 border-gray-200 dark:border-gray-600">
+            <h3 className="text-lg font-semibold text-idl-light">Player Information</h3>
+            <div className="bg-idl-gray p-6 rounded-lg space-y-4 border-2 border-idl-accent">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>
+                  <label className="block text-sm font-medium text-idl-light mb-2">Name</label>
                   <input
                     type="text"
                     value={player.name}
@@ -181,7 +167,7 @@ export const JoinTeamForm: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Steam Profile URL</label>
+                  <label className="block text-sm font-medium text-idl-light mb-2">Steam Profile URL</label>
                   <input
                     type="url"
                     value={player.steamProfile}
@@ -192,7 +178,7 @@ export const JoinTeamForm: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Rank</label>
+                  <label className="block text-sm font-medium text-idl-light mb-2">Rank</label>
                   <div className="relative">
                     <select
                       value={player.rank}
@@ -207,7 +193,7 @@ export const JoinTeamForm: React.FC = () => {
                         </option>
                       ))}
                     </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300">
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-idl-light">
                       <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                         <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                       </svg>
@@ -222,7 +208,7 @@ export const JoinTeamForm: React.FC = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-[#169B62] dark:bg-indigo-500 text-white py-4 px-6 rounded-lg hover:bg-[#128152]/80 dark:hover:bg-indigo-600 focus:outline-none focus:ring-4 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:ring-opacity-50 transition-colors text-lg font-medium"
+              className="w-full bg-idl-accent text-white py-4 px-6 rounded-lg hover:bg-idl-accent/80 focus:outline-none focus:ring-4 focus:ring-idl-accent focus:ring-opacity-50 transition-colors text-lg font-medium"
             >
               {isSubmitting ? "Joining Team..." : "Join Team"}
             </button>
