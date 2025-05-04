@@ -27,15 +27,15 @@ const MatchNode = ({ data, isConnectable }: NodeProps) => {
 
   // Dynamically select colors based on tournament stage
   const getBgColor = () => {
-    if (stage === "finals") return "bg-[#0A4C7F] dark:bg-[#0A4C7F]";
+    if (stage === "finals") return "bg-idl-gray";
     if (stage === "champion") return "bg-[#C49B33] dark:bg-[#C49B33]";
-    if (stage === "semifinal") return "bg-[#1A365D] dark:bg-[#1A365D]";
-    if (stage === "quarterfinal") return "bg-[#1A365D] dark:bg-[#1A365D]";
-    return "bg-[#1A365D] dark:bg-[#1A365D]";
+    if (stage === "semifinal") return "bg-idl-gray";
+    if (stage === "quarterfinal") return "bg-idl-gray";
+    return "bg-idl-gray";
   };
 
   const getBorderColor = () => {
-    if (stage === "finals") return "border-[#0A4C7F] dark:border-[#0A4C7F]";
+    if (stage === "finals") return "border-idl-accent";
     if (stage === "champion") return "border-[#C49B33] dark:border-[#C49B33]";
     return "border-gray-600 dark:border-gray-600";
   };
@@ -48,7 +48,7 @@ const MatchNode = ({ data, isConnectable }: NodeProps) => {
     <div className={`p-2 rounded border ${getBorderColor()} ${getBgColor()} min-w-40 shadow-md`}>
       <Handle type="target" position={Position.Left} isConnectable={isConnectable} className="!bg-red-500 dark:!bg-red-500" />
 
-      <div className="text-xs text-gray-300 dark:text-gray-300 truncate mb-1">{label}</div>
+      <div className="text-xs text-idl-light truncate mb-1">{label}</div>
 
       {team1 && (
         <div className={`text-sm ${getTextColor()} truncate max-w-36 ${winner === team1.name ? "font-bold" : ""}`}>
@@ -78,12 +78,12 @@ const SeedNode = ({ data, isConnectable }: NodeProps) => {
   const { team, seed } = data;
 
   return (
-    <div className="p-2 rounded border border-gray-600 dark:border-gray-600 bg-[#1A365D] dark:bg-[#1A365D] min-w-40 shadow-md">
+    <div className="p-2 rounded border border-gray-600 dark:border-gray-600 bg-idl-gray min-w-40 shadow-md">
       <Handle type="target" position={Position.Left} isConnectable={isConnectable} className="!bg-red-500 dark:!bg-red-500 !opacity-0" />
 
-      <div className="text-xs text-gray-300 dark:text-gray-300 truncate mb-1">{seed}</div>
+      <div className="text-xs text-idl-light truncate mb-1">{seed}</div>
 
-      <div className="text-sm text-white dark:text-white truncate max-w-36">{team?.name || "TBD"}</div>
+      <div className="text-sm text-idl-light truncate max-w-36">{team?.name || "TBD"}</div>
 
       <Handle type="source" position={Position.Right} isConnectable={isConnectable} className="!bg-red-500 dark:!bg-red-500" />
     </div>
@@ -100,8 +100,8 @@ export const SeasonFourKnockoutBracket: React.FC<KnockoutBracketProps> = ({ team
   // Add check for empty teams array
   if (!teams || teams.length === 0) {
     return (
-      <div className="w-full h-[600px] bg-[#0D1B2A] dark:bg-[#0D1B2A] rounded-lg shadow-lg flex items-center justify-center">
-        <p className="text-white">No teams available</p>
+      <div className="w-full h-[600px] bg-idl-gray rounded-lg shadow-lg flex items-center justify-center">
+        <p className="text-idl-light">No teams available</p>
       </div>
     );
   }
@@ -745,7 +745,7 @@ export const SeasonFourKnockoutBracket: React.FC<KnockoutBracketProps> = ({ team
   };
 
   return (
-    <div className="w-full h-[600px] bg-[#0D1B2A] dark:bg-[#0D1B2A] rounded-lg shadow-lg">
+    <div className="w-full h-[600px] bg-idl-dark dark:bg-[#0D1B2A] rounded-lg shadow-lg">
       <ReactFlowProvider>
         <ReactFlow
           nodes={nodes}

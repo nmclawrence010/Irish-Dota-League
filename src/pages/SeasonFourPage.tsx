@@ -4,7 +4,7 @@ import { clsx } from "clsx";
 import { Team } from "@/types/tournament";
 import { SeasonFourMatchList } from "@/components/SeasonFourMatchList";
 import { Twitch } from "lucide-react";
-import { KnockoutBracket } from "@/components/KnockoutBracket";
+import { SeasonFourKnockoutBracket } from "@/components/SeasonFourKnockoutBracket";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 export const SeasonFourPage: React.FC = () => {
@@ -112,7 +112,7 @@ export const SeasonFourPage: React.FC = () => {
                 <LoadingSpinner />
               </div>
             ) : (
-              <KnockoutBracket teams={currentTeams ?? []} division={selectedDivision} />
+              <SeasonFourKnockoutBracket teams={currentTeams ?? []} division={selectedDivision} />
             )}
           </div>
         )}
