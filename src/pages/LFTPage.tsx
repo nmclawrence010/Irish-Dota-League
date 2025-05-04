@@ -15,10 +15,6 @@ export const LFTPage: React.FC = () => {
     return <div className="text-center text-idl-light py-8">Loading...</div>;
   }
 
-  if (!isAuthenticated) {
-    return <Navigate to="/" replace />;
-  }
-
   const handleRemovePlayer = async (playerId: string) => {
     if (!user?.sub) return;
 
@@ -39,19 +35,21 @@ export const LFTPage: React.FC = () => {
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-col gap-4">
-        <button
-          onClick={() => setShowForm(!showForm)}
-          className="flex items-center justify-center space-x-2 bg-idl-accent hover:bg-idl-accent/80 text-idl-light py-3 px-6 rounded-lg transition-colors text-lg font-medium"
-        >
-          <span>{showForm ? "Hide Registration Form" : "Register as LFT"}</span>
-          {showForm ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-        </button>
+      {isAuthenticated && (
+        <div className="flex flex-col gap-4">
+          <button
+            onClick={() => setShowForm(!showForm)}
+            className="flex items-center justify-center space-x-2 bg-idl-accent hover:bg-idl-accent/80 text-idl-light py-3 px-6 rounded-lg transition-colors text-lg font-medium"
+          >
+            <span>{showForm ? "Hide Registration Form" : "Register as LFT"}</span>
+            {showForm ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+          </button>
 
-        <div className={`transition-all duration-300 ease-in-out ${showForm ? "opacity-100" : "opacity-0 h-0 overflow-hidden"}`}>
-          <LFTForm onSubmitSuccess={() => setShowForm(false)} />
+          <div className={`transition-all duration-300 ease-in-out ${showForm ? "opacity-100" : "opacity-0 h-0 overflow-hidden"}`}>
+            <LFTForm onSubmitSuccess={() => setShowForm(false)} />
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="bg-idl-gray rounded-lg shadow-md p-6 transition-colors">
         <h2 className="text-2xl font-bold mb-6 text-idl-light">Players Looking for Team</h2>
@@ -95,7 +93,7 @@ export const LFTPage: React.FC = () => {
                     </td>
                     <td className="px-6 py-4 text-base text-idl-light pr-12 last:rounded-r-lg">
                       {player.notes}
-                      {user?.sub === player.auth_id && (
+                      {isAuthenticated && user?.sub === player.auth_id && (
                         <button
                           onClick={() => handleRemovePlayer(player.id)}
                           className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 rounded-full text-red-500 hover:text-idl-accent hover:bg-red-500 transition-all transform hover:scale-110"
