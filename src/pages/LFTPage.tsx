@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
 import { LFTForm } from "../components/LFTForm";
 import { useLFTPlayers } from "../hooks/useLFTPlayers";
 import { useAuth } from "../hooks/useAuth";
