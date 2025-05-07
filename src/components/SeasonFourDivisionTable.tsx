@@ -6,7 +6,22 @@ interface DivisionTableProps {
 }
 
 export const SeasonFourDivisionTable: React.FC<DivisionTableProps> = ({ division }) => {
-  const sortedTeams = [...division.teams].sort((a, b) => b.points - a.points);
+  const sortedTeams = [...division.teams].sort((a, b) => {
+    // First sort by points
+    if (b.points !== a.points) {
+      return b.points - a.points;
+    }
+    // If points are equal, sort by wins
+    if (b.wins !== a.wins) {
+      return b.wins - a.wins;
+    }
+    // If wins are equal, sort by draws
+    if (b.draws !== a.draws) {
+      return b.draws - a.draws;
+    }
+    // If draws are equal, sort by losses (fewer losses first)
+    return a.losses - b.losses;
+  });
 
   return (
     <div className="bg-idl-gray rounded-lg shadow-md p-6 transition-colors">

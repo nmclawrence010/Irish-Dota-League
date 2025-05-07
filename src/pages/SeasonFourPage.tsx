@@ -12,6 +12,18 @@ export const SeasonFourPage: React.FC = () => {
   const [selectedPhase, setSelectedPhase] = useState<"league" | "knockout">("league");
   const { teams: allTeams, loading } = useSeasonFourTeams();
   const currentTeams = allTeams.filter((team) => team.division_id === selectedDivision);
+  const sortedTeams = [...currentTeams].sort((a, b) => {
+    if (b.points !== a.points) {
+      return b.points - a.points;
+    }
+    if (b.wins !== a.wins) {
+      return b.wins - a.wins;
+    }
+    if (b.draws !== a.draws) {
+      return b.draws - a.draws;
+    }
+    return a.losses - b.losses;
+  });
 
   const divisions = [
     { id: 1, name: "Division 1" },
@@ -100,7 +112,7 @@ export const SeasonFourPage: React.FC = () => {
                     </td>
                   </tr>
                 ) : (
-                  currentTeams.map((team, index) => renderTeamRow(team, index))
+                  sortedTeams.map((team, index) => renderTeamRow(team, index))
                 )}
               </tbody>
             </table>
