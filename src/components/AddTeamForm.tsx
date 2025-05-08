@@ -131,7 +131,7 @@ export const AddTeamForm: React.FC<AddTeamFormProps> = ({ divisionId }) => {
             <div className="flex justify-center space-x-4 pt-4">
               <Link
                 to="/my-team"
-                className="bg-idl-light hover:bg-idl-accent text-idl-light px-6 py-3 rounded-lg transition-colors font-medium"
+                className="bg-idl-accent hover:bg-idl-accent/80 text-idl-light px-6 py-3 rounded-lg transition-colors font-medium"
               >
                 View My Team
               </Link>
