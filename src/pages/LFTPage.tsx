@@ -5,6 +5,11 @@ import { useAuth } from "../hooks/useAuth";
 import { ChevronDown, ChevronUp, X } from "lucide-react";
 import { supabase } from "../lib/supabase";
 
+const getRankImage = (rank: string) => {
+  const rankLower = rank.toLowerCase();
+  return `/public/${rankLower}.png`;
+};
+
 export const LFTPage: React.FC = () => {
   const { isAuthenticated, isLoading, user } = useAuth();
   const { players, loading, error, mutate } = useLFTPlayers();
@@ -64,24 +69,34 @@ export const LFTPage: React.FC = () => {
             <table className="min-w-full">
               <thead>
                 <tr className="bg-idl-gray">
-                  <th className="px-6 py-3 text-left text-xs font-medium text-idl-light uppercase tracking-wider">Name</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-idl-light uppercase tracking-wider">Steam Profile</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-idl-light uppercase tracking-wider">Rank</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-idl-light uppercase tracking-wider">Roles</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-idl-light uppercase tracking-wider">Notes</th>
+                  <th className="px-3 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-idl-light uppercase tracking-wider">Name</th>
+                  <th className="px-3 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-idl-light uppercase tracking-wider">
+                    Steam Profile
+                  </th>
+                  <th className="px-3 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-idl-light uppercase tracking-wider">Rank</th>
+                  <th className="hidden sm:table-cell px-6 py-3 text-left text-xs font-medium text-idl-light uppercase tracking-wider">
+                    Roles
+                  </th>
+                  <th className="hidden sm:table-cell px-6 py-3 text-left text-xs font-medium text-idl-light uppercase tracking-wider">
+                    Notes
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-idl-gray divide-y divide-idl-light">
                 {players.map((player) => (
                   <tr key={player.id} className="hover:bg-idl-dark transition-colors relative group rounded-lg">
-                    <td className="px-6 py-4 whitespace-nowrap text-base font-medium text-idl-light first:rounded-l-lg">{player.name}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-base text-idl-light">
+                    <td className="px-3 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-sm sm:text-base font-medium text-idl-light first:rounded-l-lg">
+                      {player.name}
+                    </td>
+                    <td className="px-3 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-sm sm:text-base text-idl-light">
                       <a href={player.steamProfile} target="_blank" rel="noopener noreferrer" className="text-idl-accent hover:underline">
                         Steam Profile
                       </a>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-base text-idl-light">{player.rank}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-base text-idl-light">
+                    <td className="px-3 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-sm sm:text-base text-idl-light">
+                      <img src={getRankImage(player.rank)} alt={`${player.rank} rank`} className="h-8 sm:h-12 w-auto" title={player.rank} />
+                    </td>
+                    <td className="hidden sm:table-cell px-6 py-4 whitespace-nowrap text-base text-idl-light">
                       <div className="flex flex-wrap gap-1">
                         {player.roles.map((role) => (
                           <span key={role} className="px-2 py-1 text-sm rounded-full bg-idl-accent text-white">
@@ -90,7 +105,7 @@ export const LFTPage: React.FC = () => {
                         ))}
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-base text-idl-light pr-12 last:rounded-r-lg">
+                    <td className="hidden sm:table-cell px-6 py-4 text-base text-idl-light pr-12 last:rounded-r-lg">
                       {player.notes}
                       {isAuthenticated && user?.sub === player.auth_id && (
                         <button
