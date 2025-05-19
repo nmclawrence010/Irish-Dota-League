@@ -6,8 +6,18 @@ import { ChevronDown, ChevronUp, X } from "lucide-react";
 import { supabase } from "../lib/supabase";
 
 const getRankImage = (rank: string) => {
-  const rankLower = rank.toLowerCase();
-  return `/public/${rankLower}.png`;
+  const rankToImage: { [key: string]: string } = {
+    Herald: "/herald.png",
+    Guardian: "/guardian.png",
+    Crusader: "/crusader.png",
+    Archon: "/archon.png",
+    Legend: "/legend.png",
+    Ancient: "/ancient.png",
+    Divine: "/divine.png",
+    Immortal: "/immortal.png",
+  };
+
+  return rankToImage[rank] || "/unranked.png";
 };
 
 export const LFTPage: React.FC = () => {
