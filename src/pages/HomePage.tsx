@@ -61,7 +61,7 @@ export const HomePage: React.FC = () => {
         </div>
 
         <div className="flex flex-col items-center justify-center py-12">
-          <h2 className="text-3xl font-bold text-idl-light mb-4">Season 5 Coming Soon</h2>
+          <h2 className="text-3xl font-bold text-idl-light mb-4">Season 5 starts: 8/6/2025</h2>
           <a
             href="https://discord.gg/fErrveaumv"
             target="_blank"
