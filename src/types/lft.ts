@@ -7,4 +7,5 @@ export interface LFTPlayer {
   auth_id: string;
   created_at: string;
   roles: string[];
+  teamID: string;
 } 
