@@ -4,6 +4,7 @@ import { useLFTPlayers } from "../hooks/useLFTPlayers";
 import { useAuth } from "../hooks/useAuth";
 import { ChevronDown, ChevronUp, X } from "lucide-react";
 import { supabase } from "../lib/supabase";
+import { useAllTeams } from "../hooks/useAllTeams";
 
 const getRankImage = (rank: string) => {
   const rankToImage: { [key: string]: string } = {
@@ -23,11 +24,21 @@ const getRankImage = (rank: string) => {
 export const LFTPage: React.FC = () => {
   const { isAuthenticated, isLoading, user } = useAuth();
   const { players, loading, error, mutate } = useLFTPlayers();
+  const { teams } = useAllTeams();
+
   const [showForm, setShowForm] = useState(false);
 
   if (isLoading) {
     return <div className="text-center text-idl-light py-8">Loading...</div>;
   }
+
+  // filter players out if they are already in a team
+  const teamPlayerAuthIds = teams.flatMap(team =>
+    team.players.map(player => player.auth_id).filter(Boolean)
+  );
+  const visiblePlayers = players.filter(
+    (player) => !teamPlayerAuthIds.includes(player.auth_id)
+  );
 
   const handleRemovePlayer = async (playerId: string) => {
     if (!user?.sub) return;
@@ -40,8 +51,7 @@ export const LFTPage: React.FC = () => {
 
       if (deleteError) throw deleteError;
 
-      // Refresh the players list
-      mutate();
+      mutate(); // refresh list
     } catch (err) {
       console.error("Error removing LFT entry:", err);
     }
@@ -72,7 +82,7 @@ export const LFTPage: React.FC = () => {
           <div className="text-center text-red-500 dark:text-red-400 py-4">Error loading players: {error}</div>
         ) : loading ? (
           <div className="text-center text-idl-light py-4">Loading players...</div>
-        ) : players.length === 0 ? (
+        ) : visiblePlayers.length === 0 ? (
           <div className="text-center text-idl-light py-4">No players currently looking for team</div>
         ) : (
           <div className="overflow-x-auto">
@@ -93,7 +103,7 @@ export const LFTPage: React.FC = () => {
                 </tr>
               </thead>
               <tbody className="bg-idl-gray divide-y divide-idl-light">
-                {players.map((player) => (
+                {visiblePlayers.map((player) => (
                   <tr key={player.id} className="hover:bg-idl-dark transition-colors relative group rounded-lg">
                     <td className="px-3 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-sm sm:text-base font-medium text-idl-light first:rounded-l-lg">
                       {player.name}
