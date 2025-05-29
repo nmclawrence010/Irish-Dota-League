@@ -4,6 +4,7 @@ export interface Player {
   rank: string;
   auth_id?: string;
   country?: string;
+  role?: string;
 }
 
 export type Team = {
