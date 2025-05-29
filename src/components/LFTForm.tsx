@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { supabase } from "../lib/supabase";
 import { useAuth } from "../hooks/useAuth";
 import { useMyTeam } from "../hooks/useMyTeam";
+import { ROLES } from "../constants/roles";
 
 interface LFTFormData {
   name: string;
@@ -19,8 +20,6 @@ const initialFormState: LFTFormData = {
   roles: [],
 };
 
-const ROLES = ["Carry", "Mid", "Offlane", "Soft Support", "Hard Support"] as const;
-
 interface LFTFormProps {
   onSubmitSuccess?: () => void;
 }
@@ -32,7 +31,10 @@ export const LFTForm: React.FC<LFTFormProps> = ({ onSubmitSuccess }) => {
   const { user } = useAuth();
   const { team: existingTeam, loading: checkingTeam } = useMyTeam();
 
-  const handleChange = (field: keyof Omit<LFTFormData, "roles">, value: string) => {
+  const handleChange = (
+    field: keyof Omit<LFTFormData, "roles">,
+    value: string
+  ) => {
     setFormData((current) => ({
       ...current,
       [field]: value,
@@ -42,11 +44,22 @@ export const LFTForm: React.FC<LFTFormProps> = ({ onSubmitSuccess }) => {
   const handleRoleToggle = (role: string) => {
     setFormData((current) => ({
       ...current,
-      roles: current.roles.includes(role) ? current.roles.filter((r) => r !== role) : [...current.roles, role],
+      roles: current.roles.includes(role)
+        ? current.roles.filter((r) => r !== role)
+        : [...current.roles, role],
     }));
   };
 
-  const ranks = ["Herald", "Guardian", "Crusader", "Archon", "Legend", "Ancient", "Divine", "Immortal"];
+  const ranks = [
+    "Herald",
+    "Guardian",
+    "Crusader",
+    "Archon",
+    "Legend",
+    "Ancient",
+    "Divine",
+    "Immortal",
+  ];
 
   // Show loading state while checking team membership
   if (checkingTeam) {
@@ -58,8 +71,12 @@ export const LFTForm: React.FC<LFTFormProps> = ({ onSubmitSuccess }) => {
     return (
       <div className="max-w-4xl mx-auto">
         <div className="bg-idl-gray rounded-lg shadow-lg p-8 transition-colors">
-          <h2 className="text-2xl font-bold mb-4 text-idl-light">Already on a Team</h2>
-          <p className="text-idl-light mb-6">You cannot register as LFT while being a member of a team.</p>
+          <h2 className="text-2xl font-bold mb-4 text-idl-light">
+            Already on a Team
+          </h2>
+          <p className="text-idl-light mb-6">
+            You cannot register as LFT while being a member of a team.
+          </p>
         </div>
       </div>
     );
@@ -100,13 +117,21 @@ export const LFTForm: React.FC<LFTFormProps> = ({ onSubmitSuccess }) => {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="bg-idl-gray rounded-lg shadow-lg p-8 transition-colors">
-        <h2 className="text-2xl font-bold mb-6 text-idl-light">Register as Looking for Team</h2>
+        <h2 className="text-2xl font-bold mb-6 text-idl-light">
+          Register as Looking for Team
+        </h2>
 
-        {error && <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">{error}</div>}
+        {error && (
+          <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-idl-light mb-2">Name</label>
+            <label className="block text-sm font-medium text-idl-light mb-2">
+              Name
+            </label>
             <input
               type="text"
               value={formData.name}
@@ -117,7 +142,9 @@ export const LFTForm: React.FC<LFTFormProps> = ({ onSubmitSuccess }) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-idl-light mb-2">Steam Profile URL</label>
+            <label className="block text-sm font-medium text-idl-light mb-2">
+              Steam Profile URL
+            </label>
             <input
               type="url"
               value={formData.steamProfile}
@@ -129,9 +156,16 @@ export const LFTForm: React.FC<LFTFormProps> = ({ onSubmitSuccess }) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-idl-light mb-2">Rank</label>
+            <label className="block text-sm font-medium text-idl-light mb-2">
+              Rank
+            </label>
             <div className="relative">
-              <select value={formData.rank} onChange={(e) => handleChange("rank", e.target.value)} className={selectClasses} required>
+              <select
+                value={formData.rank}
+                onChange={(e) => handleChange("rank", e.target.value)}
+                className={selectClasses}
+                required
+              >
                 <option value="">Select Rank</option>
                 {ranks.map((rank) => (
                   <option key={rank} value={rank}>
@@ -140,7 +174,11 @@ export const LFTForm: React.FC<LFTFormProps> = ({ onSubmitSuccess }) => {
                 ))}
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-idl-light">
-                <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <svg
+                  className="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
                   <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                 </svg>
               </div>
@@ -148,7 +186,9 @@ export const LFTForm: React.FC<LFTFormProps> = ({ onSubmitSuccess }) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-idl-light mb-2">Preferred Roles</label>
+            <label className="block text-sm font-medium text-idl-light mb-2">
+              Preferred Roles
+            </label>
             <div className="space-y-2">
               {ROLES.map((role) => (
                 <label key={role} className="flex items-center space-x-3">
@@ -162,11 +202,17 @@ export const LFTForm: React.FC<LFTFormProps> = ({ onSubmitSuccess }) => {
                 </label>
               ))}
             </div>
-            {formData.roles.length === 0 && <p className="mt-1 text-sm text-red-500">Please select at least one role</p>}
+            {formData.roles.length === 0 && (
+              <p className="mt-1 text-sm text-red-500">
+                Please select at least one role
+              </p>
+            )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-idl-light mb-2">Notes</label>
+            <label className="block text-sm font-medium text-idl-light mb-2">
+              Notes
+            </label>
             <textarea
               value={formData.notes}
               onChange={(e) => handleChange("notes", e.target.value)}
