@@ -45,7 +45,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
               {isAuthenticated ? (
                 <Link
                   to="/signup"
-                  className="flex items-center space-x-2 text-idl-light hover:text-idl-accent transition-all duration-300 font-medium"
+                  className="flex items-center space-x-2 text-idl-light hover:text-idl-accent transition-all duration-300 font-medium pointer-events-none cursor-not-allowed opacity-60"
                 >
                   <Users size={20} />
                   <span>Team Registration</span>
@@ -249,7 +249,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
                     <Link
                       to="/signup"
-                      className="flex items-center space-x-2 hover:bg-idl-gray px-4 py-2 rounded-lg transition-colors w-full text-left text-idl-light"
+                      className="flex items-center space-x-2 hover:bg-idl-gray px-4 py-2 rounded-lg transition-colors w-full text-left text-idl-light pointer-events-none cursor-not-allowed opacity-60"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <Users size={20} />
