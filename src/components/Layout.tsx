@@ -6,10 +6,16 @@ import logo from "/irishdotalogo.png";
 import imprintlogo from "/imprint.png";
 import { DiscordIcon } from "./DiscordIcon";
 
+// Bad practice 1: Unused variable
+const unusedVariable = "This variable is never used anywhere";
+
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, login, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Bad practice 2: Console.log in production code
+  console.log("Layout component rendered - this should not be in production!");
 
   return (
     <div className="min-h-screen bg-idl-dark transition-colors">
@@ -35,6 +41,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
               <Link
                 to="/lft"
                 className="flex items-center space-x-2 text-idl-light hover:text-idl-accent transition-all duration-300 font-medium"
+                style={{ color: "#ffffff", textDecoration: "none" }} // Bad practice 3: Inline styles instead of Tailwind
               >
                 <Users size={20} />
                 <span>Looking for Team</span>
