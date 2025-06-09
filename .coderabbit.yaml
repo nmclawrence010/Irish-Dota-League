@@ -6,10 +6,10 @@ enable-free-tier: true
 reviews:
   profile: "chill"
   request_changes_workflow: false
-  high_level_summary_in_walkthrough: true
+  high_level_summary_in_walkthrough: false
   poem: false
-  review_status: true
-  collapse_walkthrough: true
+  review_status: false
+  collapse_walkthrough: false
   related_issues: false
   related_prs: false
   suggested_labels: false
@@ -20,4 +20,4 @@ reviews:
     drafts: false
   changed_files_summary: false
 chat:
-  auto_reply: true
+  auto_reply: false
