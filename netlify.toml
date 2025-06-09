@@ -1,3 +1,11 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NPM_FLAGS = "--legacy-peer-deps"
+  NODE_VERSION = "18"
+
 [[redirects]]
   from = "/api/*"
   to = "https://api.imprint.gg/:splat"
