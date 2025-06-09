@@ -1,19 +1,18 @@
 import React, { useCallback, useMemo, useEffect } from "react";
-import ReactFlow, {
+import {
+  ReactFlow,
   Background,
-  Edge,
   Handle,
   MarkerType,
-  Node,
   NodeProps,
   Position,
   ReactFlowProvider,
-  useEdgesState,
   useNodesState,
+  useEdgesState,
   ConnectionLineType,
-} from "reactflow";
-import { Controls } from "@reactflow/controls";
-import "reactflow/dist/style.css";
+  Controls,
+} from "@xyflow/react";
+import "@xyflow/react/dist/style.css";
 import { Team } from "@/types/tournament";
 
 interface KnockoutBracketProps {
@@ -23,7 +22,7 @@ interface KnockoutBracketProps {
 
 // Custom node for team matches
 const MatchNode = ({ data, isConnectable }: NodeProps) => {
-  const { team1, team2, label, result, winner, stage } = data;
+  const { team1, team2, label, result, winner, stage } = data as any;
 
   // Dynamically select colors based on tournament stage
   const getBgColor = () => {
@@ -54,7 +53,7 @@ const MatchNode = ({ data, isConnectable }: NodeProps) => {
         <div className={`text-sm ${getTextColor()} truncate max-w-36 ${winner === team1.name ? "font-bold" : ""}`}>
           {result && winner === team1.name && "✓ "}
           {team1.name}
-          {result && team1 === winner && <span className="ml-1 text-xs">{result[0]}</span>}
+          {result && winner === team1.name && <span className="ml-1 text-xs">{result[0]}</span>}
         </div>
       )}
 
@@ -62,7 +61,7 @@ const MatchNode = ({ data, isConnectable }: NodeProps) => {
         <div className={`text-sm ${getTextColor()} truncate max-w-36 ${winner === team2.name ? "font-bold" : ""}`}>
           {result && winner === team2.name && "✓ "}
           {team2.name}
-          {result && team2 === winner && <span className="ml-1 text-xs">{result[1]}</span>}
+          {result && winner === team2.name && <span className="ml-1 text-xs">{result[1]}</span>}
         </div>
       )}
 
@@ -75,7 +74,7 @@ const MatchNode = ({ data, isConnectable }: NodeProps) => {
 
 // Seed box component showing just the team in its seed position
 const SeedNode = ({ data, isConnectable }: NodeProps) => {
-  const { team, seed } = data;
+  const { team, seed } = data as any;
 
   return (
     <div className="p-2 rounded border border-gray-600 dark:border-gray-600 bg-idl-gray min-w-40 shadow-md">
@@ -96,23 +95,19 @@ const nodeTypes = {
   seed: SeedNode,
 };
 
-export const SeasonFourKnockoutBracket: React.FC<KnockoutBracketProps> = ({ teams, division = 2 }) => {
-  // Add check for empty teams array
-  if (!teams || teams.length === 0) {
-    return (
-      <div className="w-full h-[600px] bg-idl-gray rounded-lg shadow-lg flex items-center justify-center">
-        <p className="text-idl-light">No teams available</p>
-      </div>
-    );
-  }
-
+// Inner component that uses React Flow hooks - must be inside ReactFlowProvider
+const KnockoutBracketFlow: React.FC<{ teams: Team[]; division: number }> = ({ teams, division }) => {
   // Sort teams by points to determine seeding
   const sortedTeams = useMemo(() => [...teams].sort((a, b) => b.points - a.points), [teams]);
 
+  // Initialize state with empty arrays - these hooks must be inside ReactFlowProvider
+  const [nodes, setNodes, onNodesChange] = useNodesState<any>([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState<any>([]);
+
   // Generate bracket for Division 2 (6 teams)
   const generateDivision2Bracket = useCallback(() => {
-    const nodes: Node[] = [];
-    const edges: Edge[] = [];
+    const nodes: any[] = [];
+    const edges: any[] = [];
 
     // Base layout parameters
     const xStart = 50;
@@ -239,7 +234,6 @@ export const SeasonFourKnockoutBracket: React.FC<KnockoutBracketProps> = ({ team
           team1: sortedTeams[1],
           team2: sortedTeams[2],
           winner: sortedTeams[1].name,
-          completed: true,
           stage: "semifinal",
         },
         position: { x: xStart + xGap * 2, y: yStart + yGap },
@@ -252,7 +246,6 @@ export const SeasonFourKnockoutBracket: React.FC<KnockoutBracketProps> = ({ team
           team1: sortedTeams[0],
           team2: sortedTeams[3],
           winner: sortedTeams[0].name,
-          completed: true,
           stage: "semifinal",
         },
         position: { x: xStart + xGap * 2, y: yStart + yGap * 3 },
@@ -314,7 +307,7 @@ export const SeasonFourKnockoutBracket: React.FC<KnockoutBracketProps> = ({ team
       type: "match",
       data: {
         label: "👑 Champion",
-        team1: { name: sortedTeams[1].name },
+        team1: sortedTeams[1],
         stage: "champion",
       },
       position: { x: xStart + xGap * 4, y: yStart + yGap * 2 },
@@ -353,8 +346,8 @@ export const SeasonFourKnockoutBracket: React.FC<KnockoutBracketProps> = ({ team
 
   // Generate bracket for Division 1 (5 teams)
   const generateDivision1Bracket = useCallback(() => {
-    const nodes: Node[] = [];
-    const edges: Edge[] = [];
+    const nodes: any[] = [];
+    const edges: any[] = [];
 
     // Base layout parameters
     const xStart = 50;
@@ -442,7 +435,6 @@ export const SeasonFourKnockoutBracket: React.FC<KnockoutBracketProps> = ({ team
           team1: sortedTeams[1],
           team2: sortedTeams[2],
           winner: sortedTeams[2].name,
-          completed: true,
           stage: "semifinal",
         },
         position: { x: xStart + xGap, y: yStart + yGap / 2 },
@@ -455,7 +447,6 @@ export const SeasonFourKnockoutBracket: React.FC<KnockoutBracketProps> = ({ team
           team1: sortedTeams[0],
           team2: sortedTeams[3],
           winner: sortedTeams[0].name,
-          completed: true,
           stage: "semifinal",
         },
         position: { x: xStart + xGap * 2, y: yStart + yGap * 3 },
@@ -480,7 +471,7 @@ export const SeasonFourKnockoutBracket: React.FC<KnockoutBracketProps> = ({ team
         type: "match",
         data: {
           label: "👑 Champion",
-          team1: { name: sortedTeams[0].name },
+          team1: sortedTeams[0],
           stage: "champion",
         },
         position: { x: xStart + xGap * 4, y: yStart + yGap * 2 },
@@ -560,8 +551,8 @@ export const SeasonFourKnockoutBracket: React.FC<KnockoutBracketProps> = ({ team
 
   // Generate bracket for Division 3 (4 teams)
   const generateDivision3Bracket = useCallback(() => {
-    const nodes: Node[] = [];
-    const edges: Edge[] = [];
+    const nodes: any[] = [];
+    const edges: any[] = [];
 
     // Base layout parameters
     const xStart = 50;
@@ -643,7 +634,7 @@ export const SeasonFourKnockoutBracket: React.FC<KnockoutBracketProps> = ({ team
         type: "match",
         data: {
           label: "👑 Champion",
-          team1: { name: sortedTeams[0].name },
+          team1: sortedTeams[0],
           stage: "champion",
         },
         position: { x: xStart + xGap * 3, y: yStart + yGap * 2 },
@@ -713,10 +704,6 @@ export const SeasonFourKnockoutBracket: React.FC<KnockoutBracketProps> = ({ team
     return { nodes, edges };
   }, [sortedTeams]);
 
-  // Initialize state with empty arrays instead of initialElements
-  const [nodes, setNodes, onNodesChange] = useNodesState([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-
   // Update nodes and edges when division or teams change
   useEffect(() => {
     const newElements = (() => {
@@ -745,30 +732,45 @@ export const SeasonFourKnockoutBracket: React.FC<KnockoutBracketProps> = ({ team
   };
 
   return (
+    <ReactFlow
+      nodes={nodes}
+      edges={edges}
+      onNodesChange={onNodesChange}
+      onEdgesChange={onEdgesChange}
+      nodeTypes={nodeTypes}
+      defaultEdgeOptions={defaultEdgeOptions}
+      connectionLineType={ConnectionLineType.SmoothStep}
+      connectionLineStyle={{ stroke: "#ffffff", strokeWidth: 2 }}
+      fitView
+      minZoom={0.5}
+      maxZoom={1.5}
+      nodesDraggable={false}
+      edgesFocusable={false}
+      nodesFocusable={false}
+      elementsSelectable={false}
+      zoomOnScroll={false}
+      panOnScroll={true}
+    >
+      <Background color="#2D3748" gap={16} size={1} />
+      <Controls showInteractive={false} className="!bg-gray-800 !text-white !border-gray-700" />
+    </ReactFlow>
+  );
+};
+
+export const SeasonFourKnockoutBracket: React.FC<KnockoutBracketProps> = ({ teams, division = 2 }) => {
+  // Add check for empty teams array
+  if (!teams || teams.length === 0) {
+    return (
+      <div className="w-full h-[600px] bg-idl-gray rounded-lg shadow-lg flex items-center justify-center">
+        <p className="text-idl-light">No teams available</p>
+      </div>
+    );
+  }
+
+  return (
     <div className="w-full h-[600px] bg-idl-dark dark:bg-[#0D1B2A] rounded-lg shadow-lg">
       <ReactFlowProvider>
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          nodeTypes={nodeTypes}
-          defaultEdgeOptions={defaultEdgeOptions}
-          connectionLineType={ConnectionLineType.SmoothStep}
-          connectionLineStyle={{ stroke: "#ffffff", strokeWidth: 2 }}
-          fitView
-          minZoom={0.5}
-          maxZoom={1.5}
-          nodesDraggable={false}
-          edgesFocusable={false}
-          nodesFocusable={false}
-          elementsSelectable={false}
-          zoomOnScroll={false}
-          panOnScroll={true}
-        >
-          <Background color="#2D3748" gap={16} size={1} />
-          <Controls showInteractive={false} className="!bg-gray-800 !text-white !border-gray-700" />
-        </ReactFlow>
+        <KnockoutBracketFlow teams={teams} division={division} />
       </ReactFlowProvider>
     </div>
   );
