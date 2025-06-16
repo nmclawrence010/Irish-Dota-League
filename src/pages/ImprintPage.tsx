@@ -1,71 +1,54 @@
-// import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Instagram, Facebook, Linkedin, X, Globe } from "lucide-react";
-// import { fetchLeaderboard } from "../services/leaderboardApi";
-// import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { fetchLeaderboard } from "../services/leaderboardApi";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 
-// interface Player {
-//   account_id: number;
-//   account_name: string;
-//   primary_team: {
-//     team_id: number;
-//     team_name: string;
-//     team_logo_src: string;
-//   };
-//   primary_position: number;
-//   average_imprint_rating: number;
-//   wins: number;
-//   losses: number;
-//   win_rate: string;
-// }
+interface Player {
+  account_id: number;
+  account_name: string;
+  primary_team: {
+    team_id: number;
+    team_name: string;
+    team_logo_src: string;
+  };
+  primary_position: number;
+  average_imprint_rating: number;
+  wins: number;
+  losses: number;
+  win_rate: string;
+}
 
-// Add position mapping helper
-// const getPositionImage = (position: number, isDarkMode: boolean): string => {
-//   const positionMap: Record<number, string> = {
-//     1: isDarkMode ? "/Carry.png" : "/CarryLight.png",
-//     2: isDarkMode ? "/Middle.png" : "/MiddleLight.png",
-//     3: isDarkMode ? "/Offlane.png" : "/OfflaneLight.png",
-//     4: isDarkMode ? "/SoftSupport.png" : "/SoftSupportLight.png",
-//     5: isDarkMode ? "/HardSupport.png" : "/HardSupportLight.png",
-//   };
-//   return positionMap[position] || "";
-// };
+// Add position mapping helper - simplified to only use light mode images
+const getPositionImage = (position: number): string => {
+  const positionMap: Record<number, string> = {
+    1: "/Carry.png",
+    2: "/Middle.png",
+    3: "/Offlane.png",
+    4: "/SoftSupport.png",
+    5: "/HardSupport.png",
+  };
+  return positionMap[position] || "";
+};
 
 export const ImprintPage: React.FC = () => {
-  // const [players, setPlayers] = useState<Player[]>([]);
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState<string | null>(null);
+  const [players, setPlayers] = useState<Player[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // useEffect(() => {
-  //   const loadLeaderboard = async () => {
-  //     try {
-  //       const data = await fetchLeaderboard();
-  //       setPlayers(data.players.sort((a, b) => b.average_imprint_rating - a.average_imprint_rating));
-  //     } catch (err) {
-  //       setError("Failed to load leaderboard data");
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
+  useEffect(() => {
+    const loadLeaderboard = async () => {
+      try {
+        const data = await fetchLeaderboard();
+        setPlayers(data.players.sort((a, b) => b.average_imprint_rating - a.average_imprint_rating));
+      } catch (err) {
+        setError("Failed to load leaderboard data");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  //   loadLeaderboard();
-  // }, []);
-
-  // useEffect(() => {
-  //   const observer = new MutationObserver((mutations) => {
-  //     mutations.forEach((mutation) => {
-  //       if (mutation.attributeName === "class") {
-  //         setIsDarkMode(document.documentElement.classList.contains("dark"));
-  //       }
-  //     });
-  //   });
-
-  //   observer.observe(document.documentElement, {
-  //     attributes: true,
-  //     attributeFilter: ["class"],
-  //   });
-
-  //   return () => observer.disconnect();
-  // }, []);
+    loadLeaderboard();
+  }, []);
 
   return (
     <div className="max-w-6xl mx-auto space-y-8">
@@ -77,128 +60,118 @@ export const ImprintPage: React.FC = () => {
           ></div>
           <div className="relative">
             <div className="text-center space-y-6 mb-8">
-              <h1 className="text-3xl font-bold text-idl-imprint">Imprint Leaderboard</h1>
+              <h1 className="text-4xl font-display font-black text-idl-imprint tracking-widest drop-shadow-[0_4px_8px_rgba(70,255,208,0.3)] transform hover:scale-105 transition-all duration-300">
+                Imprint Leaderboard
+              </h1>
+              {/* Social links section */}
+              <div className="flex flex-wrap justify-center gap-6 pt-4 pb-4">
+                <a
+                  href="https://imprint.gg/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 text-idl-light hover:text-[#46ffd0] transition-colors"
+                >
+                  <Globe size={24} />
+                  <span className="font-medium">Check out our new website</span>
+                </a>
 
-              {/* {loading ? (
-              <LoadingSpinner />
-            ) : error ? (
-              <p className="text-red-500">{error}</p>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="min-w-full">
-                  <thead>
-                    <tr className="bg-gray-50 dark:bg-gray-700">
-                      <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                        Rank
-                      </th>
-                      <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                        Player
-                      </th>
-                      <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                        Position
-                      </th>
-                      <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                        Rating
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                        Team
-                      </th>
-                      <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                        Win Rate
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                    {players.map((player, index) => (
-                      <tr key={player.account_id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{index + 1}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
-                          {player.account_name}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
-                          <img
-                            src={getPositionImage(player.primary_position, isDarkMode)}
-                            alt={`Position ${player.primary_position}`}
-                            className="w-6 h-6 inline-block"
-                            title={`Position ${player.primary_position}`}
-                          />
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-center font-semibold text-[#46ffd0]">
-                          {player.average_imprint_rating.toFixed(1)}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                          <div className="flex items-center gap-2">
-                            <img
-                              src={player.primary_team.team_logo_src}
-                              alt={player.primary_team.team_name}
-                              className="w-6 h-6 object-contain"
-                            />
-                            {player.primary_team.team_name}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900 dark:text-white">
-                          {player.win_rate} ({player.wins}/{player.losses})
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <a
+                  href="https://x.com/ImprintEsports_"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 text-idl-light hover:text-[#46ffd0] transition-colors"
+                >
+                  <X size={24} />
+                  <span className="font-medium">Follow us on X</span>
+                </a>
+
+                <a
+                  href="https://www.instagram.com/ImprintEsports/#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 text-idl-light hover:text-pink-500 transition-colors"
+                >
+                  <Instagram size={24} />
+                  <span className="font-medium">Follow us on Instagram</span>
+                </a>
+
+                <a
+                  href="https://www.facebook.com/people/Imprint-Esports/61563195342615/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 text-idl-light hover:text-blue-600 transition-colors"
+                >
+                  <Facebook size={24} />
+                  <span className="font-medium">Follow us on Facebook</span>
+                </a>
+
+                <a
+                  href="https://www.linkedin.com/company/imprintesports/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 text-idl-light hover:text-blue-700 transition-colors"
+                >
+                  <Linkedin size={24} />
+                  <span className="font-medium">Connect on LinkedIn</span>
+                </a>
               </div>
-            )} */}
-              <div className="text-2xl font-semibold text-idl-light">Season 5 Coming Soon</div>
-            </div>
 
-            {/* Social links section */}
-            <div className="flex flex-wrap justify-center gap-6 pt-4">
-              <a
-                href="https://imprint.gg/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center space-x-2 text-idl-light hover:text-[#46ffd0] transition-colors"
-              >
-                <Globe size={24} />
-                <span className="font-medium">Check out our new website</span>
-              </a>
-
-              <a
-                href="https://x.com/ImprintEsports_"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center space-x-2 text-idl-light hover:text-[#46ffd0] transition-colors"
-              >
-                <X size={24} />
-                <span className="font-medium">Follow us on X</span>
-              </a>
-
-              <a
-                href="https://www.instagram.com/ImprintEsports/#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center space-x-2 text-idl-light hover:text-pink-500 transition-colors"
-              >
-                <Instagram size={24} />
-                <span className="font-medium">Follow us on Instagram</span>
-              </a>
-
-              <a
-                href="https://www.facebook.com/people/Imprint-Esports/61563195342615/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center space-x-2 text-idl-light hover:text-blue-600 transition-colors"
-              >
-                <Facebook size={24} />
-                <span className="font-medium">Follow us on Facebook</span>
-              </a>
-
-              <a
-                href="https://www.linkedin.com/company/imprintesports/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center space-x-2 text-idl-light hover:text-blue-700 transition-colors"
-              >
-                <Linkedin size={24} />
-                <span className="font-medium">Connect on LinkedIn</span>
-              </a>
+              {loading ? (
+                <LoadingSpinner />
+              ) : error ? (
+                <p className="text-red-500">{error}</p>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="min-w-full">
+                    <thead>
+                      <tr className="bg-idl-imprintDark">
+                        <th className="px-6 py-3 text-center text-xs font-medium text-idl-light uppercase tracking-wider">Rank</th>
+                        <th className="px-6 py-3 text-center text-xs font-medium text-idl-light uppercase tracking-wider">Player</th>
+                        <th className="px-6 py-3 text-center text-xs font-medium text-idl-light uppercase tracking-wider">Position</th>
+                        <th className="px-6 py-3 text-center text-xs font-medium text-idl-light uppercase tracking-wider">Rating</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-idl-light uppercase tracking-wider">Team</th>
+                        <th className="px-6 py-3 text-center text-xs font-medium text-idl-light uppercase tracking-wider">Win Rate</th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-idl-imprintDark divide-y divide-idl-accent">
+                      {players.map((player, index) => (
+                        <tr
+                          key={player.account_id}
+                          className={`hover:bg-[#2a2a28] transition-colors ${index === 0 ? "border-t border-idl-accent" : ""}`}
+                        >
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-idl-light">{index + 1}</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-idl-light">{player.account_name}</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
+                            <img
+                              src={getPositionImage(player.primary_position)}
+                              alt={`Position ${player.primary_position}`}
+                              className="w-6 h-6 inline-block"
+                              title={`Position ${player.primary_position}`}
+                            />
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-center font-semibold text-[#46ffd0]">
+                            {player.average_imprint_rating.toFixed(1)}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-idl-light">
+                            <div className="flex items-center gap-2">
+                              <img
+                                src={player.primary_team.team_logo_src}
+                                alt={player.primary_team.team_name}
+                                className="w-6 h-6 object-contain"
+                              />
+                              {player.primary_team.team_name}
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-idl-light">
+                            {player.win_rate} ({player.wins}/{player.losses})
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+              {/* <div className="text-2xl font-semibold text-idl-light">Season 5 Coming Soon</div> */}
             </div>
           </div>
         </div>

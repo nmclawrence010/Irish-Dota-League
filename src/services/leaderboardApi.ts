@@ -33,7 +33,7 @@ export const fetchLeaderboard = async (): Promise<LeaderboardResponse> => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        league_id: 17600,
+        league_id: 18171,
       }),
     });
 
