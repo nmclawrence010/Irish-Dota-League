@@ -263,7 +263,7 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       team1Id: "cavan_chumpions",
       team2Id: "ausgang",
       date: "2025-06-09",
-      completed: false,
+      completed: true,
       week: 1,
       games: {
         game1: { played: true, winner: "cavan_chumpions", dota2MatchId: "8340294728" },
