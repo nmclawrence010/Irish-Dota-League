@@ -266,10 +266,10 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       completed: false,
       week: 1,
       games: {
-        game1: { played: false },
-        game2: { played: false },
+        game1: { played: true, winner: "cavan_chumpions", dota2MatchId: "8340294728" },
+        game2: { played: true, winner: "cavan_chumpions", dota2MatchId: "8340367108" },
       },
-      score: [0, 0],
+      score: [2, 0],
     },
     // Week 2 - Group A
     {
