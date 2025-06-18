@@ -1,12 +1,12 @@
 interface Player {
   account_id: number;
   account_name: string;
-  primary_team: {
+  team: {
     team_id: number;
     team_name: string;
     team_logo_src: string;
   };
-  primary_position: number;
+  position: number;
   wins: number;
   losses: number;
   win_rate: string;

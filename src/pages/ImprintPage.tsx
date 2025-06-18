@@ -6,12 +6,12 @@ import { LoadingSpinner } from "@/components/LoadingSpinner";
 interface Player {
   account_id: number;
   account_name: string;
-  primary_team: {
+  team: {
     team_id: number;
     team_name: string;
     team_logo_src: string;
   };
-  primary_position: number;
+  position: number;
   average_imprint_rating: number;
   wins: number;
   losses: number;
@@ -143,10 +143,10 @@ export const ImprintPage: React.FC = () => {
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-idl-light">{player.account_name}</td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
                             <img
-                              src={getPositionImage(player.primary_position)}
-                              alt={`Position ${player.primary_position}`}
+                              src={getPositionImage(player.position)}
+                              alt={`Position ${player.position}`}
                               className="w-6 h-6 inline-block"
-                              title={`Position ${player.primary_position}`}
+                              title={`Position ${player.position}`}
                             />
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-center font-semibold text-[#46ffd0]">
@@ -154,12 +154,8 @@ export const ImprintPage: React.FC = () => {
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-idl-light">
                             <div className="flex items-center gap-2">
-                              <img
-                                src={player.primary_team.team_logo_src}
-                                alt={player.primary_team.team_name}
-                                className="w-6 h-6 object-contain"
-                              />
-                              {player.primary_team.team_name}
+                              <img src={player.team.team_logo_src} alt={player.team.team_name} className="w-6 h-6 object-contain" />
+                              {player.team.team_name}
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-idl-light">
