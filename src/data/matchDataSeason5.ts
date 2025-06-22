@@ -48,13 +48,13 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       team1Id: "joonsquad",
       team2Id: "mouseys_fierce_warriors",
       date: "2025-06-16",
-      completed: false,
+      completed: true,
       week: 2,
       games: {
-        game1: { played: false },
-        game2: { played: false },
+        game1: { played: true, winner: "mouseys_fierce_warriors", dota2MatchId: "8345729571" },
+        game2: { played: true, winner: "mouseys_fierce_warriors", dota2MatchId: "8345797677" },
       },
-      score: [0, 0],
+      score: [0, 2],
     },
     {
       id: "d1w2m2",
@@ -277,13 +277,13 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       team1Id: "bdc",
       team2Id: "fear_the_samurai",
       date: "2025-06-16",
-      completed: false,
+      completed: true,
       week: 2,
       games: {
-        game1: { played: false },
-        game2: { played: false },
+        game1: { played: true, winner: "bdc", dota2MatchId: "8345738036" },
+        game2: { played: true, winner: "bdc", dota2MatchId: "8345834114" },
       },
-      score: [0, 0],
+      score: [2, 0],
     },
     {
       id: "d2w2m2",
@@ -506,13 +506,13 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       team1Id: "passport_issues",
       team2Id: "ratatataouille",
       date: "2025-06-09",
-      completed: false,
+      completed: true,
       week: 1,
       games: {
-        game1: { played: false },
-        game2: { played: false },
+        game1: { played: true, winner: "passport_issues", dota2MatchId: "8345790340" },
+        game2: { played: true, winner: "passport_issues", dota2MatchId: "8345874463" },
       },
-      score: [0, 0],
+      score: [2, 0],
     },
     // Week 2
     {
