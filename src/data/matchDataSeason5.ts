@@ -88,13 +88,13 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       team1Id: "joonsquad",
       team2Id: "sentinel_island_esports",
       date: "2025-06-23",
-      completed: false,
+      completed: true,
       week: 3,
       games: {
-        game1: { played: false },
-        game2: { played: false },
+        game1: { played: true, winner: "sentinel_island_esports", dota2MatchId: "8350857142" },
+        game2: { played: true, winner: "sentinel_island_esports", dota2MatchId: "8350912216" },
       },
-      score: [0, 0],
+      score: [0, 2],
     },
     {
       id: "d1w3m2",
@@ -397,13 +397,13 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       team1Id: "cavan_champions",
       team2Id: "cavan_chumpions",
       date: "2025-06-23",
-      completed: false,
+      completed: true,
       week: 3,
       games: {
-        game1: { played: false },
-        game2: { played: false },
+        game1: { played: true, winner: "cavan_champions", dota2MatchId: "8350824276" },
+        game2: { played: true, winner: "cavan_champions", dota2MatchId: "8350918690" },
       },
-      score: [0, 0],
+      score: [2, 0],
     },
     // Week 4 - Group A
     {
