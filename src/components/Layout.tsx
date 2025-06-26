@@ -152,7 +152,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
               <Link
                 to="/imprint"
-                className="relative flex items-center justify-center w-12 h-12 bg-[#1d1d1b] rounded-full transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-[#47ffd0]/30 focus:outline-none focus:ring-2 focus:ring-[#47ffd0] focus:ring-offset-2 focus:ring-offset-idl-dark"
+                className="relative flex items-center justify-center w-12 h-12 bg-[#1d1d1b] rounded-full transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-[#47ffd0]/30 focus:outline-none focus:ring-2 focus:ring-[#47ffd0] focus:ring-offset-2 focus:ring-offset-idl-dark animate-intermittent-shake"
               >
                 <div className="relative w-8 h-8">
                   <img src={imprintlogo} alt="Imprint Logo" className="w-full h-full object-contain" />
@@ -197,7 +197,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
               <Link
                 to="/imprint"
-                className="relative flex items-center justify-center w-10 h-10 bg-[#1d1d1b] rounded-full transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-[#47ffd0]/30 focus:outline-none focus:ring-2 focus:ring-[#47ffd0] focus:ring-offset-2 focus:ring-offset-idl-dark"
+                className="relative flex items-center justify-center w-10 h-10 bg-[#1d1d1b] rounded-full transition-all duration-300 shadow-lg hover:scale-105 hover:shadow-[#47ffd0]/30 focus:outline-none focus:ring-2 focus:ring-[#47ffd0] focus:ring-offset-2 focus:ring-offset-idl-dark animate-intermittent-shake"
               >
                 <div className="relative w-6 h-6">
                   <img src={imprintlogo} alt="Imprint Logo" className="w-full h-full object-contain" />
