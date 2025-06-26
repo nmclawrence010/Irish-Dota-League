@@ -1,3 +1,4 @@
 /api/match  https://api.imprint.gg/match  200!
 /api/league/players  https://api.imprint.gg/league/players  200!
+/api/league/statistics/hero  https://api.imprint.gg/league/statistics/hero  200!
 /*    /index.html   200
