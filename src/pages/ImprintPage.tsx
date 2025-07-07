@@ -16,6 +16,7 @@ interface Player {
   wins: number;
   losses: number;
   win_rate: string;
+  match_count: number;
 }
 
 interface HeroFacet {
@@ -86,7 +87,10 @@ export const ImprintPage: React.FC = () => {
 
         if (activeTab === "leaderboard") {
           const data = await fetchLeaderboard();
-          setPlayers(data.players.sort((a, b) => b.average_imprint_rating - a.average_imprint_rating));
+          const filteredPlayers = data.players
+            .filter((player) => player.match_count >= 3)
+            .sort((a, b) => b.average_imprint_rating - a.average_imprint_rating);
+          setPlayers(filteredPlayers);
         } else {
           const data = await fetchHeroStatistics();
           setHeroes(data.hero_statistics.heroes.sort((a, b) => b.match_count - a.match_count));
