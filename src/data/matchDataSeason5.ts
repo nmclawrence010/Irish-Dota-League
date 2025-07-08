@@ -587,13 +587,13 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       team1Id: "imprint_esports",
       team2Id: "ratatataouille",
       date: "2025-06-23",
-      completed: false,
+      completed: true,
       week: 3,
       games: {
-        game1: { played: false },
-        game2: { played: false },
+        game1: { played: true, winner: "creep_enjoyers", dota2MatchId: "8366764448" },
+        game2: { played: true, winner: "creep_enjoyers", dota2MatchId: "8366841508" },
       },
-      score: [0, 0],
+      score: [0, 2],
     },
     {
       id: "d3w3m2",
