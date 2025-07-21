@@ -5,10 +5,11 @@ import { clsx } from "clsx";
 import { SeasonFiveMatchList } from "@/components/SeasonFiveMatchList";
 import { Twitch, Star } from "lucide-react";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { KnockoutBracket } from "@/components/KnockoutBracket";
 
 export const HomePage: React.FC = () => {
-  const [selectedDivision, setSelectedDivision] = useState(1);
-  const [selectedPhase, setSelectedPhase] = useState<"league" | "knockout">("league");
+  const [selectedDivision, setSelectedDivision] = useState(2);
+  const [selectedPhase, setSelectedPhase] = useState<"league" | "knockout">("knockout");
   const { teams: allTeams, loading } = useSeasonFiveTeams();
   const currentTeams = allTeams.filter((team) => team.division_id === selectedDivision);
   const sortedTeams = [...currentTeams].sort((a, b) => {
@@ -260,9 +261,9 @@ export const HomePage: React.FC = () => {
             </div>
           )
         ) : (
-          <div className="flex flex-col items-center justify-center py-16">
-            <h3 className="text-xl font-medium text-idl-light mb-2">Knockout Phase</h3>
-            <p className="text-gray-500 dark:text-gray-400">Knockout brackets will be available after the league phase concludes</p>
+          <div className="flex flex-col items-center justify-center py-8">
+            {/* <h3 className="text-xl font-medium text-idl-light mb-4">Knockout Phase</h3> */}
+            <KnockoutBracket teams={currentTeams} division={selectedDivision} />
           </div>
         )}
       </div>
