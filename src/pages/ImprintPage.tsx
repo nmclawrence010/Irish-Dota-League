@@ -148,6 +148,31 @@ export const ImprintPage: React.FC = () => {
               </td>
             </tr>
           ))}
+          {/* Bl1nkz row */}
+          <tr className="hover:bg-[#2a2a28] transition-colors">
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-idl-light">{players.length + 1}</td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-idl-light">Bl1nkz</td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
+              <img
+                src={getPositionImage(2)}
+                alt="Position 2"
+                className="w-6 h-6 inline-block"
+                title="Position 2"
+              />
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-center font-semibold text-[#46ffd0]">
+              -5.2
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-idl-light">
+              <div className="flex items-center gap-2">
+                <img src="/archon.png" alt="Waterford, Ireland" className="w-6 h-6 object-contain" />
+                <span>Waterford, Ireland</span>
+              </div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-idl-light">
+              0% (0/87)
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -242,15 +267,11 @@ export const ImprintPage: React.FC = () => {
 
   return (
     <div className="max-w-6xl mx-auto space-y-8">
-      <div className="rounded-lg p-[1px] animate-background-pulse overflow-hidden">
+      <div className="rounded-lg p-[1px] overflow-hidden">
         <div className="bg-idl-imprintDark rounded-lg shadow-lg p-8 transition-colors relative">
-          <div
-            className="absolute inset-0 rounded-lg border-2 border-transparent animate-border-rotate"
-            style={{ borderImageSlice: 1 }}
-          ></div>
           <div className="relative">
             <div className="text-center space-y-6 mb-8">
-              <h1 className="text-4xl font-display font-black text-idl-imprint tracking-widest drop-shadow-[0_4px_8px_rgba(70,255,208,0.3)] transform hover:scale-105 transition-all duration-300">
+              <h1 className="text-4xl font-display pt-4 font-black text-idl-imprint tracking-widest drop-shadow-[0_4px_8px_rgba(70,255,208,0.3)] transform hover:scale-105 transition-all duration-300">
                 Imprint Leaderboard
               </h1>
 
