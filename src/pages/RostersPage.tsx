@@ -75,20 +75,39 @@ export const RostersPage: React.FC = () => {
               className="bg-idl-gray rounded-lg shadow-md p-4 transition-colors"
             >
               <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  <h2
-                    className="text-lg font-bold text-idl-light cursor-default"
-                    title={team.name}
-                  >
-                    {truncateText(team.name, 20)}
-                  </h2>
-                  {team.name === "Wongs Bakery 麵包店" && (
-                    <Trophy
-                      size={18}
-                      className="text-yellow-500 dark:text-yellow-400"
-                      aria-label="Defending Champions"
+                <div className="flex items-center gap-3">
+                  {team.image_url ? (
+                    <img
+                      src={team.image_url}
+                      alt={`${team.name} logo`}
+                      className="w-8 h-8 object-cover rounded-full border-2 border-idl-accent"
+                      onError={(e) => {
+                        // Hide the image if it fails to load
+                        e.currentTarget.style.display = 'none';
+                      }}
                     />
+                  ) : (
+                    <div className="w-8 h-8 bg-idl-dark rounded-full border-2 border-idl-accent flex items-center justify-center">
+                      <span className="text-xs text-idl-light font-bold">
+                        {team.name.charAt(0).toUpperCase()}
+                      </span>
+                    </div>
                   )}
+                  <div className="flex items-center gap-2">
+                    <h2
+                      className="text-lg font-bold text-idl-light cursor-default"
+                      title={team.name}
+                    >
+                      {truncateText(team.name, 15)}
+                    </h2>
+                    {team.name === "Wongs Bakery 麵包店" && (
+                      <Trophy
+                        size={18}
+                        className="text-yellow-500 dark:text-yellow-400"
+                        aria-label="Defending Champions"
+                      />
+                    )}
+                  </div>
                 </div>
                 <span className="px-2 py-1 text-xs rounded-full bg-idl-accent text-white">
                   Div {team.division_id}

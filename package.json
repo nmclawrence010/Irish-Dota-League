@@ -12,10 +12,12 @@
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
     "@supabase/supabase-js": "^2.39.0",
+    "@types/jszip": "^3.4.0",
     "@xyflow/react": "^12.4.4",
     "clsx": "^2.1.0",
     "jose": "^5.9.6",
     "jsonwebtoken": "^9.0.2",
+    "jszip": "^3.10.1",
     "lucide-react": "^0.344.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

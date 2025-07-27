@@ -12,6 +12,7 @@ import { LFTPage } from "./pages/LFTPage";
 import { ImprintPage } from "./pages/ImprintPage";
 import { SeasonFourPage } from "./pages/SeasonFourPage";
 import { SeasonFourRostersPage } from "./pages/SeasonFourRostersPage";
+import { AdminPage } from "./pages/AdminPage";
 function App() {
   const isDark = useThemeStore((state) => state.isDark);
 
@@ -45,6 +46,7 @@ function App() {
             <Route path="/imprint" element={<ImprintPage />} />
             <Route path="/season4" element={<SeasonFourPage />} />
             <Route path="/season4/rosters" element={<SeasonFourRostersPage />} />
+            <Route path="/admin" element={<AdminPage />} />
           </Routes>
         </Layout>
       </BrowserRouter>

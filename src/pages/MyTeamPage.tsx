@@ -2,16 +2,19 @@ import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useMyTeam } from "../hooks/useMyTeam";
 import { useAuth } from "../hooks/useAuth";
-import { Copy, Check, X, Edit2 } from "lucide-react";
-import { supabase } from "../lib/supabase";
+import { Copy, Check, X, Edit2, Camera } from "lucide-react";
+import { supabase, getSupabaseClient } from "../lib/supabase";
 import { Player } from "../types/tournament";
 import { ROLES } from "../constants/roles";
 
 export const MyTeamPage: React.FC = () => {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, supabaseToken } = useAuth();
   const { team, loading, error, mutate } = useMyTeam();
   const [copied, setCopied] = useState(false);
   const [editingRole, setEditingRole] = useState<string | null>(null);
+  const [newTeamImage, setNewTeamImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
 
   if (!isAuthenticated) {
     return <Navigate to="/" replace />;
@@ -30,6 +33,131 @@ export const MyTeamPage: React.FC = () => {
   };
 
   const isTeamCaptain = team?.players[0]?.auth_id === user?.sub;
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        alert('Please select a valid image file');
+        return;
+      }
+      
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Image size must be less than 5MB');
+        return;
+      }
+
+      setNewTeamImage(file);
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImagePreview(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeNewImage = () => {
+    setNewTeamImage(null);
+    setImagePreview(null);
+  };
+
+  const uploadNewImage = async (file: File): Promise<string | null> => {
+    if (!supabaseToken) return null;
+    
+    const authenticatedClient = getSupabaseClient(supabaseToken);
+    
+    try {
+      // Generate unique filename
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+      
+      const { error } = await authenticatedClient.storage
+        .from('team-images')
+        .upload(fileName, file, {
+          cacheControl: '3600',
+          upsert: false
+        });
+
+      if (error) {
+        console.error('Error uploading image:', error);
+        return null;
+      }
+
+      // Get public URL
+      const { data: { publicUrl } } = authenticatedClient.storage
+        .from('team-images')
+        .getPublicUrl(fileName);
+
+      return publicUrl;
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      return null;
+    }
+  };
+
+  const deleteOldImage = async (imageUrl: string): Promise<void> => {
+    if (!supabaseToken || !imageUrl) return;
+    
+    const authenticatedClient = getSupabaseClient(supabaseToken);
+    
+    try {
+      // Extract filename from the URL
+      const urlParts = imageUrl.split('/');
+      const fileName = urlParts[urlParts.length - 1];
+      
+      if (fileName) {
+        const { error } = await authenticatedClient.storage
+          .from('team-images')
+          .remove([fileName]);
+        
+        if (error) {
+          console.error('Error deleting old image:', error);
+        }
+      }
+    } catch (error) {
+      console.error('Error deleting old image:', error);
+    }
+  };
+
+  const handleUpdateTeamImage = async () => {
+    if (!team || !isTeamCaptain || !newTeamImage || !supabaseToken) return;
+
+    setIsUploadingImage(true);
+
+    try {
+      const imageUrl = await uploadNewImage(newTeamImage);
+      
+      if (imageUrl) {
+        const authenticatedClient = getSupabaseClient(supabaseToken);
+        const { error: updateError } = await authenticatedClient
+          .from("teams")
+          .update({ image_url: imageUrl })
+          .eq("id", team.id);
+
+        if (updateError) throw updateError;
+
+        // Delete the old image if it exists
+        if (team.image_url) {
+          await deleteOldImage(team.image_url);
+        }
+
+        // Refresh the team data
+        mutate();
+        setNewTeamImage(null);
+        setImagePreview(null);
+        alert('Team logo updated successfully!');
+      }
+    } catch (err) {
+      console.error("Error updating team image:", err);
+      alert('Failed to update team logo. Please try again.');
+    } finally {
+      setIsUploadingImage(false);
+    }
+  };
 
   const handleAssignRole = async (playerAuthId: string, role: string) => {
     if (!team || !isTeamCaptain) return;
@@ -150,7 +278,79 @@ export const MyTeamPage: React.FC = () => {
         </div>
 
         <div className="mb-6">
-          <h2 className="text-xl font-bold text-idl-light mb-2">{team.name}</h2>
+          <div className="flex items-center gap-4 mb-4">
+            {team.image_url ? (
+              <img
+                src={team.image_url}
+                alt={`${team.name} logo`}
+                className="w-16 h-16 object-cover rounded-full border-2 border-idl-accent"
+                onError={(e) => {
+                  // Hide the image if it fails to load
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+            ) : (
+              <div className="w-16 h-16 bg-idl-dark rounded-full border-2 border-idl-accent flex items-center justify-center">
+                <span className="text-xl text-idl-light font-bold">
+                  {team.name.charAt(0).toUpperCase()}
+                </span>
+              </div>
+            )}
+            <div>
+              <h2 className="text-xl font-bold text-idl-light">{team.name}</h2>
+              {isTeamCaptain && (
+                <button
+                  onClick={() => document.getElementById('team-image-upload')?.click()}
+                  className="flex items-center gap-2 text-sm text-idl-accent hover:text-idl-light transition-colors"
+                >
+                  <Camera size={14} />
+                  Change Team Logo
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Hidden file input for image upload */}
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="hidden"
+            id="team-image-upload"
+          />
+
+          {/* Image preview and update section */}
+          {imagePreview && (
+            <div className="mb-4 p-4 bg-idl-dark rounded-lg border border-idl-accent">
+              <div className="flex items-center gap-4">
+                <img
+                  src={imagePreview}
+                  alt="New team logo preview"
+                  className="w-12 h-12 object-cover rounded-full border border-idl-accent"
+                />
+                <div className="flex-1">
+                  <p className="text-sm text-idl-light">New team logo preview</p>
+                  <p className="text-xs text-gray-400">Click update to save changes</p>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={handleUpdateTeamImage}
+                    disabled={isUploadingImage}
+                    className="px-3 py-1 bg-idl-accent text-white rounded text-sm hover:bg-idl-accent/80 transition-colors disabled:opacity-50"
+                  >
+                    {isUploadingImage ? "Updating..." : "Update"}
+                  </button>
+                  <button
+                    onClick={removeNewImage}
+                    className="px-3 py-1 bg-red-500 text-white rounded text-sm hover:bg-red-600 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="flex items-center space-x-2">
             <button
               onClick={handleCopyId}

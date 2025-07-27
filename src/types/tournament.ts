@@ -16,6 +16,7 @@ export type Team = {
   draws: number;
   losses: number;
   division_id: number;
+  image_url?: string;
 };
 
 interface Game {
