@@ -1,12 +1,9 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
 import { useAllTeams } from "../hooks/useAllTeams";
-import { useAuth } from "../hooks/useAuth";
 import { Download } from "lucide-react";
 import JSZip from "jszip";
 
 export const AdminPage: React.FC = () => {
-  const { isAuthenticated } = useAuth();
   const { teams, loading, error } = useAllTeams();
 
   const downloadImage = async (imageUrl: string, teamName: string) => {
@@ -90,9 +87,7 @@ export const AdminPage: React.FC = () => {
     }
   };
 
-  if (!isAuthenticated) {
-    return <Navigate to="/" replace />;
-  }
+
 
   if (error) {
     return (
