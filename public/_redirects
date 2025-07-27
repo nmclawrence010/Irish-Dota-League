@@ -2,4 +2,6 @@
 /api/league/players  https://api.imprint.gg/league/players  200!
 /api/league/statistics/hero  https://api.imprint.gg/league/statistics/hero  200!
 /api/league/teams  https://api.imprint.gg/league/teams  200!
+/api/league/team/statistics/hero  https://api.imprint.gg/league/team/statistics/hero  200!
+/api/league/player/statistics/hero  https://api.imprint.gg/league/player/statistics/hero  200!
 /*    /index.html   200
