@@ -4,7 +4,7 @@ import { getSupabaseClient } from "../lib/supabase";
 // import { Player } from "../types/tournament";
 import { useAuth } from "../hooks/useAuth";
 import { useMyTeam } from "../hooks/useMyTeam";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Upload, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface AddTeamFormProps {
@@ -39,6 +39,8 @@ const getCountry = async () => {
 export const AddTeamForm: React.FC<AddTeamFormProps> = ({ divisionId }) => {
   const [teamName, setTeamName] = useState("");
   const [player, setPlayer] = useState<PlayerFormData>(initialPlayerState);
+  const [teamImage, setTeamImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const addTeam = useTournamentStore((state) => state.addTeam);
@@ -53,6 +55,71 @@ export const AddTeamForm: React.FC<AddTeamFormProps> = ({ divisionId }) => {
       ...currentPlayer,
       [field]: value,
     }));
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        alert('Please select a valid image file');
+        return;
+      }
+      
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Image size must be less than 5MB');
+        return;
+      }
+
+      setTeamImage(file);
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImagePreview(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeImage = () => {
+    setTeamImage(null);
+    setImagePreview(null);
+  };
+
+  const uploadImage = async (file: File): Promise<string | null> => {
+    if (!supabaseToken) return null;
+    
+    const authenticatedClient = getSupabaseClient(supabaseToken);
+    
+    try {
+      // Generate unique filename
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+      
+      const { error } = await authenticatedClient.storage
+        .from('team-images')
+        .upload(fileName, file, {
+          cacheControl: '3600',
+          upsert: false
+        });
+
+      if (error) {
+        console.error('Error uploading image:', error);
+        return null;
+      }
+
+      // Get public URL
+      const { data: { publicUrl } } = authenticatedClient.storage
+        .from('team-images')
+        .getPublicUrl(fileName);
+
+      return publicUrl;
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      return null;
+    }
   };
 
   // Show loading state while checking team membership
@@ -76,13 +143,19 @@ export const AddTeamForm: React.FC<AddTeamFormProps> = ({ divisionId }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isSubmitting || !user?.sub || !supabaseToken) return;
+    if (isSubmitting || !user?.sub || !supabaseToken || !teamImage) return;
 
     setIsSubmitting(true);
 
     try {
       const country = await getCountry();
       const authenticatedClient = getSupabaseClient(supabaseToken);
+
+      // Upload image if selected
+      let imageUrl = null;
+      if (teamImage) {
+        imageUrl = await uploadImage(teamImage);
+      }
 
       const playerWithAuthId = {
         ...player,
@@ -98,6 +171,7 @@ export const AddTeamForm: React.FC<AddTeamFormProps> = ({ divisionId }) => {
         losses: 0,
         draws: 0,
         division_id: divisionId,
+        image_url: imageUrl, // Add image URL to team data
       };
 
       const { data, error } = await authenticatedClient.from("teams").insert([newTeam]).select().single();
@@ -107,6 +181,8 @@ export const AddTeamForm: React.FC<AddTeamFormProps> = ({ divisionId }) => {
         addTeam(divisionId, data);
         setTeamName("");
         setPlayer(initialPlayerState);
+        setTeamImage(null);
+        setImagePreview(null);
         setIsSuccess(true);
       }
     } catch (err) {
@@ -166,6 +242,47 @@ export const AddTeamForm: React.FC<AddTeamFormProps> = ({ divisionId }) => {
             <input type="text" value={teamName} onChange={(e) => setTeamName(e.target.value)} className={inputClasses} required />
           </div>
 
+          {/* Team Image Upload Section */}
+          <div>
+            <label className="block text-sm font-medium text-idl-light mb-2">
+              Team Logo <span className="text-red-400">*</span>
+            </label>
+            <div className="space-y-4">
+              {!imagePreview ? (
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-idl-accent transition-colors">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    className="hidden"
+                    id="team-image-upload"
+                    required
+                  />
+                  <label htmlFor="team-image-upload" className="cursor-pointer">
+                    <Upload className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+                    <p className="text-idl-light mb-2">Click to upload team logo</p>
+                    <p className="text-sm text-gray-400">PNG, JPG up to 5MB</p>
+                  </label>
+                </div>
+              ) : (
+                <div className="relative">
+                  <img
+                    src={imagePreview}
+                    alt="Team logo preview"
+                    className="w-32 h-32 object-cover rounded-lg mx-auto"
+                  />
+                  <button
+                    type="button"
+                    onClick={removeImage}
+                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-idl-light">Captain's Details</h3>
             <div className="bg-idl-gray p-6 rounded-lg space-y-4 border-2 border-idl-accent">
@@ -221,10 +338,14 @@ export const AddTeamForm: React.FC<AddTeamFormProps> = ({ divisionId }) => {
           <div className="pt-4">
             <button
               type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-idl-accent text-white py-4 px-6 rounded-lg hover:bg-idl-accent/80 focus:outline-none focus:ring-4 focus:ring-idl-accent focus:ring-opacity-50 transition-colors text-lg font-medium"
+              disabled={isSubmitting || !teamImage}
+              className={`w-full py-4 px-6 rounded-lg focus:outline-none focus:ring-4 focus:ring-opacity-50 transition-colors text-lg font-medium ${
+                isSubmitting || !teamImage
+                  ? "bg-gray-500 text-gray-300 cursor-not-allowed"
+                  : "bg-idl-accent text-white hover:bg-idl-accent/80 focus:ring-idl-accent"
+              }`}
             >
-              {isSubmitting ? "Registering Team..." : "Register Team"}
+              {isSubmitting ? "Registering Team..." : !teamImage ? "Please upload a team logo" : "Register Team"}
             </button>
           </div>
         </form>

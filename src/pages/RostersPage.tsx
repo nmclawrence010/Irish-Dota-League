@@ -17,6 +17,18 @@ const getRankImage = (rank: string) => {
   return rankToImage[rank] || "/unranked.png";
 };
 
+const getRoleImage = (role: string) => {
+  const roleToImage: { [key: string]: string } = {
+    "Hard Support": "/HardSupport.png",
+    "Soft Support": "/SoftSupport.png",
+    "Offlane": "/Offlane.png",
+    "Mid": "/Middle.png",
+    "Carry": "/Carry.png",
+  };
+
+  return roleToImage[role] || null;
+};
+
 const truncateText = (text: string, maxLength: number) => {
   return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
 };
@@ -75,20 +87,39 @@ export const RostersPage: React.FC = () => {
               className="bg-idl-gray rounded-lg shadow-md p-4 transition-colors"
             >
               <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  <h2
-                    className="text-lg font-bold text-idl-light cursor-default"
-                    title={team.name}
-                  >
-                    {truncateText(team.name, 20)}
-                  </h2>
-                  {team.name === "Wongs Bakery 麵包店" && (
-                    <Trophy
-                      size={18}
-                      className="text-yellow-500 dark:text-yellow-400"
-                      aria-label="Defending Champions"
+                <div className="flex items-center gap-3">
+                  {team.image_url ? (
+                    <img
+                      src={team.image_url}
+                      alt={`${team.name} logo`}
+                      className="w-8 h-8 object-cover rounded-full border-2 border-idl-accent"
+                      onError={(e) => {
+                        // Hide the image if it fails to load
+                        e.currentTarget.style.display = 'none';
+                      }}
                     />
+                  ) : (
+                    <div className="w-8 h-8 bg-idl-dark rounded-full border-2 border-idl-accent flex items-center justify-center">
+                      <span className="text-xs text-idl-light font-bold">
+                        {team.name.charAt(0).toUpperCase()}
+                      </span>
+                    </div>
                   )}
+                  <div className="flex items-center gap-2">
+                    <h2
+                      className="text-lg font-bold text-idl-light cursor-default"
+                      title={team.name}
+                    >
+                      {truncateText(team.name, 15)}
+                    </h2>
+                    {team.name === "Wongs Bakery 麵包店" && (
+                      <Trophy
+                        size={18}
+                        className="text-yellow-500 dark:text-yellow-400"
+                        aria-label="Defending Champions"
+                      />
+                    )}
+                  </div>
                 </div>
                 <span className="px-2 py-1 text-xs rounded-full bg-idl-accent text-white">
                   Div {team.division_id}
@@ -108,11 +139,17 @@ export const RostersPage: React.FC = () => {
                             <p className="font-medium text-lg text-idl-light">
                               {player.name}
                             </p>
-                            {player.role && (
-                              <span className="text-xs px-2 py-1 bg-idl-accent text-white rounded">
-                                {player.role}
-                              </span>
-                            )}
+                            {player.role && (() => {
+                              const roleImage = getRoleImage(player.role);
+                              return roleImage ? (
+                                <img
+                                  src={roleImage}
+                                  alt={player.role}
+                                  className="w-6 h-6 object-contain"
+                                  title={player.role}
+                                />
+                              ) : null;
+                            })()}
                           </div>
                           <a
                             href={player.steamProfile}
