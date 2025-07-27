@@ -17,6 +17,18 @@ const getRankImage = (rank: string) => {
   return rankToImage[rank] || "/unranked.png";
 };
 
+const getRoleImage = (role: string) => {
+  const roleToImage: { [key: string]: string } = {
+    "Hard Support": "/HardSupport.png",
+    "Soft Support": "/SoftSupport.png",
+    "Offlane": "/Offlane.png",
+    "Mid": "/Middle.png",
+    "Carry": "/Carry.png",
+  };
+
+  return roleToImage[role] || null;
+};
+
 const truncateText = (text: string, maxLength: number) => {
   return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
 };
@@ -127,11 +139,17 @@ export const RostersPage: React.FC = () => {
                             <p className="font-medium text-lg text-idl-light">
                               {player.name}
                             </p>
-                            {player.role && (
-                              <span className="text-xs px-2 py-1 bg-idl-accent text-white rounded">
-                                {player.role}
-                              </span>
-                            )}
+                            {player.role && (() => {
+                              const roleImage = getRoleImage(player.role);
+                              return roleImage ? (
+                                <img
+                                  src={roleImage}
+                                  alt={player.role}
+                                  className="w-6 h-6 object-contain"
+                                  title={player.role}
+                                />
+                              ) : null;
+                            })()}
                           </div>
                           <a
                             href={player.steamProfile}
