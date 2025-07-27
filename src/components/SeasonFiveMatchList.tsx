@@ -7,7 +7,7 @@ import { MatchStats } from "@/components/MatchStats";
 export const SeasonFiveMatchList: React.FC = () => {
   const [currentWeek, setCurrentWeek] = useState(6);
   const [expandedMatch, setExpandedMatch] = useState<string | null>(null);
-  const maxWeeks = 6;
+  const maxWeeks = 7;
 
   const getTeamName = (teamId: string): string => {
     const teamNames: Record<string, string> = {

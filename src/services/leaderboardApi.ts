@@ -76,9 +76,35 @@ interface HeroStatisticsResponse {
   };
 }
 
+interface TeamPlayer {
+  account_id: number;
+  account_name: string;
+  position: number;
+}
+
+interface Team {
+  team_id: number;
+  team_name: string;
+  team_logo_src: string;
+  players: TeamPlayer[];
+  wins: number;
+  losses: number;
+  win_rate: string;
+  match_count: number;
+  average_team_imprint_rating: number;
+}
+
+interface TeamsResponse {
+  league_id: number;
+  league_name: string;
+  team_count: number;
+  teams: Team[];
+}
+
 const API_TOKEN = import.meta.env.VITE_IMPRINT_API_TOKEN;
 const API_URL_LEADERBOARD = "/api/league/players";
 const API_URL_HERO_STATS = "/api/league/statistics/hero";
+const API_URL_TEAMS = "/api/league/teams";
 
 export const fetchLeaderboard = async (): Promise<LeaderboardResponse> => {
   try {
@@ -126,6 +152,31 @@ export const fetchHeroStatistics = async (): Promise<HeroStatisticsResponse> => 
     return await response.json();
   } catch (error) {
     console.error("Error fetching hero statistics:", error);
+    throw error;
+  }
+};
+
+export const fetchTeams = async (): Promise<TeamsResponse> => {
+  try {
+    const response = await fetch(API_URL_TEAMS, {
+      method: "POST",
+      headers: {
+        token: API_TOKEN,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        league_id: 18171,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || "Failed to fetch teams data");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching teams:", error);
     throw error;
   }
 };

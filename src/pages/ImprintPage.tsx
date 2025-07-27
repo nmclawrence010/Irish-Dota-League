@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Instagram, Facebook, Linkedin, X, Globe } from "lucide-react";
-import { fetchLeaderboard, fetchHeroStatistics } from "../services/leaderboardApi";
+import { fetchLeaderboard, fetchHeroStatistics, fetchTeams } from "../services/leaderboardApi";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 interface Player {
@@ -60,6 +60,24 @@ interface Hero {
   position_tally: HeroPosition[];
 }
 
+interface TeamPlayer {
+  account_id: number;
+  account_name: string;
+  position: number;
+}
+
+interface Team {
+  team_id: number;
+  team_name: string;
+  team_logo_src: string;
+  players: TeamPlayer[];
+  wins: number;
+  losses: number;
+  win_rate: string;
+  match_count: number;
+  average_team_imprint_rating: number;
+}
+
 // Add position mapping helper - simplified to only use light mode images
 const getPositionImage = (position: number): string => {
   const positionMap: Record<number, string> = {
@@ -73,9 +91,10 @@ const getPositionImage = (position: number): string => {
 };
 
 export const ImprintPage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<"leaderboard" | "heroes">("leaderboard");
+  const [activeTab, setActiveTab] = useState<"leaderboard" | "heroes" | "teams">("leaderboard");
   const [players, setPlayers] = useState<Player[]>([]);
   const [heroes, setHeroes] = useState<Hero[]>([]);
+  const [teams, setTeams] = useState<Team[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -91,9 +110,12 @@ export const ImprintPage: React.FC = () => {
             .filter((player) => player.match_count >= 3)
             .sort((a, b) => b.average_imprint_rating - a.average_imprint_rating);
           setPlayers(filteredPlayers);
-        } else {
+        } else if (activeTab === "heroes") {
           const data = await fetchHeroStatistics();
           setHeroes(data.hero_statistics.heroes.sort((a, b) => b.match_count - a.match_count));
+        } else {
+          const data = await fetchTeams();
+          setTeams(data.teams.sort((a, b) => b.average_team_imprint_rating - a.average_team_imprint_rating));
         }
       } catch (err) {
         setError(`Failed to load ${activeTab} data`);
@@ -265,6 +287,45 @@ export const ImprintPage: React.FC = () => {
     </div>
   );
 
+  const renderTeams = () => (
+    <div className="overflow-x-auto">
+      <table className="min-w-full">
+        <thead>
+          <tr className="bg-idl-imprintDark">
+            <th className="px-6 py-3 text-center text-xs font-medium text-idl-light uppercase tracking-wider">Rank</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-idl-light uppercase tracking-wider">Team</th>
+            <th className="px-6 py-3 text-center text-xs font-medium text-idl-light uppercase tracking-wider">Matches</th>
+            <th className="px-6 py-3 text-center text-xs font-medium text-idl-light uppercase tracking-wider">Win Rate</th>
+            <th className="px-6 py-3 text-center text-xs font-medium text-idl-light uppercase tracking-wider">Avg Rating</th>
+          </tr>
+        </thead>
+        <tbody className="bg-idl-imprintDark divide-y divide-idl-accent">
+          {teams.map((team, index) => (
+            <tr key={team.team_id} className={`hover:bg-[#2a2a28] transition-colors ${index === 0 ? "border-t border-idl-accent" : ""}`}>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-idl-light">{index + 1}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-idl-light">
+                <div className="flex items-center gap-3">
+                  <img src={team.team_logo_src} alt={team.team_name} className="w-8 h-8 rounded" title={team.team_name} />
+                  <span className="font-medium">{team.team_name}</span>
+                </div>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-idl-light">{team.match_count}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-idl-light">
+                <span className={team.wins > team.losses ? "text-green-400" : "text-red-400"}>{team.win_rate}</span>
+                <div className="text-xs text-gray-400">
+                  ({team.wins}W/{team.losses}L)
+                </div>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-center font-semibold text-[#46ffd0]">
+                {team.average_team_imprint_rating.toFixed(1)}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+
   return (
     <div className="max-w-6xl mx-auto space-y-8">
       <div className="rounded-lg p-[1px] overflow-hidden">
@@ -296,6 +357,16 @@ export const ImprintPage: React.FC = () => {
                   }`}
                 >
                   Heroes
+                </button>
+                <button
+                  onClick={() => setActiveTab("teams")}
+                  className={`px-6 py-2 rounded-md text-sm font-medium transition-colors border ${
+                    activeTab === "teams"
+                      ? "bg-idl-imprint text-gray-900 border-idl-imprint"
+                      : "bg-idl-imprintDark text-idl-light hover:text-idl-imprint border-idl-imprintDark"
+                  }`}
+                >
+                  Teams
                 </button>
               </div>
 
@@ -358,8 +429,10 @@ export const ImprintPage: React.FC = () => {
                 <p className="text-red-500">{error}</p>
               ) : activeTab === "leaderboard" ? (
                 renderLeaderboard()
-              ) : (
+              ) : activeTab === "heroes" ? (
                 renderHeroStats()
+              ) : (
+                renderTeams()
               )}
               {/* <div className="text-2xl font-semibold text-idl-light">Season 5 Coming Soon</div> */}
             </div>
