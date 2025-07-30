@@ -592,15 +592,15 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       team1Id: "mikes_army",
       team2Id: "cavan_chumpions",
       date: "2025-07-21",
-      completed: false,
+      completed: true,
       week: 6,
       isKnockout: true,
       games: {
-        game1: { played: false },
-        game2: { played: false },
+        game1: { played: true, winner: "cavan_chumpions", dota2MatchId: "8395966987" },
+        game2: { played: true, winner: "cavan_chumpions", dota2MatchId: "8396070605" },
         game3: { played: false },
       },
-      score: [0, 0],
+      score: [0, 2],
     },
     {
       id: "d2w6m4",
@@ -617,6 +617,37 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       },
       score: [2, 0],
     },
+        // Week 7 - Knockout
+        {
+          id: "d2w7m1",
+          team1Id: "bdc",
+          team2Id: "cavan_champions",
+          date: "2025-07-28",
+          completed: false,
+          week: 7,
+          isKnockout: true,
+          games: {
+            game1: { played: false },
+            game2: { played: false },
+            game3: { played: false },
+          },
+          score: [0, 0],
+        },
+        {
+          id: "d2w7m2",
+          team1Id: "cavan_chumpions",
+          team2Id: "creep_enjoyers",
+          date: "2025-07-28",
+          completed: false,
+          week: 7,
+          isKnockout: true,
+          games: {
+            game1: { played: false },
+            game2: { played: false },
+            game3: { played: false },
+          },
+          score: [0, 0],
+        },
   ],
   3: [
     // Week 1
