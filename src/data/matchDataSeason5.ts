@@ -238,15 +238,29 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
       team1Id: "joonsquad",
       team2Id: "sentinel_island_esports",
       date: "2025-07-28",
-      completed: false,
+      completed: true,
       week: 7,
+      isKnockout: true,
+      games: {
+        game1: { played: true, winner: "sentinel_island_esports", dota2MatchId: "8402785545" },
+        game2: { played: true, winner: "sentinel_island_esports", dota2MatchId: "8402881396" },
+        game3: { played: false },
+      },
+      score: [0, 2],
+    },
+    // Week 8 Final
+    {
+      id: "d1w5bye",
+      team1Id: "sentinel_island_esports",
+      team2Id: "wongs_bakery",
+      date: "2025-08-04",
+      completed: false,
+      week: 8,
       isKnockout: true,
       games: {
         game1: { played: false },
         game2: { played: false },
-        game3: { played: false },
       },
-      score: [0, 0],
     },
   ],
   2: [

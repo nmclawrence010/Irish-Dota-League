@@ -133,7 +133,7 @@ const KnockoutBracketFlow: React.FC<{ teams: Team[]; division: number }> = ({ te
       id: "sf1",
       type: "match",
       data: {
-        label: "Semifinal 1 (1st vs Winner QF)",
+        label: "Semifinal 1 (1st vs QF1)",
         team1: sortedTeams[0],
         team2: sortedTeams[3],
         stage: "semifinal",
@@ -161,7 +161,7 @@ const KnockoutBracketFlow: React.FC<{ teams: Team[]; division: number }> = ({ te
       data: {
         label: "Final",
         team1: sortedTeams[1],
-        team2: { name: "TBD" },
+        team2: sortedTeams[0],
         stage: "finals",
       },
       position: { x: xStart + xGap * 2, y: yStart + yGap / 2 },
