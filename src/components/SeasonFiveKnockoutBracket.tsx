@@ -314,7 +314,7 @@ const KnockoutBracketFlow: React.FC<{ teams: Team[]; division: number }> = ({ te
       type: "match",
       data: {
         label: "Final",
-        team1: { name: "TBD" },
+        team1: findTeam("BDC"),
         team2: findTeam("Creep Enjoyers"),
         stage: "finals",
       },
@@ -403,6 +403,7 @@ const KnockoutBracketFlow: React.FC<{ teams: Team[]; division: number }> = ({ te
       type: "match",
       data: {
         label: "👑 Champion",
+        team1: sortedTeams[0],
         stage: "champion",
       },
       position: { x: xStart + xGap * 2, y: yStart + yGap / 2 },
