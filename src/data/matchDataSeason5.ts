@@ -656,8 +656,8 @@ export const divisionMatches: Record<1 | 2 | 3, Match[]> = {
           week: 7,
           isKnockout: true,
           games: {
-            game1: { played: false },
-            game2: { played: false },
+            game1: { played: true, winner: "bdc", dota2MatchId: "8411600873" },
+            game2: { played: true, winner: "bdc", dota2MatchId: "8411703973" },
             game3: { played: false },
           },
           score: [2, 0],
