@@ -173,6 +173,7 @@ const KnockoutBracketFlow: React.FC<{ teams: Team[]; division: number }> = ({ te
       type: "match",
       data: {
         label: "👑 Champion",
+        team1: sortedTeams[0],
         stage: "champion",
       },
       position: { x: xStart + xGap * 3, y: yStart + yGap / 2 },
