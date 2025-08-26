@@ -141,12 +141,37 @@ export const ImprintPage: React.FC = () => {
           </tr>
         </thead>
         <tbody className="bg-idl-imprintDark divide-y divide-idl-accent">
+          {/* Bl1nkz row - always first */}
+          <tr className="hover:bg-[#2a2a28] transition-colors border-t border-idl-accent">
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-idl-light">1</td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-idl-light">Bl1nkz</td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
+              <img
+                src={getPositionImage(2)}
+                alt="Position 2"
+                className="w-6 h-6 inline-block"
+                title="Position 2"
+              />
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-center font-semibold text-[#46ffd0]">
+              93
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-idl-light">
+              <div className="flex items-center gap-2">
+                <img src="/archon.png" alt="Waterford, Ireland" className="w-6 h-6 object-contain" />
+                <span>Waterford, Ireland</span>
+              </div>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-idl-light">
+              90% (9/1)
+            </td>
+          </tr>
           {players.map((player, index) => (
             <tr
               key={player.account_id}
-              className={`hover:bg-[#2a2a28] transition-colors ${index === 0 ? "border-t border-idl-accent" : ""}`}
+              className="hover:bg-[#2a2a28] transition-colors"
             >
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-idl-light">{index + 1}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-idl-light">{index + 2}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-idl-light">{player.account_name}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
                 <img
@@ -170,31 +195,6 @@ export const ImprintPage: React.FC = () => {
               </td>
             </tr>
           ))}
-          {/* Bl1nkz row */}
-          <tr className="hover:bg-[#2a2a28] transition-colors">
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-idl-light">{players.length + 1}</td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-idl-light">Bl1nkz</td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
-              <img
-                src={getPositionImage(2)}
-                alt="Position 2"
-                className="w-6 h-6 inline-block"
-                title="Position 2"
-              />
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-center font-semibold text-[#46ffd0]">
-              -5.2
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-idl-light">
-              <div className="flex items-center gap-2">
-                <img src="/archon.png" alt="Waterford, Ireland" className="w-6 h-6 object-contain" />
-                <span>Waterford, Ireland</span>
-              </div>
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-idl-light">
-              0% (0/87)
-            </td>
-          </tr>
         </tbody>
       </table>
     </div>
